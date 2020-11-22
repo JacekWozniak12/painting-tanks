@@ -2,6 +2,8 @@
 Simple game made in Unity3D inspired by [BattlePainters](http://www.saitogames.com/battlepainters/) game made by **Saito Games**. 
 
 ## Gameplay
+Top down tank paint'em up.
+
 ### Goal
 Try to paint how much you can
 ### Controls
