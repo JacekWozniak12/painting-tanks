@@ -18,19 +18,6 @@ namespace PaintingTanks.Managers
         [SerializeField] List<PaintableMeshAmountTulpsGroup> TulpGroups = new List<PaintableMeshAmountTulpsGroup>();
         [SerializeField] float RefreshRate = 1;
 
-        public event Action<ulong> AmountUpdated;
-        public event Action<Color32> ColorUpdated;
-
-        public void SubscribeToProvider(IValueReceiver<ulong> receiver)
-        {
-            AmountUpdated += receiver.OnChange;
-        }
-
-        public void SubscribeToProvider(IValueReceiver<Color32> receiver)
-        {
-            ColorUpdated += receiver.OnChange;
-        }
-
         void Awake()
         {
             PaintablePlanes.AddRange(FindObjectsOfType<PaintableMesh>());
@@ -66,14 +53,24 @@ namespace PaintingTanks.Managers
         {
             if (tulp.Mesh.Changed)
             {
+                print("a");
+                if (tulp.Mesh.TextureSize < 256) CheckAllAtOnce(tulp);
+                else CheckModifiedParts(tulp);
+            }
+        }
+
+        private static void CheckModifiedParts(PaintableMeshAmountTulp tulp)
+        {
+            var L = tulp.Mesh.GetPartOfCountableTexture();
+            foreach (var item in L)
+            {
                 foreach (var paint in tulp.PaintAmounts)
                 {
                     paint.StartUpdate();
-                    paint.Amount = 0;
                 }
                 try
                 {
-                    Color32[] c = tulp.Mesh.Countable.GetPixels32();
+                    Color[] c = tulp.Mesh.Countable.GetPixels(item.Start.x, item.Start.y, item.Radius, item.Radius);
                     foreach (var color in c)
                     {
                         foreach (var paint in tulp.PaintAmounts)
@@ -94,6 +91,38 @@ namespace PaintingTanks.Managers
                     foreach (var paint in tulp.PaintAmounts) paint.FinishUpdate();
                     tulp.Mesh.CheckedForPaint();
                 }
+            }
+        }
+
+        private static void CheckAllAtOnce(PaintableMeshAmountTulp tulp)
+        {
+            foreach (var paint in tulp.PaintAmounts)
+            {
+                paint.StartUpdate();
+                paint.Amount = 0;
+            }
+            try
+            {
+                Color32[] c = tulp.Mesh.Countable.GetPixels32();
+                foreach (var color in c)
+                {
+                    foreach (var paint in tulp.PaintAmounts)
+                    {
+                        var paintColor = paint.Color;
+                        if (CheckIfEqualPaints(color, paintColor))
+                            paint.Amount++;
+                    }
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.Log("Property is null", tulp.Mesh.gameObject);
+                throw new NullReferenceException(e.Message);
+            }
+            finally
+            {
+                foreach (var paint in tulp.PaintAmounts) paint.FinishUpdate();
+                tulp.Mesh.CheckedForPaint();
             }
         }
 
@@ -125,14 +154,8 @@ namespace PaintingTanks.Managers
             }
         }
 
-        private static bool CheckIfEqualPaints(Color32 color, Color32 paintColor)
-        {
-            return color.r == paintColor.r &&
-                    color.g == paintColor.g &&
-                    color.b == paintColor.b &&
-                    color.a == paintColor.a;
-        }
-
+        private static bool CheckIfEqualPaints(Color32 color, Color32 paintColor) => color.r == paintColor.r && color.g == paintColor.g && color.b == paintColor.b && color.a == paintColor.a;
+        
         PaintableMeshAmountTulp CreateTulp(PaintableMesh mesh)
         {
             var Tulp = new PaintableMeshAmountTulp();
@@ -146,6 +169,19 @@ namespace PaintingTanks.Managers
             }
             Tulp.PaintAmounts = list.ToArray();
             return Tulp;
+        }
+
+        public event Action<ulong> AmountUpdated;
+        public event Action<Color32> ColorUpdated;
+
+        public void SubscribeToProvider(IValueReceiver<ulong> receiver)
+        {
+            AmountUpdated += receiver.OnChange;
+        }
+
+        public void SubscribeToProvider(IValueReceiver<Color32> receiver)
+        {
+            ColorUpdated += receiver.OnChange;
         }
     }
 }

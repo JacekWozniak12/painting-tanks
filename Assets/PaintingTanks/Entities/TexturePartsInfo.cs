@@ -7,22 +7,36 @@ namespace PaintingTanks.Entities
 
     public class TexturePartInfo
     {
-        public Vector2 Start;
-        public Vector2 Finish;
+        public Vector2Int Start;
+        public Vector2Int Finish;
+        public int Radius;
 
-        public TexturePartInfo(Vector2 a, Vector2 b)
+        public TexturePartInfo(Vector2Int vec1, Vector2Int vec2)
         {
-            if (a.y > b.y) ObjectsL.Swap(ref a.y, ref b.y);
-            if (a.x > b.x) ObjectsL.Swap(ref a.x, ref b.x);
+            var a = vec1.x;
+            var b = vec2.x;
+            var c = vec1.y;
+            var d = vec2.y;
 
-            Start = a;
-            Finish = b;
+            if (a > b) ObjectsL.Swap(ref a, ref b);
+            if (c > d) ObjectsL.Swap(ref c, ref d);
+
+            Start = new Vector2Int(a, c);
+            Finish = new Vector2Int(b, d);
+            Radius = GetSize() / 2;
         }
 
-        public TexturePartInfo(Vector2 a, float radius)
+        public TexturePartInfo(Vector2Int a, int radius)
         {
-            Start = new Vector2(a.x - radius, a.y - radius);
-            Finish = new Vector2(a.x + radius, a.y + radius);
+            Start = new Vector2Int(a.x + radius, a.y + radius);
+            Finish = new Vector2Int(a.x - radius, a.y - radius);
+            Radius = radius;
+        }
+
+        public int GetSize()
+        {
+            Vector2 temp = new Vector2(Start.x, Finish.y);
+            return (int)Vector2.Distance(Start, temp) * (int)Vector2.Distance(Finish, temp) /4;
         }
     }
 

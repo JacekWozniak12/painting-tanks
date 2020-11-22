@@ -20,23 +20,22 @@ namespace PaintingTanks.Entities.MapItems
 
         [SerializeField] FilterMode filterMode = FilterMode.Point;
         [SerializeField] float influence = 0.75f;
-        [SerializeField] private int textureSize = 32;
+        public int TextureSize = 32;
         [SerializeField] [Range(0, 100)] float usageInPercents;
         [SerializeField] private int renderTextureDepth = 16;
 
-
         private void Awake() => Setup();
 
-        List<Vector2> HitsToCheck = new List<Vector2>();
+        List<Vector2Int> HitsToCheck = new List<Vector2Int>();
 
         public List<TexturePartInfo> GetPartOfCountableTexture()
         {
             var result = new List<TexturePartInfo>();
-            foreach(var item in HitsToCheck)
+            foreach (var item in HitsToCheck)
             {
-                result.Add(new TexturePartInfo(item, 64));
-                HitsToCheck.Remove(item);
+                result.Add(new TexturePartInfo(item, 32));
             }
+            HitsToCheck.Clear();
             return result;
         }
 
@@ -45,7 +44,7 @@ namespace PaintingTanks.Entities.MapItems
             this.usageInPercents = usageInPercents;
             this.influence = influence;
             this.ScoreMultiplier = scoreMultiplier;
-            this.textureSize = textureSize;
+            this.TextureSize = textureSize;
         }
 
         public void Paint(float x, float y, Texture2D brushTexture, float brushSize)
@@ -56,7 +55,7 @@ namespace PaintingTanks.Entities.MapItems
 
         public void CheckedForPaint()
         {
-            if(HitsToCheck.Count == 0) Changed = false;
+            if (HitsToCheck.Count == 0) Changed = false;
         }
 
         public IEnumerator HandleStopPainting()
@@ -82,8 +81,46 @@ namespace PaintingTanks.Entities.MapItems
             CheckForComponents();
             SetRenderer();
             SetCountable();
-            PixelCount = textureSize * textureSize;
+            PixelCount = TextureSize * TextureSize;
         }
+
+        private void SetCountable()
+        {
+            Countable = new Texture2D(TextureSize, TextureSize);
+            Countable.filterMode = FilterMode.Point;
+            Countable.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        }
+
+        private void DrawTexture(float posX, float posY, Texture2D brushTexture, float brushSize)
+        {
+            posX *= TextureSize;
+            posY *= TextureSize;
+            RenderTexture.active = renderTexture;
+            var temp = brushSize / 2;
+            GL.PushMatrix();
+            GL.LoadPixelMatrix(0, TextureSize, TextureSize, 0);
+            Graphics.DrawTexture(
+                new Rect(posX - brushTexture.width / brushSize,
+                    (renderTexture.height - posY) - brushTexture.height / brushSize,
+                    brushTexture.width / temp, brushTexture.height / temp), brushTexture);
+            GL.PopMatrix();
+            if (renderTexture.width >= 256) HitsToCheck.Add(new Vector2Int((int) posX, (int) posY));
+            RenderTexture.active = null;
+        }
+
+        private RenderTexture GetRenderTexture()
+        {
+            var renderTexture = new RenderTexture(TextureSize, TextureSize, renderTextureDepth);
+            Graphics.Blit(AlphaMap, renderTexture);
+            return renderTexture;
+        }
+
+        private Texture2D AlphaMap;
+        private new MeshCollider collider;
+        private new Renderer renderer;
+        private RenderTexture renderTexture;
+        private MeshFilter meshFilter;
+        private Texture2D MaskTex;
 
         private void CheckForComponents()
         {
@@ -103,43 +140,5 @@ namespace PaintingTanks.Entities.MapItems
             renderer.material.SetTexture(NAME_MASK_TEXTURE, renderTexture);
             renderer.material.SetFloat("_Influence", influence);
         }
-
-        private void SetCountable()
-        {
-            Countable = new Texture2D(textureSize, textureSize);
-            Countable.filterMode = FilterMode.Point;
-            Countable.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-        }
-
-        void DrawTexture(float posX, float posY, Texture2D brushTexture, float brushSize)
-        {
-            posX *= textureSize;
-            posY *= textureSize;
-            RenderTexture.active = renderTexture;
-            var temp = brushSize / 2;
-            GL.PushMatrix();
-            GL.LoadPixelMatrix(0, textureSize, textureSize, 0);
-            Graphics.DrawTexture(
-                new Rect(posX - brushTexture.width / brushSize,
-                    (renderTexture.height - posY) - brushTexture.height / brushSize,
-                    brushTexture.width / temp, brushTexture.height / temp), brushTexture);
-            GL.PopMatrix();
-            if(renderTexture.width > 256) HitsToCheck.Add(new Vector2(posX, posY)); 
-            RenderTexture.active = null;
-        }
-
-        RenderTexture GetRenderTexture()
-        {
-            var renderTexture = new RenderTexture(textureSize, textureSize, renderTextureDepth);
-            Graphics.Blit(AlphaMap, renderTexture);
-            return renderTexture;
-        }
-
-        private Texture2D AlphaMap;
-        private new MeshCollider collider;
-        private new Renderer renderer;
-        private RenderTexture renderTexture;
-        private MeshFilter meshFilter;
-        private Texture2D MaskTex;
     }
 }
