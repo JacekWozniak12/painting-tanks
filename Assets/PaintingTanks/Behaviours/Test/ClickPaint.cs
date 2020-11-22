@@ -29,10 +29,8 @@ namespace PaintingTanks.Behaviours.Test
                     if (current is PaintableMesh pm)
                     {
                         pm.Paint(hit.textureCoord2.x, hit.textureCoord2.y, texture, 1);
-                        print("pm");
                     }
                 }
-                print("a");
             }
 
         }

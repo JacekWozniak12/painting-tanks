@@ -1,8 +1,9 @@
-using System.Collections;
-using UnityEngine;
-
 namespace PaintingTanks.Entities.MapItems
 {
+    using System.Collections;
+    using UnityEngine;
+    using System.Collections.Generic;
+
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(MeshCollider))]
     /// <summary>
@@ -23,7 +24,21 @@ namespace PaintingTanks.Entities.MapItems
         [SerializeField] [Range(0, 100)] float usageInPercents;
         [SerializeField] private int renderTextureDepth = 16;
 
+
         private void Awake() => Setup();
+
+        List<Vector2> HitsToCheck = new List<Vector2>();
+
+        public List<TexturePartInfo> GetPartOfCountableTexture()
+        {
+            var result = new List<TexturePartInfo>();
+            foreach(var item in HitsToCheck)
+            {
+                result.Add(new TexturePartInfo(item, 64));
+                HitsToCheck.Remove(item);
+            }
+            return result;
+        }
 
         public void ChangeSettings(float usageInPercents = 0, float influence = 0.75f, float scoreMultiplier = 1, int textureSize = 32)
         {
@@ -39,7 +54,10 @@ namespace PaintingTanks.Entities.MapItems
             Changed = true;
         }
 
-        public void CheckedForPaint() => Changed = false;
+        public void CheckedForPaint()
+        {
+            if(HitsToCheck.Count == 0) Changed = false;
+        }
 
         public IEnumerator HandleStopPainting()
         {
@@ -106,6 +124,7 @@ namespace PaintingTanks.Entities.MapItems
                     (renderTexture.height - posY) - brushTexture.height / brushSize,
                     brushTexture.width / temp, brushTexture.height / temp), brushTexture);
             GL.PopMatrix();
+            if(renderTexture.width > 256) HitsToCheck.Add(new Vector2(posX, posY)); 
             RenderTexture.active = null;
         }
 
