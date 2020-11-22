@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 670605274}
+  draw: {fileID: 2100000, guid: 77b4f921966cff14eaef717423594bb8, type: 2}
 --- !u!1001 &3867620611402936978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -422,12 +423,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caeaf846d1661ed40a2ff8fe1cb73e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreMultiplier: 0
-  filterMode: 0
   influence: 0.75
   textureSize: 64
   usageInPercents: 100
-  renderTextureDepth: 16
+  renderTexture: {fileID: 0}
+  displayMaterial: {fileID: 2100000, guid: b1c2f504f8a7fb246bc1ec7140ec83bc, type: 2}
 --- !u!64 &5655547668998594535
 MeshCollider:
   m_ObjectHideFlags: 0

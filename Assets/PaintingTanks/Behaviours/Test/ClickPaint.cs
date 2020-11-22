@@ -10,7 +10,7 @@ namespace PaintingTanks.Behaviours.Test
         private new Camera camera;
 
         [SerializeField]
-        private new Material draw;
+        private Texture2D texture;
 
         private void Awake()
         {
@@ -28,7 +28,7 @@ namespace PaintingTanks.Behaviours.Test
                     var current = hit.collider?.gameObject?.GetComponent<PaintableMesh>();
                     if (current is PaintableMesh pm)
                     {
-                        pm.Paint(hit.textureCoord2.x, hit.textureCoord2.y, );
+                        pm.Paint(hit.textureCoord2.x, hit.textureCoord2.y, texture, 5);
                         print("pm");
                     }
                 }
