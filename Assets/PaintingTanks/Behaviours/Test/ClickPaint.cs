@@ -28,7 +28,7 @@ namespace PaintingTanks.Behaviours.Test
                     var current = hit.collider?.gameObject?.GetComponent<PaintableMesh>();
                     if (current is PaintableMesh pm)
                     {
-                        pm.Paint(hit.textureCoord2.x, hit.textureCoord2.y, texture, 5);
+                        pm.Paint(hit.textureCoord2.x, hit.textureCoord2.y, texture, 1);
                         print("pm");
                     }
                 }
