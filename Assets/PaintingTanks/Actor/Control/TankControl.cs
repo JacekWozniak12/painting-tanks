@@ -16,7 +16,7 @@
         [SerializeField]
         protected ExtendedAgent Gun;
 
-        protected void Start()
+        protected virtual void Start()
         {
             
         }

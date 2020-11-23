@@ -4,8 +4,9 @@ namespace PaintingTanks.Managers
     using System.Collections;
     using System.Collections.Generic;
     using Interfaces;
-    using PaintingTanks.Entities.MapItems;
-    using PaintingTanks.Entities;
+    using Library;
+    using Entities.MapItems;
+    using Entities;
     using UnityEngine;
 
     // Calculates amount of paint
@@ -14,8 +15,8 @@ namespace PaintingTanks.Managers
         [SerializeField] List<PaintableMesh> PaintablePlanes = new List<PaintableMesh>();
         [SerializeField] List<Color32> AllColors = default(List<Color32>);
         [SerializeField] Color32 playerColor;
-        [SerializeField] int GroupAmount = 8;
-        [SerializeField] List<PaintableMeshAmountTulpsGroup> TulpGroups = new List<PaintableMeshAmountTulpsGroup>();
+        [SerializeField] int GroupAmount = 1;
+        [SerializeField] List<ObjectPaintGroups> TulpGroups = new List<ObjectPaintGroups>();
         [SerializeField] float RefreshRate = 1;
 
         void Awake()
@@ -32,7 +33,7 @@ namespace PaintingTanks.Managers
 
         private void FindColors()
         {
-            AllColors.Add(COLOR_BLACK);
+            AllColors.Add(ALPHA_COLOR);
             AllColors.Add(playerColor);
             ColorUpdated?.Invoke(playerColor);
         }
@@ -43,7 +44,7 @@ namespace PaintingTanks.Managers
         {
             foreach (var Group in TulpGroups)
             {
-                foreach (var tulp in Group.Tulps) GetColor(tulp);
+                foreach (var tulp in Group.Tulps) HandleObject(tulp);
                 yield return new WaitForSeconds(RefreshPerGroupRate);
             }
             yield return new WaitForEndOfFrame();
@@ -51,7 +52,7 @@ namespace PaintingTanks.Managers
             StartCoroutine(Calculate());
         }
 
-        private void GetColor(PaintableMeshAmountTulp tulp)
+        private void HandleObject(ObjectPaint tulp)
         {
             if (tulp.Mesh.Changed)
             {
@@ -60,29 +61,17 @@ namespace PaintingTanks.Managers
             }
         }
 
-        private static void CheckModifiedParts(PaintableMeshAmountTulp tulp)
+        private static void CheckModifiedParts(ObjectPaint tulp)
         {
             var L = tulp.Mesh.GetChangedPartsOfCountableTexture();
             tulp.Mesh.ClearChangedPartsToCheck();
             foreach (var item in L)
             {
-                foreach (var paint in tulp.PaintAmounts)
-                {
-                    paint.StartUpdate();
-                    paint.Amount -= (ulong)item.GetSize();
-                }
+                PreCheck(tulp, item);
+                print("t");
                 try
                 {
-                    Color[] c = tulp.Mesh.Countable.GetPixels(item.Start.x, item.Start.y, item.Radius, item.Radius);
-                    foreach (var color in c)
-                    {
-                        foreach (var paint in tulp.PaintAmounts)
-                        {
-                            var paintColor = paint.Color;
-                            if (CheckIfEqualPaints(color, paintColor))
-                                paint.Amount++;
-                        }
-                    }
+                    CheckObject(tulp, item);
                 }
                 catch (NullReferenceException e)
                 {
@@ -91,35 +80,18 @@ namespace PaintingTanks.Managers
                 }
                 finally
                 {
-                    foreach (var paint in tulp.PaintAmounts)
-                    {
-                        paint.Amount += (ulong)item.GetSize();
-                        paint.FinishUpdate();
-                    }
-                    tulp.Mesh.CheckedForPaint();
+                    PostCheck(tulp, item);
+                    print("f");
                 }
             }
         }
 
-        private static void CheckAllAtOnce(PaintableMeshAmountTulp tulp)
+        private static void CheckAllAtOnce(ObjectPaint tulp)
         {
-            foreach (var paint in tulp.PaintAmounts)
-            {
-                paint.StartUpdate();
-                paint.Amount = 0;
-            }
             try
             {
-                Color32[] c = tulp.Mesh.Countable.GetPixels32();
-                foreach (var color in c)
-                {
-                    foreach (var paint in tulp.PaintAmounts)
-                    {
-                        var paintColor = paint.Color;
-                        if (CheckIfEqualPaints(color, paintColor))
-                            paint.Amount++;
-                    }
-                }
+                PreCheck(tulp);
+                CheckObject(tulp);
             }
             catch (NullReferenceException e)
             {
@@ -128,14 +100,57 @@ namespace PaintingTanks.Managers
             }
             finally
             {
-                foreach (var paint in tulp.PaintAmounts) paint.FinishUpdate();
-                tulp.Mesh.CheckedForPaint();
+                PostCheck(tulp);
             }
+        }
+
+        private static void CheckObject(ObjectPaint tulp, TexturePartInfo item = null)
+        {
+            Color32[] textureToCheck;
+
+            if (item != null)
+            {
+                var temporary = tulp.Mesh.Countable.GetPixels32();
+                textureToCheck = GraphicsL.GetPartOfArray(
+                    temporary, tulp.Mesh.Countable.height,
+                    item.Start.x, item.Start.y, item.Finish.x, item.Finish.y);
+            }
+            else
+                textureToCheck = tulp.Mesh.Countable.GetPixels32();
+
+            foreach (var colorToCheck in textureToCheck)
+            {
+                foreach (var checkFor in tulp.PaintAmounts)
+                {
+                    if (GraphicsL.CheckIfEqualColors(colorToCheck, checkFor.Color))
+                        checkFor.Amount++;
+                }
+            }
+        }
+
+        private static void PreCheck(ObjectPaint tulp, TexturePartInfo item = null)
+        {
+            foreach (var paint in tulp.PaintAmounts)
+            {
+                paint.StartUpdate();
+                if (item == null) paint.Amount = 0;
+                else paint.Amount -= (ulong)item.GetSize();
+            }
+        }
+
+        private static void PostCheck(ObjectPaint tulp, TexturePartInfo item = null)
+        {
+            foreach (var paint in tulp.PaintAmounts)
+            {
+                if (item != null) paint.Amount += (ulong)item.GetSize();
+                paint.FinishUpdate();
+            }
+            tulp.Mesh.CheckedForPaint();
         }
 
         [SerializeField]
         PaintAmount[] GlobalPaintAmounts = new PaintAmount[0];
-        readonly Color32 COLOR_BLACK = new Color(0, 0, 0, 0);
+        readonly Color32 ALPHA_COLOR = new Color(0, 0, 0, 0);
         float RefreshPerGroupRate;
 
         void CreateGroups()
@@ -153,7 +168,7 @@ namespace PaintingTanks.Managers
 
             RefreshPerGroupRate = RefreshRate / GroupAmount;
 
-            for (int j = 0; j < GroupAmount; j++) TulpGroups.Add(new PaintableMeshAmountTulpsGroup());
+            for (int j = 0; j < GroupAmount; j++) TulpGroups.Add(new ObjectPaintGroups());
 
             int g = 0;
 
@@ -164,11 +179,10 @@ namespace PaintingTanks.Managers
             }
         }
 
-        private static bool CheckIfEqualPaints(Color32 color, Color32 paintColor) => color.r == paintColor.r && color.g == paintColor.g && color.b == paintColor.b && color.a == paintColor.a;
 
-        private PaintableMeshAmountTulp CreateTulp(PaintableMesh mesh)
+        private ObjectPaint CreateTulp(PaintableMesh mesh)
         {
-            var Tulp = new PaintableMeshAmountTulp();
+            var Tulp = new ObjectPaint();
             Tulp.Mesh = mesh;
 
             var list = new List<LocalPaintAmount>();

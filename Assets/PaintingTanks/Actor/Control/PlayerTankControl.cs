@@ -6,8 +6,9 @@ namespace PaintingTanks.Actor.Control
     [RequireComponent(typeof(Controller))]
     public class PlayerTankControl : TankControl
     {
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             var c = Controller.Controls.Player;
             c.Fire.performed += ctx => Gun.Handle();
             Gun.AddCommand(new TestCommand());

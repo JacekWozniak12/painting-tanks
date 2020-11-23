@@ -3,6 +3,7 @@ namespace PaintingTanks.Entities.MapItems
     using System.Collections;
     using UnityEngine;
     using System.Collections.Generic;
+    using PaintingTanks.Library;
 
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(MeshCollider))]
@@ -12,20 +13,13 @@ namespace PaintingTanks.Entities.MapItems
     public class PaintableMesh : MonoBehaviour
     {
         private const string NAME_MASK_TEXTURE = "_MaskTex";
+        private const string NAME_INFLUENCE = "_Influence";
         public bool Changed { get; private set; } = true;
         public Texture2D Countable { get; private set; }
-        public int PixelCount { get; private set; }
-        public int IgnoredPixelCount { get; private set; }
-        public float ScoreMultiplier;
-
         [SerializeField] FilterMode filterMode = FilterMode.Point;
         [SerializeField] float influence = 0.75f;
         public int TextureSize = 32;
-        [SerializeField] [Range(0, 100)] float usageInPercents;
         [SerializeField] private int renderTextureDepth = 16;
-
-        private void Awake() => Setup();
-
         List<Vector2Int> HitsToCheck = new List<Vector2Int>();
 
         public List<TexturePartInfo> GetChangedPartsOfCountableTexture()
@@ -41,14 +35,6 @@ namespace PaintingTanks.Entities.MapItems
         public void ClearChangedPartsToCheck()
         {
             HitsToCheck.Clear();
-        }
-
-        public void ChangeSettings(float usageInPercents = 0, float influence = 0.75f, float scoreMultiplier = 1, int textureSize = 32)
-        {
-            this.usageInPercents = usageInPercents;
-            this.influence = influence;
-            this.ScoreMultiplier = scoreMultiplier;
-            this.TextureSize = textureSize;
         }
 
         public void Paint(float x, float y, Texture2D brushTexture, float brushSize)
@@ -72,20 +58,11 @@ namespace PaintingTanks.Entities.MapItems
 
         public void StopPainting() => StartCoroutine(HandleStopPainting());
 
-        void CreateClearTexture()
+        private void Awake()
         {
-            AlphaMap = new Texture2D(1, 1);
-            AlphaMap.SetPixel(0, 0, new Color(0, 0, 0, 0));
-            AlphaMap.Apply();
-        }
-
-        private void Setup()
-        {
-            CreateClearTexture();
             CheckForComponents();
             SetRenderer();
             SetCountable();
-            PixelCount = TextureSize * TextureSize;
         }
 
         private void SetCountable()
@@ -99,27 +76,24 @@ namespace PaintingTanks.Entities.MapItems
         {
             posX *= TextureSize;
             posY *= TextureSize;
-            RenderTexture.active = renderTexture;
             var temp = brushSize / 2;
+            var rectangle = new Rect(posX - brushTexture.width / brushSize,
+                    (renderTexture.height - posY) - brushTexture.height / brushSize,
+                     brushTexture.width / temp,
+                     brushTexture.height / temp);
+
+            RenderTexture.active = renderTexture;
+
             GL.PushMatrix();
             GL.LoadPixelMatrix(0, TextureSize, TextureSize, 0);
-            Graphics.DrawTexture(
-                new Rect(posX - brushTexture.width / brushSize,
-                    (renderTexture.height - posY) - brushTexture.height / brushSize,
-                    brushTexture.width / temp, brushTexture.height / temp), brushTexture);
+            Graphics.DrawTexture(rectangle, brushTexture);
             GL.PopMatrix();
+
             if (renderTexture.width >= 256) HitsToCheck.Add(new Vector2Int((int)posX, (int)posY));
+
             RenderTexture.active = null;
         }
 
-        private RenderTexture GetRenderTexture()
-        {
-            var renderTexture = new RenderTexture(TextureSize, TextureSize, renderTextureDepth);
-            Graphics.Blit(AlphaMap, renderTexture);
-            return renderTexture;
-        }
-
-        private Texture2D AlphaMap;
         private new MeshCollider collider;
         private new Renderer renderer;
         private RenderTexture renderTexture;
@@ -133,16 +107,16 @@ namespace PaintingTanks.Entities.MapItems
             if (meshFilter == null) meshFilter = GetComponent<MeshFilter>() ?? throw new System.Exception("MeshFilter NOT FOUND");
 #if UNITY_EDITOR
 #else
-        if(!meshFilter.GetComponent<MeshCollider>().sharedMesh.isReadable) throw new System.Exception(gameObject + "Mesh is not READABLE");
+        if(!meshFilter.GetComponent<MeshCollider>().sharedMesh.isReadable) throw new System.Exception(gameObject + "Mesh IS NOT READABLE");
 #endif
         }
 
         private void SetRenderer()
         {
-            renderTexture = GetRenderTexture();
+            renderTexture = GraphicsL.CreateRenderTextureAndApplyAlpha(new Vector2Int(TextureSize, TextureSize), renderTextureDepth);
             renderTexture.filterMode = filterMode;
             renderer.material.SetTexture(NAME_MASK_TEXTURE, renderTexture);
-            renderer.material.SetFloat("_Influence", influence);
+            renderer.material.SetFloat(NAME_INFLUENCE, influence);
         }
     }
 }

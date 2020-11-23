@@ -30,7 +30,7 @@ namespace PaintingTanks.Behaviours.Test
             var c = new Color[64];
             for (int i = 0; i < 64; i++)
             {
-                c[i] = Color.red;
+                c[i] = new Color32(255,0,0,255);
             }
             t.filterMode = FilterMode.Point;
             t.anisoLevel = 0;
@@ -39,7 +39,7 @@ namespace PaintingTanks.Behaviours.Test
             return t;
         }
 
-        private void Execute()
+        public void Execute()
         {
             var getMousePosition = camera.ScreenPointToRay(controls.Player.FindTarget.ReadValue<Vector2>());
             Debug.DrawRay(camera.transform.position, getMousePosition.direction * 500f, Color.magenta, 5f);
@@ -54,10 +54,9 @@ namespace PaintingTanks.Behaviours.Test
             }
         }
 
-        private void Undo()
+        public void Undo()
         {
             //
         }
-
     }
 }

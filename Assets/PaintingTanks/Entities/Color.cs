@@ -40,13 +40,13 @@ namespace PaintingTanks.Entities
     }
 
     [Serializable]
-    public class PaintableMeshAmountTulpsGroup
+    public class ObjectPaintGroups
     {
-        public List<PaintableMeshAmountTulp> Tulps = new List<PaintableMeshAmountTulp>();
+        public List<ObjectPaint> Tulps = new List<ObjectPaint>();
     }
 
     [Serializable]
-    public class PaintableMeshAmountTulp
+    public class ObjectPaint
     {
         public PaintableMesh Mesh;
         public LocalPaintAmount[] PaintAmounts;
