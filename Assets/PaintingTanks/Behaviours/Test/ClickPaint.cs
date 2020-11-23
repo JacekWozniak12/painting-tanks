@@ -5,7 +5,7 @@ namespace PaintingTanks.Behaviours.Test
     using Entities.MapItems;
     using PaintingTanks.Actor.Control;
 
-    public class ClickPaint : MonoBehaviour
+    public class ClickPaint : MonoBehaviour, IGameCommand
     {
         [SerializeField]
         private new Camera camera;
@@ -21,7 +21,7 @@ namespace PaintingTanks.Behaviours.Test
             if (texture == null) texture = CreateDummyTexture();
             if (controls == null) controls = Controller.Controls;
 
-            controls.Player.Fire.performed += ctx => PaintOn();
+            controls.Player.Fire.performed += ctx => Execute();
         }
 
         private Texture2D CreateDummyTexture()
@@ -39,7 +39,7 @@ namespace PaintingTanks.Behaviours.Test
             return t;
         }
 
-        private void PaintOn()
+        private void Execute()
         {
             var getMousePosition = camera.ScreenPointToRay(controls.Player.FindTarget.ReadValue<Vector2>());
             Debug.DrawRay(camera.transform.position, getMousePosition.direction * 500f, Color.magenta, 5f);
@@ -52,6 +52,11 @@ namespace PaintingTanks.Behaviours.Test
                     pm.StopPainting();
                 }
             }
+        }
+
+        private void Undo()
+        {
+            //
         }
 
     }

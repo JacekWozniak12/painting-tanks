@@ -12,15 +12,7 @@ namespace PaintingTanks.Actor
         [SerializeField] AccelerationComponent acceleration;
         [SerializeField] MovementComponent movement;
 
-        public Agent(float rotationSpeed, float moveSpeed, AccelerationComponent acceleration, MovementComponent movement)
-        {
-            this.rotationSpeed = rotationSpeed;
-            this.movementSpeed = moveSpeed;
-            this.acceleration = acceleration;
-            this.movement = movement;
-        }
-
-        public void Awake()
+        protected virtual void Awake()
         {
             if (acceleration == null) acceleration = new AccelerationComponent();
             if (movement == null) movement = new MovementComponent(GetComponent<Transform>());

@@ -4,14 +4,21 @@ namespace PaintingTanks.Actor.Control
 
     public class Controller : MonoBehaviour
     {
-        private void Awake() => SetupControls();
         private void OnEnable() => Controls.Enable();
         private void OnDisable() => Controls.Disable();
-        public static GameControls Controls { get; private set; }
 
-        private void SetupControls()
+        private static GameControls controls;
+        public static GameControls Controls
         {
-            if (Controls == null) Controls = new GameControls();
+            get
+            {
+                if (controls == null) controls = new GameControls();
+                return controls;
+            }
+            private set
+            {
+                controls = value;
+            }
         }
     }
 

@@ -7,40 +7,50 @@
 
     public class TankControl : MonoBehaviour
     {
-        Agent TankBody;
-        Agent Turret;
-        Agent Gun;
+        [SerializeField]
+        protected ExtendedAgent TankBody;
+        
+        [SerializeField]
+        protected ExtendedAgent Turret;
+        
+        [SerializeField]
+        protected ExtendedAgent Gun;
 
-        private void FixedUpdate()
+        protected void Start()
+        {
+            
+        }
+
+        protected void FixedUpdate()
         {
             HandleTankBodyMovement();
             HandleTankBodyRotation();
             HandleTankGun();
         }
 
-        private void HandleTankGun()
+        protected void HandleTankGun()
         {
             HandleTankGunRotation();
             HandleTankTurretRotation();
         }
 
-        private void HandleTankBodyRotation()
+        protected void HandleTankBodyRotation()
         {
 
-            
+
         }
 
-        private void HandleTankBodyMovement()
-        {
-            
-        }
-
-        private void HandleTankTurretRotation()
+        protected void HandleTankBodyMovement()
         {
 
         }
 
-        private void HandleTankGunRotation()
+        protected void HandleTankTurretRotation()
+        {
+
+        }
+
+        protected void HandleTankGunRotation()
         {
 
         }
