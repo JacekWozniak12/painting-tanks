@@ -11,10 +11,14 @@ Try to paint how much you can
 - LMB for shooting
 - RMB for using special abbility
 - MMB for switching weapon type 
+### Vehicle
+- Can rotate with it's turret horizontally and diagonally, but in limited manner
+- 
 ### Tips
 - Don't color same position twice
 - Try to get special items being spawned on your way
 - Watch for your Paint-Meter
+
 
 ## Tools
 ### Engine

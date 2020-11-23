@@ -28,15 +28,19 @@ namespace PaintingTanks.Entities.MapItems
 
         List<Vector2Int> HitsToCheck = new List<Vector2Int>();
 
-        public List<TexturePartInfo> GetPartOfCountableTexture()
+        public List<TexturePartInfo> GetChangedPartsOfCountableTexture()
         {
             var result = new List<TexturePartInfo>();
             foreach (var item in HitsToCheck)
             {
                 result.Add(new TexturePartInfo(item, 32));
             }
-            HitsToCheck.Clear();
             return result;
+        }
+
+        public void ClearChangedPartsToCheck()
+        {
+            HitsToCheck.Clear();
         }
 
         public void ChangeSettings(float usageInPercents = 0, float influence = 0.75f, float scoreMultiplier = 1, int textureSize = 32)
@@ -104,7 +108,7 @@ namespace PaintingTanks.Entities.MapItems
                     (renderTexture.height - posY) - brushTexture.height / brushSize,
                     brushTexture.width / temp, brushTexture.height / temp), brushTexture);
             GL.PopMatrix();
-            if (renderTexture.width >= 256) HitsToCheck.Add(new Vector2Int((int) posX, (int) posY));
+            if (renderTexture.width >= 256) HitsToCheck.Add(new Vector2Int((int)posX, (int)posY));
             RenderTexture.active = null;
         }
 
