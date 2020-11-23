@@ -1,8 +1,10 @@
 namespace PaintingTanks.Interfaces
 {
+    using UnityEngine;
+
     public interface IMoveable
     {
-        void Rotate();
-        void Move();
+        void Rotate(Vector3 value);
+        void Move(Vector3 value);
     }
 }
