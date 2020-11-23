@@ -68,7 +68,6 @@ namespace PaintingTanks.Managers
             foreach (var item in L)
             {
                 PreCheck(tulp, item);
-                print("t");
                 try
                 {
                     CheckObject(tulp, item);

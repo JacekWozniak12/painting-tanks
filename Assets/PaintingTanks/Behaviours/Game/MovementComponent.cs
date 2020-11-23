@@ -8,12 +8,15 @@ namespace PaintingTanks.Behaviours.Game
     [Serializable]
     public class MovementComponent : IMoveable
     {
-        public MovementComponent(Transform transform)
+        public MovementComponent Setup(Transform transform, Rigidbody rigidbody)
         {
             this.transform = transform;
+            this.rigidbody = rigidbody;
+            return this;
         }
 
         Transform transform;
+        Rigidbody rigidbody;
         public bool CanMove = true;
         public bool CanRotate = true;
 
@@ -21,7 +24,18 @@ namespace PaintingTanks.Behaviours.Game
         {
             if (CanRotate)
             {
-                transform.Rotate(value);
+                Quaternion rotation = transform.rotation * Quaternion.Euler(value);
+                rigidbody.MoveRotation(rotation);
+                HandleRotationLimit();
+            }
+        }
+
+        public void LookRotate(Vector3 value)
+        {
+            if (CanRotate)
+            {
+                if(value == Vector3.zero) return;
+                transform.rotation = Quaternion.LookRotation(value);
                 HandleRotationLimit();
             }
         }
@@ -32,21 +46,21 @@ namespace PaintingTanks.Behaviours.Game
 
         private void HandleRotationLimit()
         {
-            if (MinimalMaximalRotation)
-            {
-                var x = transform.rotation.x;
-                var y = transform.rotation.y;
+            // if (MinimalMaximalRotation)
+            // {
+            //     var x = transform.rotation.x;
+            //     var y = transform.rotation.y;
 
-                x = MathL.Clamp(x, MinimalLocalRotation.x, MaximalLocalRotation.x);
-                y = MathL.Clamp(y, MinimalLocalRotation.y, MaximalLocalRotation.y);
+            //     x = MathL.Clamp(x, MinimalLocalRotation.x, MaximalLocalRotation.x);
+            //     y = MathL.Clamp(y, MinimalLocalRotation.y, MaximalLocalRotation.y);
 
-                transform.rotation = Quaternion.Euler(x, y, transform.rotation.z);
-            }
+            //     transform.rotation = Quaternion.Euler(x, y, transform.rotation.z);
+            // }
         }
 
         public void Move(Vector3 value)
         {
-            if (CanMove) transform.position += value;
+            if (CanMove) rigidbody.AddForce((transform.TransformVector(value)));
         }
 
         public Vector3 GetCurrentPosition()
