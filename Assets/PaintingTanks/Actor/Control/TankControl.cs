@@ -9,50 +9,31 @@
     {
         [SerializeField]
         protected ExtendedAgent TankBody;
-        
+
         [SerializeField]
         protected ExtendedAgent Turret;
-        
+
         [SerializeField]
         protected ExtendedAgent Gun;
 
-        protected void Start()
+        protected void HandleTankBodyRotation(Vector3 vector, float deltaTime, bool active)
         {
-            
+            TankBody.Rotate(vector, deltaTime, active);
         }
 
-        protected void FixedUpdate()
+        protected void HandleTankBodyMovement(Vector3 vector, float deltaTime, bool active)
         {
-            HandleTankBodyMovement();
-            HandleTankBodyRotation();
-            HandleTankGun();
+            TankBody.Move(vector, deltaTime, active);
         }
 
-        protected void HandleTankGun()
+        protected void HandleTankTurretRotation(Vector3 vector, float deltaTime, bool active)
         {
-            HandleTankGunRotation();
-            HandleTankTurretRotation();
+            Turret.LookRotate(vector, deltaTime, active);
         }
 
-        protected void HandleTankBodyRotation()
+        protected void HandleTankGunRotation(Vector3 vector, float deltaTime, bool active)
         {
-
-
-        }
-
-        protected void HandleTankBodyMovement()
-        {
-
-        }
-
-        protected void HandleTankTurretRotation()
-        {
-
-        }
-
-        protected void HandleTankGunRotation()
-        {
-
+            Gun.LookRotate(vector, deltaTime, active);
         }
     }
 
