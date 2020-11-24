@@ -22,8 +22,7 @@ namespace PaintingTanks.Behaviours.Game
             }
             else
             {
-                if (currentTime >= TimeToFull)
-                    return speed;
+                if (currentTime >= TimeToFull) return speed;
                 currentTime += deltaTime;
             }
             return Curve.Evaluate(currentTime / TimeToFull) * speed;

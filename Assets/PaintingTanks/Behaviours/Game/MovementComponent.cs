@@ -34,7 +34,7 @@ namespace PaintingTanks.Behaviours.Game
         {
             if (CanRotate)
             {
-                if(value == Vector3.zero) return;
+                if (value == Vector3.zero) return;
                 transform.rotation = Quaternion.LookRotation(value);
                 HandleRotationLimit();
             }
@@ -42,25 +42,31 @@ namespace PaintingTanks.Behaviours.Game
 
         public Vector2 MaximalLocalRotation = default(Vector2);
         public Vector2 MinimalLocalRotation = default(Vector2);
-        public bool MinimalMaximalRotation;
+        public bool MinimalMaximalRotationOfX;
+        public bool MinimalMaximalRotationOfY;
 
+
+        //todo
         private void HandleRotationLimit()
         {
-            // if (MinimalMaximalRotation)
+            // var x = transform.rotation.x;
+            // var y = transform.rotation.y;
+            // if (MinimalMaximalRotationOfX)
             // {
-            //     var x = transform.rotation.x;
-            //     var y = transform.rotation.y;
-
             //     x = MathL.Clamp(x, MinimalLocalRotation.x, MaximalLocalRotation.x);
-            //     y = MathL.Clamp(y, MinimalLocalRotation.y, MaximalLocalRotation.y);
-
             //     transform.rotation = Quaternion.Euler(x, y, transform.rotation.z);
             // }
+            // if (MinimalMaximalRotationOfY)
+            // {
+            //     y = MathL.Clamp(y, MinimalLocalRotation.y, MaximalLocalRotation.y);
+            //     transform.rotation = Quaternion.Euler(x, y, transform.rotation.z);
+            // }
+
         }
 
         public void Move(Vector3 value)
         {
-            if (CanMove) rigidbody.AddForce((transform.TransformVector(value)));
+            if (CanMove) rigidbody.AddForce((transform.TransformVector(value)), ForceMode.Acceleration);
         }
 
         public Vector3 GetCurrentPosition()
