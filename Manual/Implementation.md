@@ -4,7 +4,7 @@
 #### Implementation
 - Using Surface Shader as new ShaderGraph solution don't make it reasonable
 - Using **Graphics.Blit()** to paint onto map
-- Using **Texture2D.ReadPixels32()** to count pixels.
+- Using **Texture2D.ReadPixels()** to count pixels.
 - Written custom simple library to count part of the mesh texture and speed up production 
 #### Optimization
 - Using more objects, but having textures being smaller

@@ -117,7 +117,7 @@ namespace PaintingTanks.Managers
         readonly Color32 ALPHA_COLOR = new Color(0, 0, 0, 0);
         float RefreshPerGroupRate;
 
-        private const int CHECK_ALL_UPPER_LIMIT = 1024;
+        public static readonly int CHECK_ALL_UPPER_LIMIT = 1024;
         [SerializeField] List<Color32> AllColors = default(List<Color32>);
         [SerializeField] Color32 playerColor;
         [SerializeField] List<PaintableMesh> PaintableObjects = new List<PaintableMesh>();
