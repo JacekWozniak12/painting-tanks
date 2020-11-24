@@ -26,6 +26,7 @@ namespace PaintingTanks.Entities
         public PaintAmount(Color color) => Color = color;
         public PaintAmount(Color32 color) => Color = color;
         public Color32 Color;
+        public ulong MaxAmount = 0;
         public ulong Amount = 0;
 
     }
