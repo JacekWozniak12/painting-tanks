@@ -10,10 +10,9 @@ Try to paint how much you can
 - WSAD for movement
 - LMB for shooting
 - RMB for using special abbility
-- MMB for switching weapon type 
+- MMB for switching weapon type (if possible);
 ### Vehicle
 - Can rotate with it's turret horizontally and diagonally, but in limited manner
-- 
 ### Tips
 - Don't color same position twice
 - Try to get special items being spawned on your way

@@ -89,7 +89,7 @@ namespace PaintingTanks.Entities.MapItems
             Graphics.DrawTexture(rectangle, brushTexture);
             GL.PopMatrix();
 
-            if (renderTexture.width >= 256) HitsToCheck.Add(new Vector2Int((int)posX, (int)posY));
+            if (renderTexture.width >= Managers.Paint.CHECK_ALL_UPPER_LIMIT) HitsToCheck.Add(new Vector2Int((int)posX, (int)posY));
 
             RenderTexture.active = null;
         }

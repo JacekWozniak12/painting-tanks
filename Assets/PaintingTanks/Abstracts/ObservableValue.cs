@@ -3,9 +3,12 @@ namespace PaintingTanks.Abstracts
     using System;
     using System.Collections;
     using Interfaces;
+    using UnityEngine;
 
+    [Serializable]
     public abstract class ObservableValue<T> : IValueProvider<T>, IValueReceiver<T>
     {
+        [SerializeField]
         T _value;
 
         public T Value
@@ -28,8 +31,9 @@ namespace PaintingTanks.Abstracts
         public static implicit operator T(ObservableValue<T> ov) => ov._value;
     }
 
-    [Serializable] public class ObservableIntValue : ObservableValue<int>{}
-    [Serializable] public class ObservableFloatValue : ObservableValue<float>{}
-    [Serializable] public class ObservableStringValue : ObservableValue<string>{}
-    [Serializable] public class ObservableCollectionValue : ObservableValue<IEnumerable>{}
+    [Serializable] public class ObservableIntValue : ObservableValue<int> { }
+    [Serializable] public class ObservableFloatValue : ObservableValue<float> { }
+    [Serializable] public class ObservableStringValue : ObservableValue<string> { }
+    [Serializable] public class ObservableColor32Value : ObservableValue<Color32> { }
+    [Serializable] public class ObservableCollectionValue : ObservableValue<IEnumerable> { }
 }

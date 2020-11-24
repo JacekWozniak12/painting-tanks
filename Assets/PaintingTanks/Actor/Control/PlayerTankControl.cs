@@ -16,7 +16,6 @@ namespace PaintingTanks.Actor.Control
         {
             var c = Controller.Controls.Player;
             c.Fire.performed += ctx => Gun.Handle();
-            Gun.AddCommand(new TestCommand());
         }
 
         private void FixedUpdate()
@@ -59,12 +58,6 @@ namespace PaintingTanks.Actor.Control
         }
 
         private static bool CheckIfPlayerMoves(Vector2 v)
-        {
-            return
-            v.x > 0 ||
-            v.x < 0 ||
-            v.y > 0 ||
-            v.y < 0;
-        }
+        => v.x > 0 || v.x < 0 || v.y > 0 || v.y < 0;
     }
 }

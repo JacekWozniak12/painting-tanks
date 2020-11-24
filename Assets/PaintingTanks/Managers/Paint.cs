@@ -12,32 +12,12 @@ namespace PaintingTanks.Managers
     // Calculates amount of paint
     public class Paint : MonoBehaviour, IValueProvider<ulong>, IValueProvider<Color32>
     {
-        [SerializeField] List<PaintableMesh> PaintablePlanes = new List<PaintableMesh>();
-        [SerializeField] List<Color32> AllColors = default(List<Color32>);
-        [SerializeField] Color32 playerColor;
-        [SerializeField] int GroupAmount = 1;
-        [SerializeField] List<ObjectPaintGroups> TulpGroups = new List<ObjectPaintGroups>();
-        [SerializeField] float RefreshRate = 1;
-
         void Awake()
         {
             FindObjects();
             FindColors();
             CreateGroups();
         }
-
-        private void FindObjects()
-        {
-            PaintablePlanes.AddRange(FindObjectsOfType<PaintableMesh>());
-        }
-
-        private void FindColors()
-        {
-            AllColors.Add(ALPHA_COLOR);
-            AllColors.Add(playerColor);
-            ColorUpdated?.Invoke(playerColor);
-        }
-
         private void Start() => StartCoroutine(Calculate());
 
         private IEnumerator Calculate()
@@ -51,45 +31,25 @@ namespace PaintingTanks.Managers
             AmountUpdated?.Invoke(GlobalPaintAmounts[1].Amount);
             StartCoroutine(Calculate());
         }
-
         private void HandleObject(ObjectPaint tulp)
         {
             if (tulp.Mesh.Changed)
             {
-                if (tulp.Mesh.TextureSize < 256) CheckAllAtOnce(tulp);
+                if (tulp.Mesh.TextureSize < CHECK_ALL_UPPER_LIMIT)
+                    CheckAllAtOnce(tulp);
                 else CheckModifiedParts(tulp);
             }
         }
 
-        private static void CheckModifiedParts(ObjectPaint tulp)
+        private void CheckAllAtOnce(ObjectPaint tulp)
         {
-            var L = tulp.Mesh.GetChangedPartsOfCountableTexture();
-            tulp.Mesh.ClearChangedPartsToCheck();
-            foreach (var item in L)
+            foreach (var paint in tulp.PaintAmounts)
             {
-                PreCheck(tulp, item);
-                try
-                {
-                    CheckObject(tulp, item);
-                }
-                catch (NullReferenceException e)
-                {
-                    Debug.Log("Property is null", tulp.Mesh.gameObject);
-                    throw new NullReferenceException(e.Message);
-                }
-                finally
-                {
-                    PostCheck(tulp, item);
-                    print("f");
-                }
+                paint.StartUpdate();
+                paint.Amount = 0;
             }
-        }
-
-        private static void CheckAllAtOnce(ObjectPaint tulp)
-        {
             try
             {
-                PreCheck(tulp);
                 CheckObject(tulp);
             }
             catch (NullReferenceException e)
@@ -99,24 +59,19 @@ namespace PaintingTanks.Managers
             }
             finally
             {
-                PostCheck(tulp);
+                foreach (var paint in tulp.PaintAmounts) paint.FinishUpdate();
+                tulp.Mesh.CheckedForPaint();
             }
+        }
+
+        private void CheckModifiedParts(ObjectPaint tulp)
+        {
+            /// todo
         }
 
         private static void CheckObject(ObjectPaint tulp, TexturePartInfo item = null)
         {
-            Color32[] textureToCheck;
-
-            if (item != null)
-            {
-                var temporary = tulp.Mesh.Countable.GetPixels32();
-                textureToCheck = GraphicsL.GetPartOfArray(
-                    temporary, tulp.Mesh.Countable.height,
-                    item.Start.x, item.Start.y, item.Finish.x, item.Finish.y);
-            }
-            else
-                textureToCheck = tulp.Mesh.Countable.GetPixels32();
-
+            Color32[] textureToCheck = GetPixelArray(tulp, item);
             foreach (var colorToCheck in textureToCheck)
             {
                 foreach (var checkFor in tulp.PaintAmounts)
@@ -127,13 +82,23 @@ namespace PaintingTanks.Managers
             }
         }
 
+        private static Color32[] GetPixelArray(ObjectPaint tulp, TexturePartInfo item)
+        {
+            if (item != null)
+            {
+                var temporary = tulp.Mesh.Countable.GetPixels32();
+                return GraphicsL.GetPartOfArray(temporary, tulp.Mesh.Countable.height, item.Start.x, item.Start.y, item.Finish.x, item.Finish.y);
+            }
+            else return tulp.Mesh.Countable.GetPixels32();
+        }
+
         private static void PreCheck(ObjectPaint tulp, TexturePartInfo item = null)
         {
             foreach (var paint in tulp.PaintAmounts)
             {
                 paint.StartUpdate();
                 if (item == null) paint.Amount = 0;
-                else paint.Amount -= (ulong)item.GetSize();
+                else paint.Amount = paint.MaxAmount - (ulong)item.GetSize();
             }
         }
 
@@ -152,32 +117,50 @@ namespace PaintingTanks.Managers
         readonly Color32 ALPHA_COLOR = new Color(0, 0, 0, 0);
         float RefreshPerGroupRate;
 
+        public static readonly int CHECK_ALL_UPPER_LIMIT = 1024;
+        [SerializeField] List<Color32> AllColors = default(List<Color32>);
+        [SerializeField] Color32 playerColor;
+        [SerializeField] List<PaintableMesh> PaintableObjects = new List<PaintableMesh>();
+        [SerializeField] List<ObjectPaintGroups> TulpGroups = new List<ObjectPaintGroups>();
+        [SerializeField] int GroupAmount = 1;
+        [SerializeField] float RefreshRate = 1;
+
         void CreateGroups()
         {
-            var globalPaintAmounts = new List<PaintAmount>();
-            foreach (var color in AllColors) globalPaintAmounts.Add(new PaintAmount(color));
+            CreateGlobalCounter();
 
-            GlobalPaintAmounts = globalPaintAmounts.ToArray();
-
-            int entitiesAmount = PaintablePlanes.Count;
-
-            float amountPerGroupF = entitiesAmount / GroupAmount;
-
-            int amountPerGroup = (int)Math.Ceiling((decimal)amountPerGroupF);
+            int entitiesAmount = PaintableObjects.Count;
+            int amountPerGroup = (int)Math.Ceiling((decimal)entitiesAmount / GroupAmount);
 
             RefreshPerGroupRate = RefreshRate / GroupAmount;
-
             for (int j = 0; j < GroupAmount; j++) TulpGroups.Add(new ObjectPaintGroups());
 
             int g = 0;
+            for (int i = 0; i < entitiesAmount; i++) AddEntityToGroup(amountPerGroup, ref g, i);
 
-            for (int i = 0; i < entitiesAmount; i++)
-            {
-                TulpGroups[g].Tulps.Add(CreateTulp(PaintablePlanes[i]));
-                if (i != 0 && i % (amountPerGroup + 1) == 0) g++;
-            }
         }
 
+        private void AddEntityToGroup(int amountPerGroup, ref int g, int i)
+        {
+            TulpGroups[g].Tulps.Add(CreateTulp(PaintableObjects[i]));
+            if (i != 0 && i % (amountPerGroup + 1) == 0) g++;
+        }
+
+        private void CreateGlobalCounter()
+        {
+            var globalPaintAmounts = new List<PaintAmount>();
+            foreach (var color in AllColors) globalPaintAmounts.Add(new PaintAmount(color));
+            GlobalPaintAmounts = globalPaintAmounts.ToArray();
+        }
+
+        private void FindObjects() => PaintableObjects.AddRange(FindObjectsOfType<PaintableMesh>());
+
+        private void FindColors()
+        {
+            AllColors.Add(ALPHA_COLOR);
+            AllColors.Add(playerColor);
+            ColorUpdated?.Invoke(playerColor);
+        }
 
         private ObjectPaint CreateTulp(PaintableMesh mesh)
         {
