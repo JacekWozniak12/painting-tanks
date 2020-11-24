@@ -6,28 +6,12 @@ namespace PaintingTanks.Entities
     using UnityEngine;
 
     [Serializable]
-    public class PaintBit
-    {
-        public PaintBit(Vector2Int size, int textureSize, Color32 color)
-        {
-            Size = size;
-            TextureSize = textureSize;
-            Color = color;
-        }
-
-        public Vector2Int Size = new Vector2Int(1, 1);
-        public int TextureSize = 2;
-        public Color32 Color = new Color32(255, 255, 255, 1);
-    }
-
-    [Serializable]
     public class PaintAmount
     {
-        public PaintAmount(Color color) => Color = color;
         public PaintAmount(Color32 color) => Color = color;
         public Color32 Color;
+        public ulong MaxAmount = 0;
         public ulong Amount = 0;
-
     }
 
     [Serializable]
@@ -35,15 +19,16 @@ namespace PaintingTanks.Entities
     {
         public PaintAmount Global;
         public LocalPaintAmount(PaintAmount global) : base(global.Color) => Global = global;
-        public void StartUpdate() => Global.Amount -= Amount;
-        public void FinishUpdate() => Global.Amount += Amount;
+
+        public void StartUpdate() => StartUpdate(Amount);
+        public void StartUpdate(ulong amount) => Global.Amount -= amount;
+
+        public void FinishUpdate() => FinishUpdate(Amount);
+        public void FinishUpdate(ulong amount) => Global.Amount += amount;
     }
 
     [Serializable]
-    public class ObjectPaintGroups
-    {
-        public List<ObjectPaint> Tulps = new List<ObjectPaint>();
-    }
+    public class ObjectPaintGroups { public List<ObjectPaint> Tulps = new List<ObjectPaint>(); }
 
     [Serializable]
     public class ObjectPaint

@@ -1,6 +1,5 @@
 namespace PaintingTanks.Interfaces
 {
-    using System.Collections;
 
     public interface IWeapon
     {
@@ -9,6 +8,5 @@ namespace PaintingTanks.Interfaces
         void Ready();
         void Unready();
         bool IsShooting();
-        IEnumerator HandleRateOfFire(float time);
     }
 }

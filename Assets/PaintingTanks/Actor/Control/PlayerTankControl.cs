@@ -22,7 +22,6 @@ namespace PaintingTanks.Actor.Control
         {
             var c = Controller.Controls.Player;
             c.Fire.performed += ctx => Gun.Handle();
-            Gun.AddCommand(new TestCommand());
         }
 
         private void FixedUpdate()
