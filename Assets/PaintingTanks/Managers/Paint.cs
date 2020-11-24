@@ -12,13 +12,6 @@ namespace PaintingTanks.Managers
     // Calculates amount of paint
     public class Paint : MonoBehaviour, IValueProvider<ulong>, IValueProvider<Color32>
     {
-        [SerializeField] List<PaintableMesh> PaintableObjects = new List<PaintableMesh>();
-        [SerializeField] List<Color32> AllColors = default(List<Color32>);
-        [SerializeField] Color32 playerColor;
-        [SerializeField] int GroupAmount = 1;
-        [SerializeField] List<ObjectPaintGroups> TulpGroups = new List<ObjectPaintGroups>();
-        [SerializeField] float RefreshRate = 1;
-
         void Awake()
         {
             FindObjects();
@@ -42,37 +35,21 @@ namespace PaintingTanks.Managers
         {
             if (tulp.Mesh.Changed)
             {
-                if (tulp.Mesh.TextureSize < 256) CheckAllAtOnce(tulp);
+                if (tulp.Mesh.TextureSize < CHECK_ALL_UPPER_LIMIT)
+                    CheckAllAtOnce(tulp);
                 else CheckModifiedParts(tulp);
             }
         }
-        private static void CheckModifiedParts(ObjectPaint tulp)
+
+        private void CheckAllAtOnce(ObjectPaint tulp)
         {
-            var L = tulp.Mesh.GetChangedPartsOfCountableTexture();
-            tulp.Mesh.ClearChangedPartsToCheck();
-            foreach (var item in L)
+            foreach (var paint in tulp.PaintAmounts)
             {
-                PreCheck(tulp, item);
-                try
-                {
-                    CheckObject(tulp, item);
-                }
-                catch (NullReferenceException e)
-                {
-                    Debug.Log("Property is null", tulp.Mesh.gameObject);
-                    throw new NullReferenceException(e.Message);
-                }
-                finally
-                {
-                    PostCheck(tulp, item);
-                }
+                paint.StartUpdate();
+                paint.Amount = 0;
             }
-        }
-        private static void CheckAllAtOnce(ObjectPaint tulp)
-        {
             try
             {
-                PreCheck(tulp);
                 CheckObject(tulp);
             }
             catch (NullReferenceException e)
@@ -82,22 +59,19 @@ namespace PaintingTanks.Managers
             }
             finally
             {
-                PostCheck(tulp);
+                foreach (var paint in tulp.PaintAmounts) paint.FinishUpdate();
+                tulp.Mesh.CheckedForPaint();
             }
+        }
+
+        private void CheckModifiedParts(ObjectPaint tulp)
+        {
+            /// todo
         }
 
         private static void CheckObject(ObjectPaint tulp, TexturePartInfo item = null)
         {
-            Color32[] textureToCheck;
-
-            if (item != null)
-            {
-                var temporary = tulp.Mesh.Countable.GetPixels32();
-                textureToCheck = GraphicsL.GetPartOfArray(
-                    temporary, tulp.Mesh.Countable.height, item.Start.x, item.Start.y, item.Finish.x, item.Finish.y);
-            }
-            else textureToCheck = tulp.Mesh.Countable.GetPixels32();
-
+            Color32[] textureToCheck = GetPixelArray(tulp, item);
             foreach (var colorToCheck in textureToCheck)
             {
                 foreach (var checkFor in tulp.PaintAmounts)
@@ -106,6 +80,16 @@ namespace PaintingTanks.Managers
                         checkFor.Amount++;
                 }
             }
+        }
+
+        private static Color32[] GetPixelArray(ObjectPaint tulp, TexturePartInfo item)
+        {
+            if (item != null)
+            {
+                var temporary = tulp.Mesh.Countable.GetPixels32();
+                return GraphicsL.GetPartOfArray(temporary, tulp.Mesh.Countable.height, item.Start.x, item.Start.y, item.Finish.x, item.Finish.y);
+            }
+            else return tulp.Mesh.Countable.GetPixels32();
         }
 
         private static void PreCheck(ObjectPaint tulp, TexturePartInfo item = null)
@@ -132,6 +116,14 @@ namespace PaintingTanks.Managers
         PaintAmount[] GlobalPaintAmounts = new PaintAmount[0];
         readonly Color32 ALPHA_COLOR = new Color(0, 0, 0, 0);
         float RefreshPerGroupRate;
+
+        private const int CHECK_ALL_UPPER_LIMIT = 1024;
+        [SerializeField] List<Color32> AllColors = default(List<Color32>);
+        [SerializeField] Color32 playerColor;
+        [SerializeField] List<PaintableMesh> PaintableObjects = new List<PaintableMesh>();
+        [SerializeField] List<ObjectPaintGroups> TulpGroups = new List<ObjectPaintGroups>();
+        [SerializeField] int GroupAmount = 1;
+        [SerializeField] float RefreshRate = 1;
 
         void CreateGroups()
         {

@@ -11,6 +11,7 @@ namespace PaintingTanks.Behaviours.Test
     {
         [SerializeField] private new Camera camera;
         [SerializeField] private Texture2D texture;
+        [SerializeField] Vector2Int size = new Vector2Int(8, 8);
         [SerializeField] private ObservableColor32Value color = new ObservableColor32Value();
         public GameControls controls;
 
@@ -24,7 +25,9 @@ namespace PaintingTanks.Behaviours.Test
         }
 
         private Texture2D CreateDummyTexture()
-            => GraphicsL.CreateMonoColorTexture(new Vector2Int(8, 8), color.Value);
+        {
+            return GraphicsL.CreateMonoColorTexture(size, color.Value);
+        }
 
 
         [ContextMenu("Update Texture")]

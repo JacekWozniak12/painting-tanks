@@ -1,6 +1,7 @@
 namespace PaintingTanks.Library
 {
     using UnityEngine;
+    using UnityEngine.Experimental.Rendering;
 
     public static class GraphicsL
     {
@@ -28,8 +29,8 @@ namespace PaintingTanks.Library
             return rt;
         }
 
-        public static RenderTexture CreateRenderTexture(Vector2Int size, int depth)
-            => new RenderTexture(size.x, size.y, depth);
+        public static RenderTexture CreateRenderTexture(Vector2Int size, int depth, GraphicsFormat graphicsFormat = GraphicsFormat.R8G8B8A8_UNorm)
+            => new RenderTexture(size.x, size.y, depth, graphicsFormat);
 
 
         public static bool CheckIfEqualColors(Color32 colorA, Color32 colorB)
