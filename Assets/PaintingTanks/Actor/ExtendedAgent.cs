@@ -7,12 +7,8 @@ namespace PaintingTanks.Actor
 
     public class ExtendedAgent : Agent, IScrollable, IControllable
     {
-        [SerializeField]
-        private List<IGameCommand> gameCommands;
-
-        [SerializeField]
-        private IGameCommand currentCommand;
-
+        [SerializeField] private List<IGameCommand> gameCommands;
+        [SerializeField] private IGameCommand currentCommand;
         int index;
 
         protected override void Awake()

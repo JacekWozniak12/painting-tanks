@@ -31,7 +31,6 @@ namespace PaintingTanks.Actor
             movement.Rotate(v * speed);
         }
 
-
         private Vector3 currentLookRotation = Vector3.zero;
 
         public void LookRotate(Vector3 v, float deltaTime, bool active = false)
