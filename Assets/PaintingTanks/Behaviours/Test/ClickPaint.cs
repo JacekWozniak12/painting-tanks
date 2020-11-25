@@ -5,7 +5,7 @@ namespace PaintingTanks.Behaviours.Test
     using Entities.MapItems;
     using PaintingTanks.Actor.Control;
     using Library;
-    using Abstracts;
+    using Definitions;
 
     public class ClickPaint : MonoBehaviour, IGameCommand
     {

@@ -1,12 +1,9 @@
 namespace PaintingTanks.Interfaces
 {
-
     public interface IWeapon
     {
-        void TriggerOn();
-        void TriggerOff();
-        void Ready();
-        void Unready();
         bool IsShooting();
+        void Trigger(bool isOn);
+        void Ready(bool isTrue);
     }
 }

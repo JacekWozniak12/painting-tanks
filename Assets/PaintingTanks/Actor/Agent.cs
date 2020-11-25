@@ -9,13 +9,13 @@ namespace PaintingTanks.Actor
     {
         [SerializeField] float rotationSpeed;
         [SerializeField] float movementSpeed;
-        [SerializeField] AccelerationComponent acceleration;
-        [SerializeField] MovementComponent movement;
+        [SerializeField] Acceleration acceleration;
+        [SerializeField] Movement movement;
 
         protected virtual void Awake()
         {
-            if (acceleration == null) acceleration = new AccelerationComponent();
-            if (movement == null) movement = new MovementComponent();
+            if (acceleration == null) acceleration = new Acceleration();
+            if (movement == null) movement = new Movement();
             movement.Setup(GetComponent<Transform>(), GetComponent<Rigidbody>());
         }
 

@@ -1,15 +1,14 @@
-namespace PaintingTanks.Abstracts
+namespace PaintingTanks.Definitions
 {
+    using UnityEngine;
     using System;
     using System.Collections;
     using Interfaces;
-    using UnityEngine;
 
     [Serializable]
-    public abstract class ObservableValue<T> : IValueProvider<T>, IValueReceiver<T>
+    public class ObservableValue<T> : IValueProvider<T>, IValueReceiver<T>
     {
-        [SerializeField]
-        T _value;
+        [SerializeField] T _value;
 
         public T Value
         {
@@ -36,4 +35,6 @@ namespace PaintingTanks.Abstracts
     [Serializable] public class ObservableStringValue : ObservableValue<string> { }
     [Serializable] public class ObservableColor32Value : ObservableValue<Color32> { }
     [Serializable] public class ObservableCollectionValue : ObservableValue<IEnumerable> { }
+    [Serializable] public class ObservableGameObjectValue : ObservableValue<GameObject> { }
+    [Serializable] public class ObservableMonoBehaviourValue : ObservableValue<MonoBehaviour> { }
 }

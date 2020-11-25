@@ -3,12 +3,11 @@ namespace PaintingTanks.Behaviours.Game
     using Interfaces;
     using UnityEngine;
     using System;
-    using Library;
 
     [Serializable]
-    public class MovementComponent : IMoveable
+    public class Movement : IMoveable
     {
-        public MovementComponent Setup(Transform transform, Rigidbody rigidbody)
+        public Movement Setup(Transform transform, Rigidbody rigidbody)
         {
             this.transform = transform;
             this.rigidbody = rigidbody;

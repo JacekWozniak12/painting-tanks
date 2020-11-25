@@ -4,7 +4,7 @@ namespace PaintingTanks.Behaviours.Game
     using System;
 
     [Serializable]
-    public class AccelerationComponent
+    public class Acceleration
     {
         [SerializeField] float TimeToFull = 2f;
         [SerializeField] float StoppingModifier = 1f;

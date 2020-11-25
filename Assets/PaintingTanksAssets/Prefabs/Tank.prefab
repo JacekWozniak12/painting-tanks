@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 7487180951562847490}
   - component: {fileID: 7487180951562847495}
   - component: {fileID: 7487180951562847494}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DummyTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,6 +273,10 @@ MonoBehaviour:
   Turret: {fileID: 7487180951988706556}
   Gun: {fileID: 7487180952551006797}
   TargetPositioner: {fileID: 7487180953239555813}
+  MinimalDistance: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 55
   camera: {fileID: 0}
   GunTurretRotationYModifier: 30
 --- !u!114 &7487180951562847490
@@ -321,7 +325,8 @@ MonoBehaviour:
     CanRotate: 1
     MaximalLocalRotation: {x: 0, y: 0}
     MinimalLocalRotation: {x: 0, y: 0}
-    MinimalMaximalRotation: 0
+    MinimalMaximalRotationOfX: 0
+    MinimalMaximalRotationOfY: 0
 --- !u!54 &7487180951562847495
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -818,7 +823,8 @@ MonoBehaviour:
     CanRotate: 1
     MaximalLocalRotation: {x: 0, y: 0}
     MinimalLocalRotation: {x: 0, y: 0}
-    MinimalMaximalRotation: 0
+    MinimalMaximalRotationOfX: 0
+    MinimalMaximalRotationOfY: 0
 --- !u!54 &7487180951988706435
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1105,7 +1111,8 @@ MonoBehaviour:
     CanRotate: 1
     MaximalLocalRotation: {x: 0, y: 0}
     MinimalLocalRotation: {x: 0, y: 0}
-    MinimalMaximalRotation: 0
+    MinimalMaximalRotationOfX: 0
+    MinimalMaximalRotationOfY: 0
 --- !u!54 &7487180952551006798
 Rigidbody:
   m_ObjectHideFlags: 0
