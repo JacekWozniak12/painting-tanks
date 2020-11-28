@@ -28,7 +28,10 @@ namespace PaintingTanks.Entities
     }
 
     [Serializable]
-    public class ObjectPaintGroups { public List<ObjectPaint> Tulps = new List<ObjectPaint>(); }
+    public class ObjectPaintGroups
+    {
+        public List<ObjectPaint> Tulps = new List<ObjectPaint>();
+    }
 
     [Serializable]
     public class ObjectPaint

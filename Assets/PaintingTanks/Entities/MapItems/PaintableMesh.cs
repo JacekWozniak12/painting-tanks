@@ -14,6 +14,7 @@ namespace PaintingTanks.Entities.MapItems
     {
         private const string NAME_MASK_TEXTURE = "_MaskTex";
         private const string NAME_INFLUENCE = "_Influence";
+
         public bool Changed { get; private set; } = true;
         public Texture2D Countable { get; private set; }
         [SerializeField] FilterMode filterMode = FilterMode.Point;
@@ -21,6 +22,32 @@ namespace PaintingTanks.Entities.MapItems
         public int TextureSize = 32;
         [SerializeField] private int renderTextureDepth = 16;
         List<Vector2Int> HitsToCheck = new List<Vector2Int>();
+
+        public static void HandlePainting(Collision other, Texture2D texture, LayerMask mask)
+        {
+            var contact = other.GetContact(0);
+            PaintProcedure(contact.point, contact.normal, texture, mask);
+        }
+
+        public static void HandlePainting(RaycastHit hit, Texture2D texture, LayerMask mask)
+        {
+            PaintProcedure(hit.point, hit.normal, texture, mask);
+        }
+
+        private static void PaintProcedure(Vector3 hitPoint, Vector3 direction, Texture2D texture, LayerMask mask)
+        {
+            var origin = hitPoint + direction * 0.1f;
+
+            if (Physics.Raycast(origin, -direction * 0.3f, out RaycastHit hit, 1f, mask))
+            {
+                var promise = hit.collider.gameObject.GetComponent<PaintableMesh>();
+                if (promise is PaintableMesh paintable)
+                {
+                    paintable.Paint(hit.textureCoord2.x, hit.textureCoord2.y, texture, 2);
+                    paintable.StopPainting();
+                }
+            }
+        }
 
         public List<TexturePartInfo> GetChangedPartsOfCountableTexture()
         {

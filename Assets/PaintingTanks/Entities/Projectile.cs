@@ -1,28 +1,22 @@
-namespace PaintingTanks.Behaviours.Game
+namespace PaintingTanks.Entities
 {
     using PaintingTanks.Definitions;
-    using PaintingTanks.Library;
+    using PaintingTanks.Entities.MapItems;
     using UnityEngine;
 
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour
     {
-        [SerializeField] private Texture2D texture;
-        [SerializeField] Vector2Int size = new Vector2Int(8, 8);
-        [SerializeField] private ObservableColor32Value color = new ObservableColor32Value();
+        [SerializeField] PaintBrushHandler brush;
 
         private void Awake()
         {
-            color.Changed += ctx => UpdateTexture();
+            
         }
 
-        private Texture2D CreateDummyTexture()
+        void OnCollisionEnter(Collision other)
         {
-            return GraphicsL.CreateMonoColorTexture(size, color.Value);
+            PaintableMesh.HandlePainting(other, brush.Texture, brush.Affects);
         }
-
-
-        [ContextMenu("Update Texture")]
-        private void UpdateTexture() { texture = CreateDummyTexture(); }
     }
 }

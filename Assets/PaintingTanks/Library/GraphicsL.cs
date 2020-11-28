@@ -21,6 +21,9 @@ namespace PaintingTanks.Library
             return C;
         }
 
+        public static Texture2D CreateAlphaTexture(Vector2Int size = default(Vector2Int))
+            => CreateMonoColorTexture(size, new Color32(0, 0, 0, 0));
+
         public static RenderTexture CreateRenderTextureAndApplyAlpha(Vector2Int size, int depth)
         {
             var rt = CreateRenderTexture(size, depth);
@@ -32,7 +35,6 @@ namespace PaintingTanks.Library
         public static RenderTexture CreateRenderTexture(Vector2Int size, int depth, GraphicsFormat graphicsFormat = GraphicsFormat.R8G8B8A8_UNorm)
             => new RenderTexture(size.x, size.y, depth, graphicsFormat);
 
-
         public static bool CheckIfEqualColors(Color32 colorA, Color32 colorB)
             => colorA.r == colorB.r && colorA.g == colorB.g && colorA.b == colorB.b && colorA.a == colorB.a;
 
@@ -42,7 +44,10 @@ namespace PaintingTanks.Library
             int index = 0;
             for (int i = start_y; i < finish_y; i++)
             {
-                for (int j = start_x; i < finish_x; j++) { result[index++] = input[height * i + j]; }
+                for (int j = start_x; i < finish_x; j++)
+                {
+                    result[index++] = input[height * i + j];
+                }
             }
             return result;
         }

@@ -1,6 +1,6 @@
 namespace PaintingTanks.Interfaces
 {
-    using Abstracts;
+    using PaintingTanks.Definitions;
 
     public interface IAddItem
     {
