@@ -29,7 +29,9 @@
 
 ### Gun System
 - Using Rigidbody for Gun Turret and Turret
+- Using Camera and Physics.Rayast with some vector functions to implement minimal / maximal range system that player can target to
 - // trajectory implementation
+- // weapon system
 
 ### Perk System
 - 

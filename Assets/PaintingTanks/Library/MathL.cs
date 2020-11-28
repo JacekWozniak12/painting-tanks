@@ -32,6 +32,14 @@ namespace PaintingTanks.Library
             return value;
         }
 
+        public static Vector3 Clamp(Vector3 value, Vector3 min, Vector3 max)
+        {
+            value.x = Clamp(value.x, min.x, max.x);
+            value.y = Clamp(value.y, min.y, max.y);
+            value.z = Clamp(value.z, min.z, max.z);
+            return value;
+        }
+
         public static float Clamp01(float value) => Clamp(value, 0, 1);
 
         public static double Clamp01(double value) => Clamp(value, 0, 1);

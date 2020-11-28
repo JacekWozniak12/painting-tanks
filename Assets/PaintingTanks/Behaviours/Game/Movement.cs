@@ -34,6 +34,8 @@ namespace PaintingTanks.Behaviours.Game
             if (CanRotate)
             {
                 if (value == Vector3.zero) return;
+                else value.Normalize();
+                
                 transform.rotation = Quaternion.LookRotation(value);
                 HandleRotationLimit();
             }

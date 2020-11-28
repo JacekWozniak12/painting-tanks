@@ -6,12 +6,8 @@ namespace PaintingTanks.Actor.Control
     [RequireComponent(typeof(Controller))]
     public class PlayerTankControl : TankControl
     {
-        [SerializeField] GameObject TargetPositioner;
+        [SerializeField] Entities.PlayerItems.Targeter TargetPositioner;
         [SerializeField] float MinimalDistance = 2f;
-        [SerializeField] LayerMask layerMask;
-
-        // camera => into camera control
-        [SerializeField] new Camera camera;
 
         // ammotypes
         // vfx
@@ -43,30 +39,18 @@ namespace PaintingTanks.Actor.Control
 
         protected void HandleGunTurret(float deltaTime)
         {
-            var r = camera.ScreenPointToRay(Controller.Controls.Player.FindTarget.ReadValue<Vector2>());
-            if (Physics.Raycast(r, out RaycastHit info, Mathf.Infinity, layerMask))
-            {
-                if (Vector3.Distance(info.point, TankBody.transform.position) < MinimalDistance)
-                {
-                    Vector3 position = Vector3.RotateTowards(TankBody.transform.position, info.point, 360, 0);
-                    TargetPositioner.transform.position = position * MinimalDistance;
-                }
-                else TargetPositioner.transform.position = info.point;
-
-                TankTurretRotation(deltaTime);
-            }
-            else return;
+            TankTurretRotation(deltaTime);
         }
 
         private void TankTurretRotation(float deltaTime)
         {
-            Vector3 lookTo = TargetPositioner.transform.position - Gun.transform.position;
-            
+            Vector3 lookTo = (TargetPositioner.transform.position - Gun.transform.position).normalized;
+
             lookTo.y *= GunTurretRotationYModifier;
-            HandleTankGunRotation(lookTo, deltaTime, CheckIfPlayerMoves(Controller.Controls.Player.FindTarget.ReadValue<Vector2>()));
-            
+            HandleTankGunRotation(lookTo, deltaTime, true);
+
             lookTo.y = 0f;
-            HandleTankTurretRotation(lookTo, deltaTime, CheckIfPlayerMoves(Controller.Controls.Player.FindTarget.ReadValue<Vector2>()));
+            HandleTankTurretRotation(lookTo, deltaTime, true);
         }
 
         private static bool CheckIfPlayerMoves(Vector2 v) => v.x > 0 || v.x < 0 || v.y > 0 || v.y < 0;
