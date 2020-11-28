@@ -11,6 +11,11 @@ namespace PaintingTanks.Behaviours.Test
             Debug.Log("TEST");
         }
 
+        public void Stop()
+        {
+            throw new Exception("This command can't be stopped");
+        }
+
         public void Undo()
         {
             throw new Exception("This command can't be undone");

@@ -3,6 +3,7 @@ namespace PaintingTanks.Behaviours.Game
     using Interfaces;
     using UnityEngine;
     using System;
+    using PaintingTanks.Library;
 
     [Serializable]
     public class Movement : IMoveable
@@ -14,18 +15,12 @@ namespace PaintingTanks.Behaviours.Game
             return this;
         }
 
-        Transform transform;
-        Rigidbody rigidbody;
-        public bool CanMove = true;
-        public bool CanRotate = true;
-
         public void Rotate(Vector3 value)
         {
             if (CanRotate)
             {
                 Quaternion rotation = transform.rotation * Quaternion.Euler(value);
                 rigidbody.MoveRotation(rotation);
-                HandleRotationLimit();
             }
         }
 
@@ -34,35 +29,20 @@ namespace PaintingTanks.Behaviours.Game
             if (CanRotate)
             {
                 if (value == Vector3.zero) return;
-                else value.Normalize();
-                
                 transform.rotation = Quaternion.LookRotation(value);
-                HandleRotationLimit();
             }
         }
 
-        public Vector2 MaximalLocalRotation = default(Vector2);
-        public Vector2 MinimalLocalRotation = default(Vector2);
-        public bool MinimalMaximalRotationOfX;
-        public bool MinimalMaximalRotationOfY;
-
-
-        //todo
-        private void HandleRotationLimit()
+        private void HandleRotationLimit(Vector3 value)
         {
-            // var x = transform.rotation.x;
-            // var y = transform.rotation.y;
-            // if (MinimalMaximalRotationOfX)
-            // {
-            //     x = MathL.Clamp(x, MinimalLocalRotation.x, MaximalLocalRotation.x);
-            //     transform.rotation = Quaternion.Euler(x, y, transform.rotation.z);
-            // }
-            // if (MinimalMaximalRotationOfY)
-            // {
-            //     y = MathL.Clamp(y, MinimalLocalRotation.y, MaximalLocalRotation.y);
-            //     transform.rotation = Quaternion.Euler(x, y, transform.rotation.z);
-            // }
-
+            if (MinimalMaximalRotationOfX)
+            {
+                value.x = RotationL.ClampAngle(value.x, MinimalLocalRotation.x, MaximalLocalRotation.x);
+            }
+            if (MinimalMaximalRotationOfY)
+            {
+                value.y = RotationL.ClampAngle(value.y, MinimalLocalRotation.y, MaximalLocalRotation.y);
+            }
         }
 
         public void Move(Vector3 value)
@@ -74,5 +54,15 @@ namespace PaintingTanks.Behaviours.Game
         {
             return transform.position;
         }
+
+        public Vector2 MaximalLocalRotation = default(Vector2);
+        public Vector2 MinimalLocalRotation = default(Vector2);
+        public bool MinimalMaximalRotationOfX;
+        public bool MinimalMaximalRotationOfY;
+        Transform transform;
+        Rigidbody rigidbody;
+        public bool CanMove = true;
+        public bool CanRotate = true;
+
     }
 }

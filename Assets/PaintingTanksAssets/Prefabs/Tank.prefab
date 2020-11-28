@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &972526421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 972526422}
+  m_Layer: 8
+  m_Name: Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &972526422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972526421}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7487180951988706558}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6826130056581987681
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 828925911183103859}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,8 +73,7 @@ GameObject:
   - component: {fileID: 7487180951349010542}
   - component: {fileID: 7487180951349010547}
   - component: {fileID: 7487180951349010540}
-  - component: {fileID: 6518406957915483816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,104 +143,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!120 &6518406957915483816
-LineRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7487180951349010543}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  m_Parameters:
-    serializedVersion: 3
-    widthMultiplier: 1
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
-    alignment: 0
-    textureMode: 0
-    shadowBias: 0.5
-    generateLightingData: 0
-  m_UseWorldSpace: 1
-  m_Loop: 0
 --- !u!1 &7487180951558245630
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +155,7 @@ GameObject:
   - component: {fileID: 7487180951558245506}
   - component: {fileID: 7487180951558245507}
   - component: {fileID: 7487180951558245628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,12 +302,8 @@ MonoBehaviour:
   TankBody: {fileID: 7487180951562847490}
   Turret: {fileID: 7487180951988706556}
   Gun: {fileID: 7487180952551006797}
-  TargetPositioner: {fileID: 7487180953239555813}
+  TargetPositioner: {fileID: 739190861}
   MinimalDistance: 2
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 55
-  camera: {fileID: 0}
   GunTurretRotationYModifier: 30
 --- !u!114 &7487180951562847490
 MonoBehaviour:
@@ -391,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 1
-  movementSpeed: 15
+  movementSpeed: 20
   acceleration:
     TimeToFull: 1.5
     StoppingModifier: 1
@@ -401,20 +328,29 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 2
-        outSlope: 2
+        inSlope: 3.5645902
+        outSlope: 3.5645902
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        time: 0.14014912
+        value: 0.49957418
+        inSlope: 0.42545274
+        outSlope: 0.42545274
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.11756514
+      - serializedVersion: 3
+        time: 0.997406
+        value: 1
+        inSlope: 0.58375245
+        outSlope: 0.58375245
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -546,7 +482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7487180951627449462}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +521,7 @@ GameObject:
   - component: {fileID: 7487180951654282282}
   - component: {fileID: 7487180951654282283}
   - component: {fileID: 7487180951654282276}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +616,7 @@ GameObject:
   - component: {fileID: 7487180951759998807}
   - component: {fileID: 7487180951759998800}
   - component: {fileID: 7487180951759998801}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -776,7 +712,7 @@ GameObject:
   - component: {fileID: 7487180951838892320}
   - component: {fileID: 7487180951838892321}
   - component: {fileID: 7487180951838892322}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +807,7 @@ GameObject:
   - component: {fileID: 7487180951988706558}
   - component: {fileID: 7487180951988706556}
   - component: {fileID: 7487180951988706435}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -891,6 +827,7 @@ Transform:
   m_Children:
   - {fileID: 7487180951558245629}
   - {fileID: 7487180952551006799}
+  - {fileID: 972526422}
   m_Father: {fileID: 7487180951562847491}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -906,14 +843,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d1ad87918879742972928400f604e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.2
-  movementSpeed: 5
+  rotationSpeed: 0.02
+  movementSpeed: 0.2
   acceleration:
-    TimeToFull: 2
+    TimeToFull: 5
     StoppingModifier: 1
     Curve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -952,7 +907,7 @@ GameObject:
   - component: {fileID: 7487180952228643462}
   - component: {fileID: 7487180952228643463}
   - component: {fileID: 7487180952228643456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1047,7 +1002,7 @@ GameObject:
   - component: {fileID: 7487180952291360009}
   - component: {fileID: 7487180952291360010}
   - component: {fileID: 7487180952291360011}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1142,7 +1097,7 @@ GameObject:
   - component: {fileID: 7487180952551006799}
   - component: {fileID: 7487180952551006797}
   - component: {fileID: 7487180952551006798}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GunTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1176,19 +1131,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d1ad87918879742972928400f604e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.2
-  movementSpeed: 1
+  rotationSpeed: 0.02
+  movementSpeed: 0.2
   acceleration:
-    TimeToFull: 2
+    TimeToFull: 5
     StoppingModifier: 1
     Curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 1
-        outSlope: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
@@ -1196,8 +1151,8 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 1
-        outSlope: 1
+        inSlope: 0
+        outSlope: 0
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
@@ -1206,7 +1161,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   movement:
-    CanMove: 1
+    CanMove: 0
     CanRotate: 1
     MaximalLocalRotation: {x: 0, y: 0}
     MinimalLocalRotation: {x: 0, y: 0}
@@ -1240,7 +1195,7 @@ GameObject:
   - component: {fileID: 7487180952977592248}
   - component: {fileID: 7487180952977592249}
   - component: {fileID: 7487180952977592250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1336,7 +1291,8 @@ GameObject:
   - component: {fileID: 7487180953239555818}
   - component: {fileID: 7487180953239555819}
   - component: {fileID: 7487180953239555812}
-  m_Layer: 0
+  - component: {fileID: 739190861}
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1351,7 +1307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7487180953239555813}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.84}
+  m_LocalPosition: {x: 0, y: 0, z: 2.37}
   m_LocalScale: {x: 3, y: 0.1, z: 3}
   m_Children: []
   m_Father: {fileID: 828925911183103859}
@@ -1420,3 +1376,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &739190861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487180953239555813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a30b996b32f594f9273b3af01a9aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 55
+  Pivot: {fileID: 972526422}
+  MaxDistance: 15
+  MinDistance: 5

@@ -47,9 +47,14 @@ namespace PaintingTanks.Behaviours.Test
             }
         }
 
+        public void Stop() 
+        {
+            return;
+        }
+
         public void Undo()
         {
-            //
+            return;
         }
     }
 }
