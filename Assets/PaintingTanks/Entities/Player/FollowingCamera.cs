@@ -11,14 +11,14 @@ namespace PaintingTanks.Entities.Player
         [SerializeField]
         private new Camera camera;
         
+        public float MaximalZoomValue;
+        public float MinimalZoomValue;
         
 
         public void Awake()
         {
             if(camera = null) camera = GetComponent<Camera>() ?? FindObjectsOfType<Camera>()[0];
         }
-
-
 
         public void ScrollDown()
         {

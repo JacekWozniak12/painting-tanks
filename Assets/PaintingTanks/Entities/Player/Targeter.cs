@@ -16,9 +16,9 @@ namespace PaintingTanks.Entities.PlayerItems
 
         private void Update()
         {
-            if(previousPivot != Pivot.position) UpdatePivot();
+            if (previousPivot != Pivot.position) UpdatePivot();
             HandleCursor();
-            
+
         }
 
         private void UpdatePivot()
@@ -40,12 +40,12 @@ namespace PaintingTanks.Entities.PlayerItems
         private void CheckBoundsAndSetPosition(Vector3 point)
         {
             var CurrentDistance = Vector3.Distance(Pivot.position, point);
-            if (CurrentDistance + 0.2f > MaxDistance)
+            if (CurrentDistance > MaxDistance)
             {
                 SetMaximalDistance(point);
             }
             else
-            if (CurrentDistance - 0.2f < MinDistance)
+            if (CurrentDistance < MinDistance)
             {
                 SetMinimalDistance(point);
             }
@@ -55,7 +55,7 @@ namespace PaintingTanks.Entities.PlayerItems
         private void SetMaximalDistance(Vector3 direction)
         {
             direction.Normalize();
-            var p = Vector3.MoveTowards(Pivot.position, direction * MaxDistance, MaxDistance);
+            var p = Vector3.MoveTowards(Pivot.position, Pivot.position + direction * MaxDistance, MaxDistance);
             if (Physics.Raycast(p + Vector3.up, Vector3.down * 2, out RaycastHit hit))
             {
                 transform.position = hit.point;
@@ -65,7 +65,7 @@ namespace PaintingTanks.Entities.PlayerItems
         private void SetMinimalDistance(Vector3 direction)
         {
             direction.Normalize();
-            var p = Vector3.MoveTowards(Pivot.position, direction * MinDistance, MinDistance);
+            var p = Vector3.MoveTowards(Pivot.position, Pivot.position + direction * MinDistance, MinDistance);
             if (Physics.Raycast(p, Vector3.down, out RaycastHit hit))
             {
                 transform.position = hit.point;
