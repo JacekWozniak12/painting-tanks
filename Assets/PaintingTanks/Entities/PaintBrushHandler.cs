@@ -9,13 +9,14 @@ namespace PaintingTanks.Entities
     public class PaintBrushHandler : MonoBehaviour
     {
         public Texture2D Texture = default(Texture2D);
-        public Vector2Int Size = new Vector2Int(8, 8);
+        public ObservableValue<Vector2Int> Size = new ObservableValue<Vector2Int>();
         public ObservableColor32Value Color = new ObservableColor32Value();
         public LayerMask Affects = default(LayerMask);
 
         private void OnEnable()
         {
             Color.Changed += ctx => UpdateTexture();
+            Size.Changed += ctx => UpdateTexture();
             Texture = CreateDummyTexture();
         }
 

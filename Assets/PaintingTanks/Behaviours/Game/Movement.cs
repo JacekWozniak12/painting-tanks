@@ -12,6 +12,7 @@ namespace PaintingTanks.Behaviours.Game
         {
             this.transform = transform;
             this.rigidbody = rigidbody;
+            BaseRotation = transform.rotation.eulerAngles;
             return this;
         }
 
@@ -37,11 +38,11 @@ namespace PaintingTanks.Behaviours.Game
         {
             if (MinimalMaximalRotationOfX)
             {
-                value.x = RotationL.ClampAngle(value.x, MinimalLocalRotation.x, MaximalLocalRotation.x);
+                value.x = RotationL.ClampAngle(value.x, BaseRotation.x + MinimalLocalRotation.x, BaseRotation.x + MaximalLocalRotation.x);
             }
             if (MinimalMaximalRotationOfY)
             {
-                value.y = RotationL.ClampAngle(value.y, MinimalLocalRotation.y, MaximalLocalRotation.y);
+                value.y = RotationL.ClampAngle(value.y, BaseRotation.y + MinimalLocalRotation.y, BaseRotation.y + MaximalLocalRotation.y);
             }
         }
 
@@ -57,6 +58,7 @@ namespace PaintingTanks.Behaviours.Game
 
         public Vector2 MaximalLocalRotation = default(Vector2);
         public Vector2 MinimalLocalRotation = default(Vector2);
+        private Vector3 BaseRotation; 
         public bool MinimalMaximalRotationOfX;
         public bool MinimalMaximalRotationOfY;
         Transform transform;
