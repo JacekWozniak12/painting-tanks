@@ -22,18 +22,20 @@
 #### Implementation
 - Using Rigidbody for Tank
 - Uses new Input system package
-- Fixed Update for Movement Changes
-- Controller Motives
-  - Tank 
-  - *to implement* Vehicle
+- FixedUpdate() for Movement Changes
+- Movement Agents defined for Body, Turret and Gun
+- Vehicle Movement Styles
+  - Tank - is moved by its base controls and its turret is moved by pointer (mouse)
+  - Assault Gun - is moved by its base controls and rotated by pointer. Turret rotation is limited
+  - Artillery - is moved and rotated by its controls, not pointer. It is base moslty for artillery vehicles / functions
 
-### Gun System
-- Using Rigidbody for Gun Turret and Turret
-- Using Camera and Physics.Rayast with some vector functions to implement minimal / maximal range system that player can target to
-- // trajectory implementation
-- // weapon system
+#### Optimization
+- FixedUpdate() instead of Update();
 
-### Perk System
-- 
+### Weapon System
+- Using Rigidbody for Gun Turret and Turret.
+- Using Camera and Physics.Rayast with some vector functions to implement minimal / maximal range system that player can target to.
+- Using multiple vehicle movement styles to create different experiences for different type of weapons. Example: Hotchkiss H39 'ground stuka' tank which turret rotation does not influence rocket barrage of it as launcher is not pinned to its turret.
+
 
 

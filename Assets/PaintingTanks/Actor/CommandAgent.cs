@@ -5,15 +5,14 @@ namespace PaintingTanks.Actor
     using Interfaces;
     using Library;
 
-    public class ExtendedAgent : Agent, IScrollable, IControllable
+    public class CommandAgent : MonoBehaviour, IScrollable, IControllable
     {
         [SerializeField] private List<IGameCommand> gameCommands;
         [SerializeField] private IGameCommand currentCommand;
         int index;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             gameCommands = new List<IGameCommand>();
         }
 
@@ -29,11 +28,7 @@ namespace PaintingTanks.Actor
             SetCurrentCommand();
         }
 
-        public void Handle()
-        {
-            if (currentCommand != null) currentCommand.Execute();
-        }
-
+        public void Handle() { if (currentCommand != null) currentCommand.Execute(); }
         private void SetCurrentCommand() => currentCommand = gameCommands[index];
 
         public void Scrolling(float value)

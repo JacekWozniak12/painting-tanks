@@ -3,7 +3,7 @@
 ### Base tank turret
 - Rotation: 360
 - Base Reload Speed: 5s 
-- Max distance: 100
+- Max distance: 125
 - Ammunition:
   - Base
   - Cluster
@@ -19,7 +19,7 @@
   - Paint
 
 ### Rocket artillery turret 
-- Rotation: 45
+- Rotation: 360
 - Base Reload Speed: 6s 
 - Max distance: 100
 - Ammunition:
@@ -33,14 +33,6 @@
 - Ammunition:
   - Base
 
-
-
-## Abbilities
-### Drop grenade out of hatch
-
-### Fire rocket artillery
-- Base Reload Speed 30s
-- Max distance: 200
 
 ## Ammunition
 ### Base

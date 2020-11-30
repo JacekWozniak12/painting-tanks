@@ -434,11 +434,12 @@ GameObject:
   - component: {fileID: 7487180951562847491}
   - component: {fileID: 7487180951562847488}
   - component: {fileID: 7487180951562847489}
-  - component: {fileID: 7487180951562847490}
   - component: {fileID: 7487180951562847495}
   - component: {fileID: 7487180951562847494}
   - component: {fileID: 1838711947}
   - component: {fileID: 1838711948}
+  - component: {fileID: 4000385797005815030}
+  - component: {fileID: 1009431919}
   m_Layer: 8
   m_Name: DummyTank
   m_TagString: Untagged
@@ -487,69 +488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dba47969606d849b1e7b92ad6d67e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TankBody: {fileID: 7487180951562847490}
-  Turret: {fileID: 7487180951988706556}
-  Gun: {fileID: 7487180952551006797}
+  TankBody: {fileID: 4000385797005815030}
+  Turret: {fileID: 6934878883874657800}
+  TurretBarrel: {fileID: 2876631177976785863}
+  Gun: {fileID: 1009431919}
   TargetPositioner: {fileID: 739190861}
-  MinimalDistance: 2
   GunTurretRotationYModifier: 30
---- !u!114 &7487180951562847490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7487180951562847612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58d1ad87918879742972928400f604e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 1
-  movementSpeed: 20
-  acceleration:
-    TimeToFull: 1.5
-    StoppingModifier: 1
-    Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 3.5645902
-        outSlope: 3.5645902
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.14014912
-        value: 0.49957418
-        inSlope: 0.42545274
-        outSlope: 0.42545274
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.11756514
-      - serializedVersion: 3
-        time: 0.997406
-        value: 1
-        inSlope: 0.58375245
-        outSlope: 0.58375245
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  movement:
-    MaximalLocalRotation: {x: 0, y: 0}
-    MinimalLocalRotation: {x: 0, y: 0}
-    MinimalMaximalRotationOfX: 0
-    MinimalMaximalRotationOfY: 0
-    CanMove: 1
-    CanRotate: 1
 --- !u!54 &7487180951562847495
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -564,7 +508,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!153 &7487180951562847494
 ConfigurableJoint:
@@ -674,7 +618,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Texture: {fileID: 0}
-  Size: {x: 12, y: 12}
+  Size:
+    _value: {x: 3, y: 3}
   Color:
     _value:
       serializedVersion: 2
@@ -700,6 +645,67 @@ MonoBehaviour:
   - {fileID: 397703860}
   - {fileID: 683662677}
   - {fileID: 570465694}
+--- !u!114 &4000385797005815030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487180951562847612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa2210fcdfaf87449084ae54e841efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 2
+  movementSpeed: 25
+  acceleration:
+    TimeToFull: 2
+    StoppingModifier: 1
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.0025901794
+        value: 0.4787851
+        inSlope: 0.19043991
+        outSlope: 0.19043991
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.11168875
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  movement:
+    MaximalLocalRotation: {x: 0, y: 0, z: 0}
+    MinimalLocalRotation: {x: 0, y: 0, z: 0}
+    MinimalMaximalRotationOfX: 0
+    MinimalMaximalRotationOfY: 0
+    MinimalMaximalRotationOfZ: 0
+    CanMove: 1
+    CanRotate: 1
+--- !u!114 &1009431919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487180951562847612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867b419047447e9479144104a5c5a503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7487180951627449463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,8 +1038,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7487180951988706558}
-  - component: {fileID: 7487180951988706556}
   - component: {fileID: 7487180951988706435}
+  - component: {fileID: 6934878883874657800}
   m_Layer: 8
   m_Name: Turret
   m_TagString: Untagged
@@ -1058,7 +1064,23 @@ Transform:
   m_Father: {fileID: 7487180951562847491}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7487180951988706556
+--- !u!54 &7487180951988706435
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487180951988706559}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6934878883874657800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1067,13 +1089,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7487180951988706559}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58d1ad87918879742972928400f604e2, type: 3}
+  m_Script: {fileID: 11500000, guid: efa2210fcdfaf87449084ae54e841efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.02
-  movementSpeed: 0.2
+  rotationSpeed: 4
+  movementSpeed: 1
   acceleration:
-    TimeToFull: 5
+    TimeToFull: 2
     StoppingModifier: 1
     Curve:
       serializedVersion: 2
@@ -1100,28 +1122,13 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   movement:
-    MaximalLocalRotation: {x: 0, y: 0}
-    MinimalLocalRotation: {x: 0, y: 0}
+    MaximalLocalRotation: {x: 0, y: 0, z: 0}
+    MinimalLocalRotation: {x: 0, y: 0, z: 0}
     MinimalMaximalRotationOfX: 0
     MinimalMaximalRotationOfY: 0
-    CanMove: 0
+    MinimalMaximalRotationOfZ: 0
+    CanMove: 1
     CanRotate: 1
---- !u!54 &7487180951988706435
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7487180951988706559}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &7487180952228643458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,9 +1329,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7487180952551006799}
-  - component: {fileID: 7487180952551006797}
   - component: {fileID: 7487180952551006798}
   - component: {fileID: 386732939}
+  - component: {fileID: 2876631177976785863}
   m_Layer: 8
   m_Name: GunTurret
   m_TagString: Untagged
@@ -1347,7 +1354,31 @@ Transform:
   m_Father: {fileID: 7487180951988706558}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
---- !u!114 &7487180952551006797
+--- !u!54 &7487180952551006798
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487180952551006792}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!33 &386732939
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487180952551006792}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2876631177976785863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1356,13 +1387,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7487180952551006792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58d1ad87918879742972928400f604e2, type: 3}
+  m_Script: {fileID: 11500000, guid: efa2210fcdfaf87449084ae54e841efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.02
-  movementSpeed: 0.2
+  rotationSpeed: 4
+  movementSpeed: 1
   acceleration:
-    TimeToFull: 5
+    TimeToFull: 2
     StoppingModifier: 1
     Curve:
       serializedVersion: 2
@@ -1389,36 +1420,13 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   movement:
-    MaximalLocalRotation: {x: 45, y: 0}
-    MinimalLocalRotation: {x: -45, y: 0}
-    MinimalMaximalRotationOfX: 1
+    MaximalLocalRotation: {x: 0, y: 0, z: 0}
+    MinimalLocalRotation: {x: 0, y: 0, z: 0}
+    MinimalMaximalRotationOfX: 0
     MinimalMaximalRotationOfY: 0
-    CanMove: 0
+    MinimalMaximalRotationOfZ: 0
+    CanMove: 1
     CanRotate: 1
---- !u!54 &7487180952551006798
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7487180952551006792}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!33 &386732939
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7487180952551006792}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7487180952977592244
 GameObject:
   m_ObjectHideFlags: 0

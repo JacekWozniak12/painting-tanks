@@ -5,7 +5,7 @@ namespace PaintingTanks.Actor
     using PaintingTanks.Behaviours.Game;
     using PaintingTanks.Interfaces;
 
-    public class Agent : MonoBehaviour
+    public class MovementAgent : MonoBehaviour
     {
         [SerializeField] float rotationSpeed;
         [SerializeField] float movementSpeed;

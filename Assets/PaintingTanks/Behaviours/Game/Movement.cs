@@ -44,6 +44,10 @@ namespace PaintingTanks.Behaviours.Game
             {
                 value.y = RotationL.ClampAngle(value.y, BaseRotation.y + MinimalLocalRotation.y, BaseRotation.y + MaximalLocalRotation.y);
             }
+            if (MinimalMaximalRotationOfZ)
+            {
+                value.z = RotationL.ClampAngle(value.z, BaseRotation.z + MinimalLocalRotation.z, BaseRotation.z + MaximalLocalRotation.z);
+            }
         }
 
         public void Move(Vector3 value)
@@ -56,11 +60,14 @@ namespace PaintingTanks.Behaviours.Game
             return transform.position;
         }
 
-        public Vector2 MaximalLocalRotation = default(Vector2);
-        public Vector2 MinimalLocalRotation = default(Vector2);
-        private Vector3 BaseRotation; 
+        public Vector3 MaximalLocalRotation = default(Vector3);
+        public Vector3 MinimalLocalRotation = default(Vector3);
+        private Vector3 BaseRotation;
+
         public bool MinimalMaximalRotationOfX;
         public bool MinimalMaximalRotationOfY;
+        public bool MinimalMaximalRotationOfZ;
+        
         Transform transform;
         Rigidbody rigidbody;
         public bool CanMove = true;

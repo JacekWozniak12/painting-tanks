@@ -2,25 +2,33 @@ namespace PaintingTanks.Entities.PlayerItems
 {
     using UnityEngine;
     using PaintingTanks.Actor.Control;
+    using System;
 
     public class Targeter : MonoBehaviour
     {
+        public event Action PositionChanged;
+        public event Action ConstrainedAngle;
+
         private void Awake()
         {
             transform = GetComponent<Transform>();
         }
 
-        Vector3 previousPivot = default(Vector3);
-
         private void Update()
         {
-            if (previousPivot != Pivot.position) UpdatePivot();
-            HandleCursor();
+            if (previousPosition != transform.position) UpdatePosition();
+            if (UseMouse) HandleCursor();
         }
 
-        private void UpdatePivot()
+        public void SetPosition(Vector3 position)
         {
-            previousPivot = Pivot.position;
+            CheckBoundsAndSetPosition(position);
+            if (previousPosition != transform.position) UpdatePosition();
+        }
+        private void UpdatePosition()
+        {
+            previousPosition = transform.position;
+            PositionChanged?.Invoke();
         }
 
         private void HandleCursor()
@@ -37,46 +45,38 @@ namespace PaintingTanks.Entities.PlayerItems
         {
             var currentDistance = Vector3.Distance(Pivot.position, point);
             var currentDirection = (Pivot.position - point).normalized;
-            if (currentDistance > MaxDistance)
-            {
-                SetMaximalDistance(currentDirection);
-            }
+            print(currentDirection);
+
+            if (currentDistance >= MaxDistance) SetConstrainedDistance(currentDirection, MaxDistance);
             else
-            if (currentDistance < MinDistance)
-            {
-                SetMinimalDistance(currentDirection);
-            }
-            else transform.position = point;
+            if (currentDistance <= MinDistance) SetConstrainedDistance(currentDirection, MinDistance);
+            else SetConstrainedDistance(currentDirection, currentDistance);
         }
 
-        private void SetMaximalDistance(Vector3 direction)
+        private void SetConstrainedDistance(Vector3 direction, float distance)
         {
-            var p = Pivot.position + direction * -MaxDistance;
-            if (Physics.Raycast(p + Vector3.up/10, Vector3.down/8, out RaycastHit hit))
+            var p = Pivot.position + direction * -distance;
+            if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 8, out RaycastHit hit))
             {
                 transform.position = hit.point;
             }
         }
-
-        private void SetMinimalDistance(Vector3 direction)
-        {
-            var p = Pivot.position + direction * -MinDistance;
-            if (Physics.Raycast(p + Vector3.up/10, Vector3.down/8, out RaycastHit hit))
-            {
-                transform.position = hit.point;
-            }
-        }
-
-        private new Transform transform;
 
         // camera => into camera control
-        [SerializeField] new Camera camera;
-        [SerializeField] LayerMask layerMask;
+        [SerializeField] private new Camera camera;
+        [SerializeField] private LayerMask layerMask;
 
         public Transform Pivot;
         public float MaxDistance;
         public float MinDistance;
 
+        public bool UseMouse = true;
+        public bool UseConstraintX = false;
+        public bool UseConstraintY = false;
 
+        // x -> top / bottom ; y -> left / right
+        private Vector2 Constraints;
+        private new Transform transform;
+        private Vector3 previousPosition = default(Vector3);
     }
 }
