@@ -21,10 +21,5 @@ namespace PaintingTanks.Entities.Player
                 }
             }
         }
-
-        private void Awake()
-        {
-
-        }
     }
 }

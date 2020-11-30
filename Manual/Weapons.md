@@ -9,8 +9,8 @@
   - Cluster
   - Paint
   
-### Assault gun turrent
-- Rotation: 75
+### Assault gun turret
+- Rotation: 90
 - Base Reload Speed: 3s 
 - Max distance: 150
 - Ammunition:
@@ -24,7 +24,6 @@
 - Max distance: 100
 - Ammunition:
   - Base
-  - Cluster
 
 ### Rocket artillery launcher
 - Rotation 0
@@ -36,9 +35,9 @@
 
 ## Ammunition
 ### Base
-It explodes and paints 
+It explodes and paints hit position
 ### Cluster
-It explodes after impact into parts
+It explodes after impact into multiple parts
 ### Liquid
 It paint, don't need to be reloaded
 ### Grenade
