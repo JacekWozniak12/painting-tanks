@@ -21,14 +21,11 @@ namespace PaintingTanks.Entities
         }
 
         private Texture2D CreateDummyTexture()
-        {
-            return GraphicsL.CreateMonoColorTexture(Size, Color.Value);
-        }
+            => GraphicsL.CreateMonoColorTexture(Size, Color.Value);
+
 
         [ContextMenu("Update Texture")]
         private void UpdateTexture()
-        {
-            Texture = CreateDummyTexture();
-        }
+            => Texture = CreateDummyTexture();
     }
 }
