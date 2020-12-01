@@ -1,22 +1,25 @@
+using System;
 namespace PaintingTanks.Library
 {
     using UnityEngine;
 
     public static class KinematicsL
     {
-        public static Vector3 GetVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, Vector3 spread)
-            => GetVelocityFromPointsAndTime(start, end, speedPerSecond, spread, Physics.gravity);
+
+        public static Vector3 GetAngledVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, float angle, Vector3 modifier, Vector3 gravity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Vector3 GetStraightVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, Vector3 spread)
+            => GetStraightVelocityFromPointsAndTime(start, end, speedPerSecond, spread, Physics.gravity);
 
         public static Vector3 GetVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond)
-            => GetVelocityFromPointsAndTime(start, end, speedPerSecond, Vector3.zero);
+            => GetStraightVelocityFromPointsAndTime(start, end, speedPerSecond, Vector3.zero);
 
-        public static Vector3 GetVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, Vector3 spread, Vector3 gravity)
+        public static Vector3 GetStraightVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, Vector3 modifier, Vector3 gravity)
         {
             if (start == end) return Vector3.zero;
-
-            var a = MathL.GetRandomVector(spread);
-            Debug.Log(a);
-            end += a;
 
             Vector3 vector = start - end;
             Vector3 horizontal = GetHorizontalVector(vector, gravity);

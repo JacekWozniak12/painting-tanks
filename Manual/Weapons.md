@@ -1,5 +1,5 @@
 # Painting Tanks - Weapon Guide
-## Main Gun
+## Main Weapon Types
 ### Base tank turret
 - Rotation: 360
 - Base Reload Speed: 5s 
@@ -33,7 +33,7 @@
   - Base
 
 
-## Ammunition
+## Ammunition types
 ### Base
 It explodes and paints hit position
 ### Cluster

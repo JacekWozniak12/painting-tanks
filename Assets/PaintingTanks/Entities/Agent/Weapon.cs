@@ -3,21 +3,11 @@ namespace PaintingTanks.Entities.Agent
     using UnityEngine;
     using Definitions;
     using Interfaces;
-    using System.Collections.Generic;
     using System.Collections;
+    using PaintingTanks.Interfaces.Basic;
 
-    public class Weapon : MonoBehaviour, IWeapon
+    public class Weapon : MonoBehaviour, IWeapon, ISwitchable
     {
-        public ObservableValue<float> RateOfFire;
-        public Transform Barrel;
-        public float ProjectileSpeed = 20f;
-
-        [SerializeField] private Projectile projectile;
-
-        private bool shooting;
-        private bool rateOfFireHandler;
-        private bool ready;
-
         public bool IsShooting() => shooting;
         public void Ready(bool isTrue) => ready = isTrue;
         public void Trigger(bool isActive) { shooting = isActive; }
@@ -54,9 +44,9 @@ namespace PaintingTanks.Entities.Agent
 
         protected virtual IEnumerator ShootMethod()
         {
-            var a = Instantiate(projectile, Barrel, true);
+            var a = Instantiate(projectile, ProjectileStart, true);
             var rb = a.GetComponent<Rigidbody>();
-            rb.AddForce(Barrel.forward * ProjectileSpeed);
+            rb.AddForce(ProjectileStart.forward * ProjectileSpeed);
             yield return new WaitForSeconds(0);
         }
 
@@ -64,5 +54,30 @@ namespace PaintingTanks.Entities.Agent
         protected virtual void PostShootMethod() { }
         protected virtual void PostShoot() { }
         protected virtual void PreShoot() { }
+
+        public void On()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Off()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ObservableValue<float> RateOfFire;
+        public Transform ProjectileStart;
+        public ObservableValue<float> ProjectileSpeed = new ObservableValue<float>();
+        [SerializeField] ForceMode ForceType = ForceMode.Impulse;
+
+        [SerializeField] private Vector3 spread = Vector3.zero;
+        [SerializeField] private Transform projectileSpawn;
+        [SerializeField] private Vector3 velocity;
+
+        [SerializeField] private Projectile projectile;
+
+        private bool shooting;
+        private bool rateOfFireHandler;
+        private bool ready;
     }
 }

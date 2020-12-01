@@ -15,7 +15,7 @@ namespace PaintingTanks.Entities.Player
         {
             foreach (var item in tracks)
             {
-                if (Physics.Raycast(item.position, Vector3.down, out RaycastHit hit, 1f))
+                if (Physics.Raycast(item.position + Vector3.up/4, Vector3.down/3, out RaycastHit hit, 1f))
                 {
                     PaintableMesh.HandlePainting(hit, trackBrush.Texture, trackBrush.Affects);
                 }

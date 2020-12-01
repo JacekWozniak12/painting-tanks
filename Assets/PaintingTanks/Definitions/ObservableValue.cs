@@ -8,6 +8,11 @@ namespace PaintingTanks.Definitions
     [Serializable]
     public class ObservableValue<T> : IValueProvider<T>, IValueReceiver<T>
     {
+        public ObservableValue(T value = default(T))
+        {
+            Value = value;
+        }
+
         [SerializeField] T _value;
 
         public T Value

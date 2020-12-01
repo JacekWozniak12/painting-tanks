@@ -10,6 +10,8 @@ namespace PaintingTanks.Entities.PlayerItems
         public event Action PositionChanged;
         public event Action<float> ConstrainedAngle;
 
+        // desired location and current location todo
+
         private void Awake()
         {
             transform = GetComponent<Transform>();
@@ -42,7 +44,7 @@ namespace PaintingTanks.Entities.PlayerItems
 
         public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 spread = default(Vector3))
         {
-            return KinematicsL.GetVelocityFromPointsAndTime(transform.position, start, speedPerSecond, spread);
+            return KinematicsL.GetStraightVelocityFromPointsAndTime(transform.position, start, speedPerSecond, spread);
         }
 
         private void UpdatePosition()

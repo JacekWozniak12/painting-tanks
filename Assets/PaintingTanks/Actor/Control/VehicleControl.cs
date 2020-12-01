@@ -13,19 +13,12 @@
 
         [Header("Settings")]
         [SerializeField] protected MovementScheme Scheme;
-
-        [Header("Weapons")]
-        [SerializeField] protected List<IWeapon> Weapons;
-
         
         [Header("Movement Agents")]
         [SerializeField] protected MovementAgent Body;
         [SerializeField] protected MovementAgent Turret;
         [SerializeField] protected MovementAgent Barrel;
 
-
-        [Header("Command Agents")]
-        [SerializeField] protected CommandAgent Command;
     }
 
     public enum MovementScheme { Tank, Assault_Gun, Artillery }
