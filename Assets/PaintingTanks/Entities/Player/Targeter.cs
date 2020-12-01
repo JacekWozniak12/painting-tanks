@@ -3,6 +3,7 @@ namespace PaintingTanks.Entities.PlayerItems
     using UnityEngine;
     using PaintingTanks.Actor.Control;
     using System;
+    using PaintingTanks.Library;
 
     public class Targeter : MonoBehaviour
     {
@@ -38,6 +39,12 @@ namespace PaintingTanks.Entities.PlayerItems
             CheckBoundsAndSetPosition(position);
             if (previousPosition != transform.position) UpdatePosition();
         }
+
+        public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 spread = default(Vector3))
+        {
+            return KinematicsL.GetVelocityFromPointsAndTime(transform.position, start, speedPerSecond, spread);
+        }
+
         private void UpdatePosition()
         {
             previousPosition = transform.position;

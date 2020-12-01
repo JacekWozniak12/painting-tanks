@@ -8,7 +8,7 @@ namespace PaintingTanks.Entities.Agent
 
     public class Weapon : MonoBehaviour, IWeapon
     {
-        public ObservableFloatValue RateOfFire;
+        public ObservableValue<float> RateOfFire;
         public Transform Barrel;
         public float ProjectileSpeed = 20f;
 

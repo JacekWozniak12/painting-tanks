@@ -1,21 +1,26 @@
 ﻿namespace PaintingTanks.Actor.Control
 {
+    using System.Collections.Generic;
+    using PaintingTanks.Interfaces;
     using UnityEngine;
 
     public class VehicleControl : MonoBehaviour
     {
         protected void HandleBodyRotation(Vector3 vector, float deltaTime, bool active) => Body.Rotate(vector, deltaTime, active);
         protected void HandleBodyMovement(Vector3 vector, float deltaTime, bool active) => Body.Move(vector, deltaTime, active);
-        protected void HandleWeaponRotation(Vector3 vector, float deltaTime, bool active) => Weapon.LookRotate(vector, deltaTime, active);
+        protected void HandleWeaponRotation(Vector3 vector, float deltaTime, bool active) => Turret.LookRotate(vector, deltaTime, active);
         protected void HandleGunRotation(Vector3 vector, float deltaTime, bool active) => Barrel.LookRotate(vector, deltaTime, active);
 
         [Header("Settings")]
         [SerializeField] protected MovementScheme Scheme;
 
+        [Header("Weapons")]
+        [SerializeField] protected List<IWeapon> Weapons;
+
         
         [Header("Movement Agents")]
         [SerializeField] protected MovementAgent Body;
-        [SerializeField] protected MovementAgent Weapon;
+        [SerializeField] protected MovementAgent Turret;
         [SerializeField] protected MovementAgent Barrel;
 
 

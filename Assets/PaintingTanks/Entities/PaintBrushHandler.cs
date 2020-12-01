@@ -10,7 +10,7 @@ namespace PaintingTanks.Entities
     {
         public Texture2D Texture = default(Texture2D);
         public ObservableValue<Vector2Int> Size = new ObservableValue<Vector2Int>();
-        public ObservableColor32Value Color = new ObservableColor32Value();
+        public ObservableValue<Color32> Color = new ObservableValue<Color32>();
         public LayerMask Affects = default(LayerMask);
 
         private void OnEnable()
@@ -25,7 +25,7 @@ namespace PaintingTanks.Entities
 
 
         [ContextMenu("Update Texture")]
-        private void UpdateTexture()
+        public void UpdateTexture()
             => Texture = CreateDummyTexture();
     }
 }

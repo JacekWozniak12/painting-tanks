@@ -13,19 +13,25 @@ namespace PaintingTanks.Entities
 
         private void Awake()
         {
+            brush.UpdateTexture();
+            trail.startColor = (Color)brush.Color.Value;
             SetupPrerequisities();
         }
 
         protected virtual void SetupPrerequisities()
         {
-            throw new NotImplementedException();
+
         }
 
         void OnCollisionEnter(Collision other) => OnHit(other);
 
         protected virtual void OnHit(Collision other)
         {
-            PaintableMesh.HandlePainting(other, brush.Texture, brush.Affects);
+            if ((brush.Affects.value & 1 << other.gameObject.layer) != 0)
+            {
+                PaintableMesh.HandlePainting(other, brush.Texture, brush.Affects);
+                Destroy(this.gameObject);
+            }
         }
     }
 }
