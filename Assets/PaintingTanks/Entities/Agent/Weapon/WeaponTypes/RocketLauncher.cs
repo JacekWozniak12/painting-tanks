@@ -12,14 +12,27 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
         public float Delay = 0.2f;
         public int LaunchersPerShot = 2;
 
+        private bool LockWish = false;
+
         protected override void SetupPrerequisites()
         {
             Vehicle = VelocityProvider.VehicleControl;
+            TriggerPressed += WishForLock;
         }
 
         protected override bool otherConditions()
         {
             return !Vehicle.IsMoving();
+        }
+
+        protected void WishForLock()
+        {
+            if (!IsShooting())
+            {
+                LockWish = !LockWish;
+                print(LockWish);
+                Vehicle.LockVehicle(LockWish);
+            }
         }
 
         protected sealed override IEnumerator ShootMethod()

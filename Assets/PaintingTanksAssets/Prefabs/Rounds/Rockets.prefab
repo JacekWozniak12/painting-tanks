@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brush: {fileID: 8923610946783092096}
   trail: {fileID: -3285754509330602284}
-  hitVFX: {fileID: 0}
+  hitVFX: {fileID: 2860051623709082473, guid: 6efd8d89f8deca44780fefd3dd159f21, type: 3}
   sound: {fileID: 0}
 --- !u!114 &8923610946783092096
 MonoBehaviour:
@@ -146,7 +146,7 @@ MonoBehaviour:
   Texture: {fileID: 0}
   textureType: 0
   Size:
-    _value: {x: 12, y: 12}
+    _value: {x: 16, y: 16}
   Color:
     _value:
       serializedVersion: 2

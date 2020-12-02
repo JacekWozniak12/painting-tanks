@@ -225,7 +225,7 @@ MonoBehaviour:
   MinimalRange:
     _value: 10
   MaximalRange:
-    _value: 50
+    _value: 60
   angleConstrained:
     _value: 0
   angle:
@@ -246,13 +246,14 @@ MonoBehaviour:
   RateOfFire:
     _value: 5
   ProjectileSpeed:
-    _value: 50
+    _value: 75
   projectile:
     _value: {fileID: 0}
   spread:
-    _value: {x: 0.1, y: 0.1, z: 0.1}
+    _value: {x: 1, y: 3, z: 5}
   ProjectileStart: {fileID: 0}
   ForceType: 1
+  Vehicle: {fileID: 0}
   Launchers:
   - {fileID: 491736263}
   - {fileID: 2131144414}
@@ -281,8 +282,8 @@ MonoBehaviour:
   - {fileID: 1745265014}
   - {fileID: 679289005}
   - {fileID: 1463909067}
-  Delay: 0.3
-  LaunchersPerShot: 3
+  Delay: 0.1
+  LaunchersPerShot: 1
 --- !u!1 &268302069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2436,6 +2437,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 359272808}
+    - target: {fileID: 7295764735132476330, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: MaximalRange._value
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7295764735132476335, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
       propertyPath: m_Name
       value: BaseTurret
@@ -2443,6 +2448,26 @@ PrefabInstance:
     - target: {fileID: 7295764735907121249, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
       propertyPath: m_Name
       value: Hmg
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295764735907121251, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: RateOfFire._value
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295764735907121251, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: spread._value.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295764735907121251, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: spread._value.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295764735907121251, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: spread._value.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295764735907121276, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: MaximalRange._value
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7980146433173268575, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
       propertyPath: m_LocalPosition.x

@@ -23,7 +23,7 @@ namespace PaintingTanks.Entities
 
         protected virtual void SetupPrerequisities()
         {
-            
+
         }
 
         void OnCollisionEnter(Collision other) => OnHit(other);
@@ -33,7 +33,12 @@ namespace PaintingTanks.Entities
             if ((brush.Affects.value & 1 << other.gameObject.layer) != 0)
             {
                 PaintableMesh.HandlePainting(other, brush.Texture, brush.Affects);
-                Destroy(this.gameObject);
+                if (hitVFX != null)
+                {
+                    var a = Instantiate(hitVFX, other.GetContact(0).point, Quaternion.Euler(other.GetContact(0).normal));
+                    a.Activate();
+                }
+                else Destroy(this.gameObject);
             }
         }
     }

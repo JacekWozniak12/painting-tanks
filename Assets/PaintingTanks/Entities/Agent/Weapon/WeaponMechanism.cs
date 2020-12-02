@@ -11,7 +11,12 @@ namespace PaintingTanks.Entities.Agent
     {
         public bool IsShooting() => triggerOn;
         public void Ready(bool isTrue) => ready = isTrue;
-        public void Trigger(bool isActive) { triggerOn = isActive; }
+        public void Trigger(bool isActive)
+        {
+            triggerOn = isActive;
+            if(isActive) TriggerPressed?.Invoke();
+        }
+        public event Action TriggerPressed;
 
         public PlayerWeaponControls VelocityProvider;
 
@@ -36,12 +41,12 @@ namespace PaintingTanks.Entities.Agent
         {
             if (triggerOn)
             {
+                BeforeChecking();
                 if (ready && rateOfFireHandler && otherConditions())
                 {
-                    PreShoot();
                     StartCoroutine(Shoot());
-                    PostShoot();
                 }
+                AfterChecking();
             }
         }
 
@@ -70,8 +75,8 @@ namespace PaintingTanks.Entities.Agent
 
         protected virtual void PreShootMethod() { }
         protected virtual void PostShootMethod() { }
-        protected virtual void PostShoot() { }
-        protected virtual void PreShoot() { }
+        protected virtual void AfterChecking() { }
+        protected virtual void BeforeChecking() { }
 
 
         [Header("Gameplay settings")]

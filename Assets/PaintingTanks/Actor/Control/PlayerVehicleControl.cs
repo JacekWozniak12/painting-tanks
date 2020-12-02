@@ -34,10 +34,7 @@ namespace PaintingTanks.Actor.Control
 
         public void LockVehicle(bool isTrue)
         {
-            if (!IsMoving())
-            {
-                Lock = isTrue;
-            }
+            Lock = isTrue;
         }
 
         private bool Lock;
