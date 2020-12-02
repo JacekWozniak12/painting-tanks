@@ -7,7 +7,7 @@ namespace PaintingTanks.Actor.Control
 
     public class PlayerWeaponControls : MonoBehaviour
     {
-        [SerializeField] PlayerVehicleControl VehicleControl;
+        public PlayerVehicleControl VehicleControl;
         [SerializeField] Targeter TargetPositioner;
         [SerializeField] WeaponManager manager;
 
@@ -15,6 +15,11 @@ namespace PaintingTanks.Actor.Control
         {
             SetControls();
             if (manager == null) manager = GetComponent<WeaponManager>();
+        }
+        
+        public void LockCursor(bool isTrue)
+        {
+            TargetPositioner.Lock = isTrue;
         }
 
         private void SetControls()

@@ -6,11 +6,6 @@ namespace PaintingTanks.Library
     public static class KinematicsL
     {
 
-        public static Vector3 GetAngledVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, float angle, Vector3 modifier, Vector3 gravity)
-        {
-            throw new NotImplementedException();
-        }
-
         public static Vector3 GetStraightVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, Vector3 modifier)
             => GetStraightVelocityFromPointsAndTime(start, end, speedPerSecond, modifier, Physics.gravity);
 
@@ -33,7 +28,7 @@ namespace PaintingTanks.Library
             float horizontalSpeed = horizontalDistance / timeToTarget;
             float verticalSpeed = (verticalDistance + ((0.5f * gravity.magnitude) * (timeToTarget * timeToTarget))) / timeToTarget;
 
-            return (horizontal.normalized * horizontalSpeed) - (gravity.normalized * verticalSpeed);
+            return (horizontal.normalized * horizontalSpeed) - (gravity.normalized * verticalSpeed) + modifier;
         }
 
         public static Vector3 GetVerticalVector(Vector3 vector, Vector3 gravityBase) => Vector3.Project(vector, gravityBase);

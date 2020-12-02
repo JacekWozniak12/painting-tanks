@@ -34,6 +34,12 @@ namespace PaintingTanks.Behaviours.Game
             }
         }
 
+        public bool IsMoving()
+        {
+            if(rigidbody.velocity != Vector3.zero) return true;
+            else return false;
+        }
+
         private void HandleRotationLimit(Vector3 value)
         {
             if (MinimalMaximalRotationOfX || MinimalMaximalRotationOfY || MinimalMaximalRotationOfZ)

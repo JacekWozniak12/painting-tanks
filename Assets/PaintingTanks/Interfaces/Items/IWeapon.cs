@@ -9,6 +9,7 @@ namespace PaintingTanks.Interfaces
         float GetMinimalRange();
         float GetMaximalRange();
         bool GetAngleConstraint(out float Angle);
+        bool IsFiring();
         MovementScheme GetMovementScheme();
     }
 }

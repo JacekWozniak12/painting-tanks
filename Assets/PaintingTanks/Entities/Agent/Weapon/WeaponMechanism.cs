@@ -9,15 +9,20 @@ namespace PaintingTanks.Entities.Agent
 
     public class WeaponMechanism : MonoBehaviour, IWeaponMechanism
     {
-        public bool IsShooting() => shooting;
+        public bool IsShooting() => triggerOn;
         public void Ready(bool isTrue) => ready = isTrue;
-        public void Trigger(bool isActive) { shooting = isActive; }
+        public void Trigger(bool isActive) { triggerOn = isActive; }
 
         public PlayerWeaponControls VelocityProvider;
 
-        private Vector3 GetVelocity()
+        protected Vector3 GetVelocity(Vector3 customStart)
         {
-            return VelocityProvider.GetVelocity(ProjectileStart.transform.position, Vector3.zero, ProjectileSpeed, spread, Vector3.zero);
+            return VelocityProvider.GetVelocity(customStart, Vector3.zero, ProjectileSpeed, spread, Vector3.zero);
+        }
+
+        protected Vector3 GetVelocity()
+        {
+            return GetVelocity(ProjectileStart.transform.position);
         }
 
         protected virtual void SetupPrerequisites() { }
@@ -29,9 +34,9 @@ namespace PaintingTanks.Entities.Agent
 
         private void Update()
         {
-            if (shooting)
+            if (triggerOn)
             {
-                if (ready && rateOfFireHandler)
+                if (ready && rateOfFireHandler && otherConditions())
                 {
                     PreShoot();
                     StartCoroutine(Shoot());
@@ -40,13 +45,17 @@ namespace PaintingTanks.Entities.Agent
             }
         }
 
+        protected virtual bool otherConditions() => true;
+
         protected IEnumerator Shoot()
         {
             rateOfFireHandler = false;
+            isShooting = true;
             PreShootMethod();
             StartCoroutine(ShootMethod());
-            PostShoot();
+            PostShootMethod();
             yield return new WaitForSeconds(RateOfFire);
+            isShooting = false;
             rateOfFireHandler = true;
         }
 
@@ -76,8 +85,9 @@ namespace PaintingTanks.Entities.Agent
         [SerializeField] Transform ProjectileStart = default;
         [SerializeField] ForceMode ForceType = ForceMode.Impulse;
 
-        private bool shooting = default;
+        private bool triggerOn = default;
         private bool rateOfFireHandler = true;
         private bool ready = true;
+        public bool isShooting { get; private set; }
     }
 }

@@ -48,8 +48,11 @@ namespace PaintingTanks.Entities.Agent
 
         public void Scrolling(float value)
         {
-            if (value > 0) ScrollUp();
-            else if (value < 0) ScrollDown();
+            if (!CurrentWeapon.IsFiring())
+            {
+                if (value > 0) ScrollUp();
+                else if (value < 0) ScrollDown();
+            }
         }
 
         public void ScrollDown()

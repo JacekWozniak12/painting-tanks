@@ -32,25 +32,43 @@ namespace PaintingTanks.Actor.Control
             HandleControls();
         }
 
+        public void LockVehicle(bool isTrue)
+        {
+            if (!IsMoving())
+            {
+                Lock = isTrue;
+            }
+        }
+
+        private bool Lock;
+
+        public bool IsMoving()
+        {
+            return Body.IsMoving();
+        }
+
         private void HandleControls()
         {
-            var pressed = CheckIfPlayerMoves(Controller.Controls.Player.Move.ReadValue<Vector2>());
-            var xInput = Controller.Controls.Player.Move.ReadValue<Vector2>().y;
-            var yInput = Controller.Controls.Player.Move.ReadValue<Vector2>().x;
-
-            switch (Scheme)
+            if (!Lock)
             {
-                case MovementScheme.Tank:
-                    TankScheme(Time.fixedDeltaTime, xInput, yInput, pressed);
-                    break;
-                case MovementScheme.Artillery:
-                    ArtilleryScheme(Time.fixedDeltaTime, xInput, yInput, pressed);
-                    break;
-                case MovementScheme.Assault_Gun:
-                    AssaultGunScheme(Time.fixedDeltaTime, xInput, yInput, pressed);
-                    break;
+                var pressed = CheckIfPlayerMoves(Controller.Controls.Player.Move.ReadValue<Vector2>());
+                var xInput = Controller.Controls.Player.Move.ReadValue<Vector2>().y;
+                var yInput = Controller.Controls.Player.Move.ReadValue<Vector2>().x;
+
+                switch (Scheme)
+                {
+                    case MovementScheme.Tank:
+                        TankScheme(Time.fixedDeltaTime, xInput, yInput, pressed);
+                        break;
+                    case MovementScheme.Artillery:
+                        ArtilleryScheme(Time.fixedDeltaTime, xInput, yInput, pressed);
+                        break;
+                    case MovementScheme.Assault_Gun:
+                        AssaultGunScheme(Time.fixedDeltaTime, xInput, yInput, pressed);
+                        break;
+                }
+                targeterPositionChanged = false;
             }
-            targeterPositionChanged = false;
         }
 
         private static bool CheckIfPlayerMoves(Vector2 v) => v.x > 0 || v.x < 0 || v.y > 0 || v.y < 0;

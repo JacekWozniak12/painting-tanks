@@ -20,6 +20,7 @@ namespace PaintingTanks.Entities.PlayerItems
 
         private void Update()
         {
+            if (Lock) return;
             if (UseConstraint) CheckCurrentPositionForConstraint();
             if (previousPosition != transform.position) UpdatePosition();
             if (UseMouse) HandleCursor();
@@ -46,6 +47,7 @@ namespace PaintingTanks.Entities.PlayerItems
         public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 modifier = default(Vector3))
         {
             var point = transform.position;
+            modifier = transform.TransformDirection(modifier);
             if (UsePreciseCalculation)
             {
                 var distance = Vector3.Distance(Pivot.position, transform.position);
@@ -80,9 +82,9 @@ namespace PaintingTanks.Entities.PlayerItems
             var currentDirection = (Pivot.position - point).normalized;
 
             if (currentDistance >= MaxDistance) SetConstrainedDistance(currentDirection, MaxDistance);
-            
+
             else if (currentDistance <= MinDistance) SetConstrainedDistance(currentDirection, MinDistance);
-            
+
             else SetConstrainedDistance(currentDirection, currentDistance);
         }
 
@@ -99,11 +101,6 @@ namespace PaintingTanks.Entities.PlayerItems
                     HandleAngleConstraints(ref angle, out float angleExceedsBy);
                     CalculateConstraintedValue(distance, angle, angleExceedsBy);
                 }
-            }
-            else
-            {
-                p.y = 0;
-                transform.position = p;
             }
         }
 
@@ -154,6 +151,7 @@ namespace PaintingTanks.Entities.PlayerItems
 
         public bool UseMouse = true;
         public bool UseConstraint = false;
+        public bool Lock = false;
         public Transform ConstrainedTo;
         public float ConstraintValue = 30f;
 

@@ -19,6 +19,8 @@ namespace PaintingTanks.Actor
             movement.Setup(GetComponent<Transform>(), GetComponent<Rigidbody>());
         }
 
+        public bool IsMoving() => movement.IsMoving();
+
         public void Move(Vector3 v, float deltaTime, bool active = false)
         {
             var speed = acceleration.GetSpeed(deltaTime, movementSpeed, active);

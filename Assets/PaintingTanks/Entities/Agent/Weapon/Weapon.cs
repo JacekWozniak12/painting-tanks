@@ -50,5 +50,10 @@ namespace PaintingTanks.Entities.Agent
             angle = this.angle;
             return angleConstrained;
         }
+
+        public bool IsFiring()
+        {
+            return mechanism.isShooting;
+        }
     }
 }
