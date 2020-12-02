@@ -2,8 +2,6 @@ namespace PaintingTanks.Actor.Control
 {
     using System;
     using PaintingTanks.Entities.PlayerItems;
-    using PaintingTanks.Interfaces;
-    using PaintingTanks.Library;
     using UnityEngine;
 
     [RequireComponent(typeof(Controller))]

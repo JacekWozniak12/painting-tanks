@@ -1,16 +1,13 @@
-using System;
 namespace PaintingTanks.Actor.Control
 {
-    using System.Collections;
-    using System.Collections.Generic;
     using PaintingTanks.Entities.Agent;
     using PaintingTanks.Entities.PlayerItems;
-    using PaintingTanks.Interfaces;
     using PaintingTanks.Library;
     using UnityEngine;
 
     public class PlayerWeaponControls : MonoBehaviour
     {
+        [SerializeField] PlayerVehicleControl VehicleControl;
         [SerializeField] Targeter TargetPositioner;
         [SerializeField] WeaponManager manager;
 
@@ -23,8 +20,20 @@ namespace PaintingTanks.Actor.Control
         private void SetControls()
         {
             Controller.Controls.Player.Switch.started += ctx => manager?.Scrolling(Controller.Controls.Player.Switch.ReadValue<Vector2>().y);
+            manager.FinishedSwitching += SetWeaponOptions;
             Controller.Controls.Player.Fire.performed += ctx => manager.CurrentWeapon?.GetMechanism().Trigger(true);
             Controller.Controls.Player.Fire.canceled += ctx => manager.CurrentWeapon?.GetMechanism().Trigger(false);
+        }
+
+        private void SetWeaponOptions()
+        {
+            if (manager.CurrentWeapon == null) Debug.Log("Weapon wasn't selected");
+            else
+            {
+                TargetPositioner.MaxDistance.Value = manager.CurrentWeapon.GetMaximalRange();
+                TargetPositioner.MinDistance.Value = manager.CurrentWeapon.GetMinimalRange();
+                VehicleControl.ChangeControlScheme(manager.CurrentWeapon.GetMovementScheme());
+            }
         }
 
         public Vector3 GetVelocity(Vector3 position, Vector3 startModifier, float speed, Vector3 spread, Vector3 endModifier)

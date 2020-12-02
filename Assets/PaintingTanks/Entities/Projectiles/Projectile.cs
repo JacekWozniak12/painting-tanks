@@ -9,8 +9,7 @@ namespace PaintingTanks.Entities
     public class Projectile : MonoBehaviour
     {
         // todo pooling system
-
-        [SerializeField] protected PaintBrushHandler brush;
+        public PaintBrushHandler brush;
         [SerializeField] protected TrailRenderer trail;
         [SerializeField] protected ParticleHolder hitVFX;
         [SerializeField] protected AudioClip sound;

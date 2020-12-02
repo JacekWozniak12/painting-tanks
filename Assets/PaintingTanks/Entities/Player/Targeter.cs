@@ -4,17 +4,18 @@ namespace PaintingTanks.Entities.PlayerItems
     using PaintingTanks.Actor.Control;
     using System;
     using PaintingTanks.Library;
+    using PaintingTanks.Definitions;
 
     public class Targeter : MonoBehaviour
     {
         public event Action PositionChanged;
         public event Action<float> ConstrainedAngle;
 
-        // desired location and current location todo
-
         private void Awake()
         {
             transform = GetComponent<Transform>();
+            MinDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
+            MaxDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
         }
 
         private void Update()
@@ -28,7 +29,7 @@ namespace PaintingTanks.Entities.PlayerItems
         {
             var direction = (Pivot.position - transform.position).normalized;
             var distance = Vector3.Distance(Pivot.position, transform.position);
-            var angle  = Vector3.SignedAngle(direction, ConstrainedTo.forward, Vector3.up);
+            var angle = Vector3.SignedAngle(direction, ConstrainedTo.forward, Vector3.up);
             if (CheckAngleConstraint(angle))
             {
                 HandleAngleConstraints(ref angle, out float angleExceedsBy);
@@ -44,7 +45,17 @@ namespace PaintingTanks.Entities.PlayerItems
 
         public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 modifier = default(Vector3))
         {
-            return KinematicsL.GetStraightVelocityFromPointsAndTime(transform.position, start, speedPerSecond, modifier);
+            var point = transform.position;
+            if (UsePreciseCalculation)
+            {
+                var distance = Vector3.Distance(Pivot.position, transform.position);
+                var p = Pivot.position + PreciseCalculationsTowards.forward * distance;
+                if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 9, out RaycastHit hit, 1000, layerMask))
+                {
+                    point = hit.point;
+                }
+            }
+            return KinematicsL.GetStraightVelocityFromPointsAndTime(point, start, speedPerSecond, modifier);
         }
 
         private void UpdatePosition()
@@ -68,11 +79,10 @@ namespace PaintingTanks.Entities.PlayerItems
             var currentDistance = Vector3.Distance(Pivot.position, point);
             var currentDirection = (Pivot.position - point).normalized;
 
-            if (currentDistance >= MaxDistance)
-                SetConstrainedDistance(currentDirection, MaxDistance);
-            else
-            if (currentDistance <= MinDistance)
-                SetConstrainedDistance(currentDirection, MinDistance);
+            if (currentDistance >= MaxDistance) SetConstrainedDistance(currentDirection, MaxDistance);
+            
+            else if (currentDistance <= MinDistance) SetConstrainedDistance(currentDirection, MinDistance);
+            
             else SetConstrainedDistance(currentDirection, currentDistance);
         }
 
@@ -90,13 +100,18 @@ namespace PaintingTanks.Entities.PlayerItems
                     CalculateConstraintedValue(distance, angle, angleExceedsBy);
                 }
             }
+            else
+            {
+                p.y = 0;
+                transform.position = p;
+            }
         }
 
         private void CalculateConstraintedValue(float distance, float angle, float angleExceedsBy)
         {
             var direction = Pivot.forward + Pivot.TransformDirection(new Vector3(0, Mathf.Sin(angle), 0).normalized);
             var p = Pivot.position + direction * distance;
-            if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 8, out RaycastHit hit))
+            if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 8, out RaycastHit hit, 1000, layerMask))
             {
                 transform.position = hit.point;
             }
@@ -131,8 +146,11 @@ namespace PaintingTanks.Entities.PlayerItems
         [SerializeField] private LayerMask layerMask;
 
         public Transform Pivot;
-        public float MaxDistance;
-        public float MinDistance;
+        public ObservableValue<float> MaxDistance;
+        public ObservableValue<float> MinDistance;
+
+        public bool UsePreciseCalculation = true;
+        public Transform PreciseCalculationsTowards;
 
         public bool UseMouse = true;
         public bool UseConstraint = false;

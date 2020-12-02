@@ -11,6 +11,7 @@ namespace PaintingTanks.Entities.Agent
     public class WeaponManager : MonoBehaviour
     {
         public IWeapon CurrentWeapon { get; private set; }
+        public PaintBrushHandler paintBrushHandler;
 
         int index = 0;
 
@@ -41,8 +42,8 @@ namespace PaintingTanks.Entities.Agent
         IEnumerator SwitchWeapon(IWeapon weapon)
         {
             yield return new WaitForSeconds(switchingTime);
-            FinishedSwitching?.Invoke();
             CurrentWeapon = weapon;
+            FinishedSwitching?.Invoke();
         }
 
         public void Scrolling(float value)

@@ -36,18 +36,25 @@ namespace PaintingTanks.Behaviours.Game
 
         private void HandleRotationLimit(Vector3 value)
         {
-            if (MinimalMaximalRotationOfX)
+            if (MinimalMaximalRotationOfX || MinimalMaximalRotationOfY || MinimalMaximalRotationOfZ)
             {
-                value.x = RotationL.ClampAngle(value.x, BaseRotation.x + MinimalLocalRotation.x, BaseRotation.x + MaximalLocalRotation.x);
+                var min = MinimalLocalRotation / 180;
+                var max = MaximalLocalRotation / 180;
+                
+                if (MinimalMaximalRotationOfX)
+                {
+                    value.x = RotationL.ClampAngle(value.x, BaseRotation.x + min.x, BaseRotation.x + max.x);
+                }
+                if (MinimalMaximalRotationOfY)
+                {
+                    value.y = RotationL.ClampAngle(value.y, BaseRotation.y + min.y, BaseRotation.y + max.y);
+                }
+                if (MinimalMaximalRotationOfZ)
+                {
+                    value.z = RotationL.ClampAngle(value.z, BaseRotation.z + min.z, BaseRotation.z + max.z);
+                }
             }
-            if (MinimalMaximalRotationOfY)
-            {
-                value.y = RotationL.ClampAngle(value.y, BaseRotation.y + MinimalLocalRotation.y, BaseRotation.y + MaximalLocalRotation.y);
-            }
-            if (MinimalMaximalRotationOfZ)
-            {
-                value.z = RotationL.ClampAngle(value.z, BaseRotation.z + MinimalLocalRotation.z, BaseRotation.z + MaximalLocalRotation.z);
-            }
+
         }
 
         public void Move(Vector3 value)
@@ -67,7 +74,7 @@ namespace PaintingTanks.Behaviours.Game
         public bool MinimalMaximalRotationOfX;
         public bool MinimalMaximalRotationOfY;
         public bool MinimalMaximalRotationOfZ;
-        
+
         Transform transform;
         Rigidbody rigidbody;
         public bool CanMove = true;

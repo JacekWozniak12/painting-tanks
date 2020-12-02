@@ -1,3 +1,4 @@
+using System;
 namespace PaintingTanks.Library
 {
     using UnityEngine;
@@ -5,6 +6,8 @@ namespace PaintingTanks.Library
 
     public static class GraphicsL
     {
+        public static readonly Color32 fullAlpha = new Color32(0, 0, 0, 0);
+
         public static Texture2D CreateMonoColorTexture(Vector2Int size, Color32 color)
         {
             var tex = new Texture2D(size.x, size.y);
@@ -12,6 +15,35 @@ namespace PaintingTanks.Library
             tex.SetPixels32(C);
             tex.Apply();
             return tex;
+        }
+
+        public static Texture2D CreateMonoColorCircleTexture(Vector2Int size, Color32 color)
+        {
+            var tex = new Texture2D(size.x, size.y);
+            Color32[] C = CreateMonoColorCircleArray(size.x * size.y, color);
+            tex.SetPixels32(C);
+            tex.Apply();
+            return tex;
+        }
+
+        public static Color32[] CreateMonoColorCircleArray(int size, Color32 color)
+        {
+            Color32[] C = new Color32[size];
+            int t = (int)Mathf.Sqrt(size);
+
+            int index = 0;
+            for (int i = 0; i < t; i++)
+            {
+                for (int j = 0; j < t; j++)
+                {
+                    if (i * i + j * j <= size)
+                    {
+                        C[index++] = color;
+                    }
+                    else C[index++] = fullAlpha;
+                }
+            }
+            return C;
         }
 
         public static Color32[] CreateMonoColorArray(int size, Color32 color)

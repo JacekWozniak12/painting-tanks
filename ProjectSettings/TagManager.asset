@@ -14,14 +14,14 @@ TagManager:
   - 
   - 
   - Player1_Ignore
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player2_Ignore
+  - Player3_Ignore
+  - Player4_Ignore
+  - Player5_Ignore
+  - Player6_Ignore
+  - Player7_Ignore
+  - Player8_Ignore
+  - BACKGROUND_HOLDER
   - 
   - 
   - 

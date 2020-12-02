@@ -4,6 +4,7 @@
     {
         // Object textures
         [Header(Object)][Space] 
+        _ColorModifier("Color", Color) = (0,0,0,0)
         _MainTex("Main Texture", 2D) = "white" {}
         [Normal]
         _BumpTex("Normal Texture", 2D) = "bump" {}
@@ -52,6 +53,7 @@
 
         half _Glossiness;
         half _Metallic;
+        half _ColorModifier;
 
         struct Input {
             float2 uv_MainTex : TEXDOORD0;
@@ -74,13 +76,12 @@
      
             o.Normal -= _BumpDepth;
 
-            o.Albedo = main_color.rgb - paint.a * _Influence;
+            o.Albedo = main_color.rgb + _ColorModifier - paint.a * _Influence;
             o.Albedo += paint.rgb * paint.a * _Influence;
             
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = main_color.a;
-
         }
         ENDCG  
     }
