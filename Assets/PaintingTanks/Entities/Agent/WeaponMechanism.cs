@@ -4,16 +4,21 @@ namespace PaintingTanks.Entities.Agent
     using Definitions;
     using Interfaces;
     using System.Collections;
-    using PaintingTanks.Interfaces.Basic;
     using System;
+    using PaintingTanks.Actor.Control;
 
     public class WeaponMechanism : MonoBehaviour, IWeaponMechanism
     {
         public bool IsShooting() => shooting;
         public void Ready(bool isTrue) => ready = isTrue;
         public void Trigger(bool isActive) { shooting = isActive; }
+        
+        public PlayerWeaponControls VelocityProvider; 
 
-        public event Action TriggerPressed;
+        private Vector3 GetVelocity()
+        {
+            return VelocityProvider.GetVelocity(ProjectileStart.transform.position, Vector3.zero, ProjectileSpeed, spread, Vector3.zero);
+        }
 
         protected virtual void SetupPrerequisites() { }
 
@@ -47,17 +52,14 @@ namespace PaintingTanks.Entities.Agent
 
         protected virtual IEnumerator ShootMethod()
         {
-            var a = Instantiate(projectile.Value, ProjectileStart, true);
+            var a = Instantiate(projectile.Value);
+            a.transform.position = ProjectileStart.transform.position;
             var rb = a.GetComponent<Rigidbody>();
-            rb.AddForce(ProjectileStart.forward * ProjectileSpeed);
+            rb.AddForce(GetVelocity(), ForceType);
             yield return new WaitForEndOfFrame();
         }
 
-        protected virtual void PreShootMethod()
-        {
-
-        }
-        
+        protected virtual void PreShootMethod() {}   
         protected virtual void PostShootMethod() { }
         protected virtual void PostShoot() { }
         protected virtual void PreShoot() { }
@@ -73,11 +75,9 @@ namespace PaintingTanks.Entities.Agent
         [Header("Weapon settings")]
         [SerializeField] Transform ProjectileStart;
         [SerializeField] ForceMode ForceType = ForceMode.Impulse;
-        [SerializeField] private Transform projectileSpawn;
-        [SerializeField] private Vector3 velocity;
 
         private bool shooting;
-        private bool rateOfFireHandler;
-        private bool ready;
+        private bool rateOfFireHandler = true;
+        private bool ready = true;
     }
 }

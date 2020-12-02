@@ -2,6 +2,6 @@ namespace PaintingTanks.Interfaces
 {
     public interface IProvide<T>
     {
-        T getProvided();
+        T getProvided(object[] args);
     }
 }

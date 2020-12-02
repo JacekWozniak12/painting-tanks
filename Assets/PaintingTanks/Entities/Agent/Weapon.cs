@@ -11,7 +11,11 @@ namespace PaintingTanks.Entities.Agent
         private void Awake()
         {
             if (mechanism == null) 
-            throw new System.Exception($"{mechanism} shall not be null");
+            {
+                mechanism = GetComponent<WeaponMechanism>();
+                if(mechanism == null) throw new System.Exception($"{mechanism} shall not be null");
+            }
+            
 
             if (magazine != null)
             {
@@ -20,7 +24,7 @@ namespace PaintingTanks.Entities.Agent
                 magazine.ReloadFinished += SetReadyOn;
             }
         }
-
+        
         private void SetTriggerOn() => mechanism.Trigger(true);
         private void SetTriggerOff() => mechanism.Trigger(false);
         private void SetReadyOff() => mechanism.Ready(false);

@@ -32,6 +32,6 @@ namespace PaintingTanks.Definitions
             Changed += receiver.OnChange;
         }
         public void OnChange(T value) => Value = value;
-        public static implicit operator T(ObservableValue<T> ov) => ov._value;
+        public static implicit operator T(ObservableValue<T> ov) => ov.Value;
     }
 }

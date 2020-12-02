@@ -11,8 +11,8 @@ namespace PaintingTanks.Library
             throw new NotImplementedException();
         }
 
-        public static Vector3 GetStraightVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, Vector3 spread)
-            => GetStraightVelocityFromPointsAndTime(start, end, speedPerSecond, spread, Physics.gravity);
+        public static Vector3 GetStraightVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond, Vector3 modifier)
+            => GetStraightVelocityFromPointsAndTime(start, end, speedPerSecond, modifier, Physics.gravity);
 
         public static Vector3 GetVelocityFromPointsAndTime(Vector3 start, Vector3 end, float speedPerSecond)
             => GetStraightVelocityFromPointsAndTime(start, end, speedPerSecond, Vector3.zero);

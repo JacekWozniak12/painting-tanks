@@ -42,9 +42,9 @@ namespace PaintingTanks.Entities.PlayerItems
             if (previousPosition != transform.position) UpdatePosition();
         }
 
-        public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 spread = default(Vector3))
+        public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 modifier = default(Vector3))
         {
-            return KinematicsL.GetStraightVelocityFromPointsAndTime(transform.position, start, speedPerSecond, spread);
+            return KinematicsL.GetStraightVelocityFromPointsAndTime(transform.position, start, speedPerSecond, modifier);
         }
 
         private void UpdatePosition()

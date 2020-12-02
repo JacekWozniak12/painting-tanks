@@ -38,7 +38,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""name"": ""Switch"",
                     ""type"": ""Value"",
                     ""id"": ""6855cf2f-9cc3-496c-9f8a-86fe74ec2656"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -206,7 +206,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ca38446a-f83b-429f-b645-7d2ad3733c50"",
-                    ""path"": """",
+                    ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

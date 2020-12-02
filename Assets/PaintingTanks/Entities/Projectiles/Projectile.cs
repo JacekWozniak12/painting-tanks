@@ -22,7 +22,7 @@ namespace PaintingTanks.Entities
 
         protected virtual void SetupPrerequisities()
         {
-
+            
         }
 
         void OnCollisionEnter(Collision other) => OnHit(other);

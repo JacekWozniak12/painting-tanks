@@ -14,22 +14,44 @@ namespace PaintingTanks.Actor.Control
 
         int index = 0;
 
+        [SerializeField] GameObject WeaponManager;
         List<GameObject> Weapons;
-        GameObject WeaponManager;
 
         IWeapon CurrentWeapon;
 
         public void Awake()
         {
-            Controller.Controls.Player.Switch.started += ctx => Scrolling(Controller.Controls.Player.Switch.ReadValue<Vector2>().y);
-            Controller.Controls.Player.Fire.performed += ctx => CurrentWeapon?.GetMechanism().Trigger(true);
-            Controller.Controls.Player.Fire.canceled += ctx => CurrentWeapon?.GetMechanism().Trigger(false);
-            if (WeaponManager == null) WeaponManager = new GameObject("Weapon Manager");
-            if (Weapons == null) Weapons = new List<GameObject>();
-            WeaponManager.transform.parent = this.gameObject.transform;
+            SetControls();
+            SetWeaponManager();
             SetCurrentWeapon(index, 0);
         }
 
+        private void SetWeaponManager()
+        {
+            if (WeaponManager == null) WeaponManager = new GameObject("Weapon Manager");
+            if (Weapons == null) Weapons = new List<GameObject>();
+            WeaponManager.transform.parent = this.gameObject.transform;
+            UpdateWeapons();
+        }
+
+        private void UpdateWeapons()
+        {
+            Weapons.Clear();
+            Weapons.AddRange(WeaponManager.GetAllChildren());
+        }
+
+        private void SetControls()
+        {
+            Controller.Controls.Player.Switch.started += ctx => Scrolling(Controller.Controls.Player.Switch.ReadValue<Vector2>().y);
+            Controller.Controls.Player.Fire.performed += ctx => CurrentWeapon?.GetMechanism().Trigger(true);
+            Controller.Controls.Player.Fire.canceled += ctx => CurrentWeapon?.GetMechanism().Trigger(false);
+        }
+
+        public Vector3 GetVelocity(Vector3 position, Vector3 startModifier, float speed, Vector3 spread, Vector3 endModifier)
+        {
+            spread = MathL.GetRandomVector(spread);
+            return TargetPositioner.GetVelocity(position + startModifier, speed, spread + endModifier);
+        }
 
         #region Switching
 
@@ -52,18 +74,19 @@ namespace PaintingTanks.Actor.Control
 
         public void ScrollDown()
         {
-            index = MathL.LoopPositive(index, Weapons.Count);
+            index = MathL.LoopPositive(--index, Weapons.Count);
             SetCurrentWeapon(index, -1);
         }
 
         public void ScrollUp()
         {
-            index = MathL.LoopPositive(index, Weapons.Count);
+            index = MathL.LoopPositive(++index, Weapons.Count);
             SetCurrentWeapon(index, +1);
         }
 
         public void SetCurrentWeapon(int index, int change)
         {
+            print(index);
             try
             {
                 var firstElement = Weapons[index];
@@ -87,6 +110,7 @@ namespace PaintingTanks.Actor.Control
             {
                 Debug.Log("Player do not have any weapons");
             }
+            print(CurrentWeapon);
         }
 
         #endregion
