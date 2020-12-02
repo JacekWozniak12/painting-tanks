@@ -36,7 +36,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Switch"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""6855cf2f-9cc3-496c-9f8a-86fe74ec2656"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -182,39 +182,6 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""MouseScroll"",
-                    ""id"": ""e4c418eb-0306-42cc-a595-e21a40cfed78"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Switch"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""ed156b7f-d9d9-4718-85fe-400bcb9c507a"",
-                    ""path"": ""<Mouse>/scroll/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
-                    ""action"": ""Switch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""e9acb047-20ed-41e9-ba53-f48c574dcedb"",
-                    ""path"": ""<Mouse>/scroll/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
-                    ""action"": ""Switch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""5d507178-fb09-4e08-b061-d8fba5a83554"",
                     ""path"": ""<Mouse>/rightButton"",
@@ -233,6 +200,17 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""FindTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca38446a-f83b-429f-b645-7d2ad3733c50"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }

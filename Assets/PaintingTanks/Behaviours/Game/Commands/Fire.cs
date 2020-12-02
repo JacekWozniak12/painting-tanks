@@ -7,12 +7,12 @@ namespace PaintingTanks.Behaviours.Game.Commands
     using Library;
     using Definitions;
 
-    public class Fire : IGameCommand<IWeapon>
+    public class Fire : IGameCommand<IWeaponMechanism>
     {
         [SerializeField]
-        IWeapon weapon;
+        IWeaponMechanism weapon;
 
-        public void Setup(IWeapon weapon)
+        public void Setup(IWeaponMechanism weapon)
         {
             this.weapon = weapon;
         }

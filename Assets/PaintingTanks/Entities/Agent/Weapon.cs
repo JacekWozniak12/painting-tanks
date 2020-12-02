@@ -1,83 +1,33 @@
 namespace PaintingTanks.Entities.Agent
 {
+    using PaintingTanks.Interfaces;
     using UnityEngine;
-    using Definitions;
-    using Interfaces;
-    using System.Collections;
-    using PaintingTanks.Interfaces.Basic;
 
-    public class Weapon : MonoBehaviour, IWeapon, ISwitchable
+    public class Weapon : MonoBehaviour, IWeapon
     {
-        public bool IsShooting() => shooting;
-        public void Ready(bool isTrue) => ready = isTrue;
-        public void Trigger(bool isActive) { shooting = isActive; }
-
-        protected virtual void SetupPrerequisites() { }
+        [SerializeField] WeaponMechanism mechanism;
+        [SerializeField] WeaponMagazine magazine;
 
         private void Awake()
         {
-            SetupPrerequisites();
-        }
+            if (mechanism == null) 
+            throw new System.Exception($"{mechanism} shall not be null");
 
-        private void Update()
-        {
-            if (shooting)
+            if (magazine != null)
             {
-                if (ready && rateOfFireHandler)
-                {
-                    PreShoot();
-                    StartCoroutine(Shoot());
-                    PostShoot();
-                }
+                magazine.Empty += SetReadyOff;
+                magazine.ReloadStarted += SetReadyOff;
+                magazine.ReloadFinished += SetReadyOn;
             }
         }
 
-        protected IEnumerator Shoot()
-        {
-            rateOfFireHandler = false;
-            PreShootMethod();
-            StartCoroutine(ShootMethod());
-            PostShoot();
-            yield return new WaitForSeconds(RateOfFire);
-            rateOfFireHandler = true;
-        }
+        private void SetTriggerOn() => mechanism.Trigger(true);
+        private void SetTriggerOff() => mechanism.Trigger(false);
+        private void SetReadyOff() => mechanism.Ready(false);
+        private void SetReadyOn() => mechanism.Ready(true);
 
-        protected virtual IEnumerator ShootMethod()
-        {
-            var a = Instantiate(projectile, ProjectileStart, true);
-            var rb = a.GetComponent<Rigidbody>();
-            rb.AddForce(ProjectileStart.forward * ProjectileSpeed);
-            yield return new WaitForSeconds(0);
-        }
-
-        protected virtual void PreShootMethod() { }
-        protected virtual void PostShootMethod() { }
-        protected virtual void PostShoot() { }
-        protected virtual void PreShoot() { }
-
-        public void On()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Off()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ObservableValue<float> RateOfFire;
-        public Transform ProjectileStart;
-        public ObservableValue<float> ProjectileSpeed = new ObservableValue<float>();
-        [SerializeField] ForceMode ForceType = ForceMode.Impulse;
-
-        [SerializeField] private Vector3 spread = Vector3.zero;
-        [SerializeField] private Transform projectileSpawn;
-        [SerializeField] private Vector3 velocity;
-
-        [SerializeField] private Projectile projectile;
-
-        private bool shooting;
-        private bool rateOfFireHandler;
-        private bool ready;
+        public IReoladable GetMagazine() => magazine;     
+        public IWeaponMechanism GetMechanism() => mechanism;
+        
     }
 }

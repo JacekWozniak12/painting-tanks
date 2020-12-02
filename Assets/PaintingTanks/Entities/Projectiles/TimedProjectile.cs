@@ -8,18 +8,27 @@ namespace PaintingTanks.Entities.Projectiles
     public class TimedProjectile : Projectile
     {
         public ObservableValue<float> time;
+        private bool activated;
+        private bool armed;
+
 
         protected override void OnHit(Collision other)
         {
-            PaintableMesh.HandlePainting(other, brush.Texture, brush.Affects);
-            StartCoroutine(StartCounter());
+            if (!activated) StartCoroutine(StartCounter());
+            else if (armed)
+            {
+                PaintableMesh.HandlePainting(other, brush.Texture, brush.Affects);
+                Destroy(this.gameObject);
+            }
         }
 
         IEnumerator StartCounter()
         {
+            activated = true;
             yield return new WaitForSeconds(time);
-            
         }
+
+
 
     }
 }

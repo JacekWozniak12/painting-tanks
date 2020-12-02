@@ -6,7 +6,7 @@ namespace PaintingTanks.Entities.Projectiles
 
     public class ClusterProjectile : Projectile
     {
-        public ObservableValue<Projectile[]> parts;
+        public ObservableValue<TimedProjectile[]> parts;
         public ObservableValue<float> radius;
 
         protected override void SetupPrerequisities()

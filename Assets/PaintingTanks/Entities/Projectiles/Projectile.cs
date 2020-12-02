@@ -8,6 +8,8 @@ namespace PaintingTanks.Entities
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour
     {
+        // todo pooling system
+
         [SerializeField] protected PaintBrushHandler brush;
         [SerializeField] protected TrailRenderer trail;
 

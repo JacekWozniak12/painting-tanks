@@ -6,7 +6,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
     using PaintingTanks.Interfaces;
     using UnityEngine;
 
-    public class RocketLauncher : Weapon, IWeapon
+    public class RocketLauncher : WeaponMechanism, IWeaponMechanism
     {
         public Launcher[] Launchers;
         public float Delay = 0.2f;
