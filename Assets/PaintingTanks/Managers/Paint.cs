@@ -119,7 +119,7 @@ namespace PaintingTanks.Managers
 
         public static readonly int CHECK_ALL_UPPER_LIMIT = 1024;
         [SerializeField] List<Color32> AllColors = default(List<Color32>);
-        [SerializeField] Color32 playerColor;
+        [SerializeField] Color32 playerColor = default;
         [SerializeField] List<PaintableMesh> PaintableObjects = new List<PaintableMesh>();
         [SerializeField] List<ObjectPaintGroups> TulpGroups = new List<ObjectPaintGroups>();
         [SerializeField] int GroupAmount = 1;

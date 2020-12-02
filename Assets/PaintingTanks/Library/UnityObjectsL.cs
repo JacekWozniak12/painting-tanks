@@ -5,14 +5,16 @@ namespace PaintingTanks.Library
     public static class UnityObjectsL
     {
         public static GameObject[] GetAllChildren(this GameObject go)
+            => GetAllChildren(go.transform);
+
+        public static GameObject[] GetAllChildren(this Transform t)
         {
-            GameObject[] children = new GameObject[go.transform.childCount];
+            GameObject[] children = new GameObject[t.childCount];
 
-            for(int i = 0; i < go.transform.childCount; i++)
+            for (int i = 0; i < t.childCount; i++)
             {
-                children[i] = go.transform.GetChild(i).gameObject;
+                children[i] = t.GetChild(i).gameObject;
             }
-
             return children;
         }
     }

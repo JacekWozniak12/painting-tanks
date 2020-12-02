@@ -6,10 +6,10 @@ namespace PaintingTanks.Entities.Player
     public class Tracks : MonoBehaviour
     {
         [SerializeField]
-        PaintBrushHandler trackBrush;
+        PaintBrushHandler trackBrush = default;
 
         [SerializeField]
-        Transform[] tracks;
+        Transform[] tracks = default;
 
         private void FixedUpdate()
         {

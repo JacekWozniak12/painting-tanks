@@ -12,6 +12,8 @@ namespace PaintingTanks.Entities
 
         [SerializeField] protected PaintBrushHandler brush;
         [SerializeField] protected TrailRenderer trail;
+        [SerializeField] protected ParticleHolder hitVFX;
+        [SerializeField] protected AudioClip sound;
 
         private void Awake()
         {

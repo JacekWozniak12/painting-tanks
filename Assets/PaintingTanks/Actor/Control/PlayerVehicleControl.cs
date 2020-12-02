@@ -58,7 +58,7 @@ namespace PaintingTanks.Actor.Control
         private static bool CheckIfPlayerMoves(Vector2 v) => v.x > 0 || v.x < 0 || v.y > 0 || v.y < 0;
 
         [Header("Mouse positioning")]
-        [SerializeField] Targeter TargetPositioner;
+        [SerializeField] Targeter TargetPositioner = default;
         [SerializeField] float GunTurretRotationYModifier = 15;
     }
 }

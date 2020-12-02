@@ -12,8 +12,8 @@ namespace PaintingTanks.Entities.Agent
         public bool IsShooting() => shooting;
         public void Ready(bool isTrue) => ready = isTrue;
         public void Trigger(bool isActive) { shooting = isActive; }
-        
-        public PlayerWeaponControls VelocityProvider; 
+
+        public PlayerWeaponControls VelocityProvider;
 
         private Vector3 GetVelocity()
         {
@@ -59,24 +59,24 @@ namespace PaintingTanks.Entities.Agent
             yield return new WaitForEndOfFrame();
         }
 
-        protected virtual void PreShootMethod() {}   
+        protected virtual void PreShootMethod() { }
         protected virtual void PostShootMethod() { }
         protected virtual void PostShoot() { }
         protected virtual void PreShoot() { }
 
 
         [Header("Gameplay settings")]
-        public ObservableValue<float> RateOfFire;
-        public ObservableValue<float> ProjectileSpeed = new ObservableValue<float>();
-        public ObservableValue<Projectile> projectile;
-        public ObservableValue<Vector3> spread = new ObservableValue<Vector3>(Vector3.zero);
+        public ObservableValue<float> RateOfFire = default;
+        public ObservableValue<float> ProjectileSpeed = default;
+        public ObservableValue<Projectile> projectile = default;
+        public ObservableValue<Vector3> spread = default;
 
 
         [Header("Weapon settings")]
-        [SerializeField] Transform ProjectileStart;
+        [SerializeField] Transform ProjectileStart = default;
         [SerializeField] ForceMode ForceType = ForceMode.Impulse;
 
-        private bool shooting;
+        private bool shooting = default;
         private bool rateOfFireHandler = true;
         private bool ready = true;
     }

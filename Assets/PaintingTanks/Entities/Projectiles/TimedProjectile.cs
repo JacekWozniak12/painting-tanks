@@ -7,9 +7,9 @@ namespace PaintingTanks.Entities.Projectiles
 
     public class TimedProjectile : Projectile
     {
-        public ObservableValue<float> time;
-        private bool activated;
-        private bool armed;
+        public ObservableValue<float> time = default;
+        private bool activated = false;
+        private bool armed = false;
 
 
         protected override void OnHit(Collision other)
