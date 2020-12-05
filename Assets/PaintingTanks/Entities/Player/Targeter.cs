@@ -13,21 +13,6 @@ namespace PaintingTanks.Entities.PlayerItems
         public event Action PositionChanged;
         public event Action<float> ConstrainedAngle;
 
-        private void Awake()
-        {
-            transform = GetComponent<Transform>();
-            MinDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
-            MaxDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
-        }
-
-        private void Update()
-        {
-            if (Lock) return;
-            if (UseMouse) HandleCursor();
-            if (UseConstraint) ApplyAngleConstraint();
-            if (previousPosition != transform.position) UpdatePosition();
-        }
-
         public void SetPosition(Vector3 position) => CheckBoundsAndSetPosition(position);
 
         public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 modifier = default(Vector3))
@@ -42,8 +27,7 @@ namespace PaintingTanks.Entities.PlayerItems
         {
             var distance = Vector3.Distance(Pivot.position, point);
             var p = Pivot.position + PreciseCalculationsTowards.forward * distance;
-            if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 9, out RaycastHit hit, 1000, layerMask)) point = hit.point;
-            else point = p;
+            PerformSnapping(point);
             return point;
         }
 
@@ -81,35 +65,34 @@ namespace PaintingTanks.Entities.PlayerItems
             PerformSnapping(p);
         }
 
-        private void PerformSnapping(Vector3 p)
+        private void PerformSnapping(Vector3 p, bool SetPositionIfFailed = true)
         {
             if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 9, out RaycastHit hit))
             {
                 transform.position = hit.point;
             }
+            else
+            if (SetPositionIfFailed) transform.position = p;
         }
 
         private void ApplyAngleConstraint()
         {
             var point = transform.position;
             var direction = (Pivot.position - point).normalized;
-            var distance = Vector3.Distance(Pivot.position, point);
+            var distance = Vector3.Distance(point, Pivot.position);
             float angle = Vector3.SignedAngle(ConstrainedTo.forward, direction, Vector3.up);
-            if (!WithinAngleConstraints(ref angle, out float exceeds))
+            if (NotWithinAngleConstraints(ref angle, out float exceeds))
             {
-                print(angle);
-                Quaternion rotation = Quaternion.AngleAxis(angle, ConstrainedTo.right);
-                Vector3 ConstrainedPoint = Pivot.position + ConstrainedTo.TransformDirection(rotation * Vector3.forward) * distance;
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
+                Vector3 ConstrainedPoint = Pivot.position + rotation * ConstrainedTo.forward * -distance;
                 PerformSnapping(ConstrainedPoint);
             }
         }
 
-        private bool CheckAngleConstraint(float angle) => !UseConstraint || angle <= -180 + ConstraintValue || angle >= 180 - ConstraintValue;
-
-        private bool WithinAngleConstraints(ref float angle, out float angleExceedsBy)
+        private bool NotWithinAngleConstraints(ref float angle, out float angleExceedsBy)
         {
-            bool a = angle <= -180 + ConstraintValue;
-            bool b = angle >= 180 - ConstraintValue;
+            bool a = angle < -180 - ConstraintValue;
+            bool b = angle > 180 + ConstraintValue;
             angleExceedsBy = 0;
             if (a)
             {
@@ -122,6 +105,21 @@ namespace PaintingTanks.Entities.PlayerItems
                 angle = 180 - ConstraintValue;
             }
             return a || b;
+        }
+
+        private void Awake()
+        {
+            transform = GetComponent<Transform>();
+            MinDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
+            MaxDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
+        }
+
+        private void Update()
+        {
+            if (Lock) return;
+            if (UseMouse) HandleCursor();
+            if (UseConstraint) ApplyAngleConstraint();
+            if (previousPosition != transform.position) UpdatePosition();
         }
 
         // camera => into camera control

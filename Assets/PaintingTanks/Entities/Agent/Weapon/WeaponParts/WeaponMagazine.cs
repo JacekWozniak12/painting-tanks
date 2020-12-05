@@ -19,6 +19,18 @@ namespace PaintingTanks.Entities.Agent
         public event Action ReloadFinished;
         public event Action ReloadStarted;
 
+        public bool CheckIfCanShoot()
+        {
+            bool b = CurrentBulletCount.Value < AmmoPerShot.Value;
+            if (b) Empty?.Invoke();
+            return b;
+        }
+
+        public void Fired()
+        {
+            CurrentBulletCount.Value -= AmmoPerShot.Value;
+        }
+
         public int Reload(int amount)
         {
             ReloadStarted?.Invoke();
@@ -43,16 +55,5 @@ namespace PaintingTanks.Entities.Agent
             e?.Invoke();
         }
 
-        public bool CheckIfCanShoot()
-        {
-            bool b = CurrentBulletCount.Value < AmmoPerShot.Value;
-            if (b) Empty?.Invoke();
-            return b;
-        }
-
-        public void Fired()
-        {
-            CurrentBulletCount.Value -= AmmoPerShot.Value;
-        }
     }
 }

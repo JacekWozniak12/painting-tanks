@@ -253,13 +253,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859c055844117534f8e33005bb8c9e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VelocityProvider: {fileID: 1879604667}
   RateOfFire:
     _value: 5
   Spread:
     _value: {x: 0, y: 0, z: 0}
   ProjectileSpeed:
     _value: 75
+  VelocityProvider: {fileID: 1879604667}
   ProjectileStart: {fileID: 0}
   ForceType: 1
   Vehicle: {fileID: 225525266}
@@ -1344,13 +1344,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51a95695e9b8e747b98669a78aeb357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VelocityProvider: {fileID: 0}
   RateOfFire:
     _value: 0
   Spread:
     _value: {x: 0, y: 0, z: 0}
   ProjectileSpeed:
     _value: 0
+  VelocityProvider: {fileID: 0}
   ProjectileStart: {fileID: 0}
   ForceType: 1
   Projectile:
@@ -2244,13 +2244,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51a95695e9b8e747b98669a78aeb357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VelocityProvider: {fileID: 0}
   RateOfFire:
     _value: 0
   Spread:
     _value: {x: 0, y: 0, z: 0}
   ProjectileSpeed:
     _value: 0
+  VelocityProvider: {fileID: 0}
   ProjectileStart: {fileID: 0}
   ForceType: 1
   Projectile:

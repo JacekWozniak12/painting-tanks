@@ -16,26 +16,13 @@ namespace PaintingTanks.Entities
         [SerializeField] protected AudioClip sound;
         protected float MaximalTimeOfLife = 30f;
 
-        private void Awake()
-        {
-            brush.UpdateTexture();
-            trail.startColor = (Color)brush.Color.Value;
-            SetupPrerequisities();
-            StartCoroutine(DestroyAfterTime(MaximalTimeOfLife));
-        }
-
         protected IEnumerator DestroyAfterTime(float t)
         {
             yield return new WaitForSeconds(t);
             Destroy(gameObject);
         }
 
-        protected virtual void SetupPrerequisities()
-        {
-
-        }
-
-        void OnCollisionEnter(Collision other) => OnHit(other);
+        protected virtual void SetupPrerequisities() { }
 
         protected virtual void OnHit(Collision other)
         {
@@ -49,6 +36,16 @@ namespace PaintingTanks.Entities
                 }
                 Destroy(this.gameObject);
             }
+        }
+
+        private void OnCollisionEnter(Collision other) => OnHit(other);
+
+        private void Awake()
+        {
+            brush.UpdateTexture();
+            trail.startColor = (Color)brush.Color.Value;
+            SetupPrerequisities();
+            StartCoroutine(DestroyAfterTime(MaximalTimeOfLife));
         }
     }
 }

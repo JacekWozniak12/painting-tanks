@@ -6,7 +6,10 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
 
     public class AssaultGunTurret : WeaponMechanism
     {
-        public ObservableValue<Projectile> Projectile = default;
+        protected override void SetupPrerequisites()
+        {
+            
+        }
 
         protected override IEnumerator ShootMethod()
         {
@@ -16,5 +19,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
             rb.AddForce(GetVelocity(), ForceType);
             yield return new WaitForEndOfFrame();
         }
+
+        public ObservableValue<Projectile> Projectile = default;
     }
 }
