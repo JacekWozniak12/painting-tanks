@@ -13,6 +13,12 @@ namespace PaintingTanks.Entities.PlayerItems
         public event Action PositionChanged;
         public event Action<float> ConstrainedAngle;
 
+        public void SetAngleConstraint(float angle, bool active)
+        {
+            ConstraintValue = angle;
+            UseConstraint = active;
+        }
+
         public void SetPosition(Vector3 position) => CheckBoundsAndSetPosition(position);
 
         public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 modifier = default(Vector3))
@@ -78,22 +84,23 @@ namespace PaintingTanks.Entities.PlayerItems
         private void ApplyAngleConstraint()
         {
             var point = transform.position;
-            var direction = (Pivot.position - point).normalized;
-            var distance = Vector3.Distance(point, Pivot.position);
-            float angle = Vector3.SignedAngle(ConstrainedTo.forward, direction, Vector3.up);
+            var direction = -(Pivot.position - point).normalized;
+            var distance = Vector3.Distance(Pivot.position, point);
+            float angle = Vector3.SignedAngle(direction, ConstrainedTo.forward, Vector3.up);
             if (NotWithinAngleConstraints(ref angle, out float exceeds))
             {
                 Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
                 Vector3 ConstrainedPoint = Pivot.position + rotation * ConstrainedTo.forward * -distance;
-                PerformSnapping(ConstrainedPoint);
+                CheckBoundsAndSetPosition(ConstrainedPoint);
             }
         }
 
         private bool NotWithinAngleConstraints(ref float angle, out float angleExceedsBy)
         {
-            bool a = angle < -180 - ConstraintValue;
-            bool b = angle > 180 + ConstraintValue;
+            bool a = angle < -ConstraintValue;
+            bool b = angle > ConstraintValue;
             angleExceedsBy = 0;
+
             if (a)
             {
                 angleExceedsBy = angle - (-180 + ConstraintValue);
@@ -104,6 +111,7 @@ namespace PaintingTanks.Entities.PlayerItems
                 angleExceedsBy = angle - (180 - ConstraintValue);
                 angle = 180 - ConstraintValue;
             }
+
             return a || b;
         }
 
