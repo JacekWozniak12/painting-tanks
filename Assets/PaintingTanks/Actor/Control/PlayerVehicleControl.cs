@@ -1,6 +1,7 @@
 namespace PaintingTanks.Actor.Control
 {
     using System;
+    using PaintingTanks.Behaviours.Audio;
     using PaintingTanks.Entities.PlayerItems;
     using UnityEngine;
 
@@ -8,6 +9,11 @@ namespace PaintingTanks.Actor.Control
     public partial class PlayerVehicleControl : VehicleControl
     {
         public event Action ChangedControlScheme;
+        public AudioSwitcher switcher;
+        public AudioClip idle;
+        public AudioClip running;
+        public event Action Moving;
+        public event Action Stopping;
 
         public void ChangeControlScheme(MovementScheme scheme)
         {
@@ -21,6 +27,8 @@ namespace PaintingTanks.Actor.Control
 
         protected void Start()
         {
+            Controller.Controls.Player.Move.started += ctx => RunEngine();
+            Controller.Controls.Player.Move.canceled += ctx => IdleEngine();
             SetupTank();
             SetupAssaultGun();
             SetupArtillery();
@@ -31,6 +39,7 @@ namespace PaintingTanks.Actor.Control
         {
             HandleControls();
         }
+        
 
         public void LockVehicle(bool isTrue)
         {
@@ -42,6 +51,16 @@ namespace PaintingTanks.Actor.Control
         public bool IsMoving()
         {
             return Body.IsMoving();
+        }
+
+        private void IdleEngine()
+        {
+            switcher.Switch(idle);
+        }
+
+        private void RunEngine()
+        {
+            switcher.Switch(running);
         }
 
         private void HandleControls()

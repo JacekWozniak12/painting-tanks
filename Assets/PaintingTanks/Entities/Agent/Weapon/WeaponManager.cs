@@ -91,12 +91,9 @@ namespace PaintingTanks.Entities.Agent
 
         public void Reload()
         {
-            print("r");
             if (AmmoTypes.TryGetValue(CurrentWeapon.GetMagazine().GetAmmoType(), out int ammo))
             {
-                print(ammo);
                 ammo = CurrentWeapon.GetMagazine().Reload(ammo);
-                print(ammo);
             }
         }
 

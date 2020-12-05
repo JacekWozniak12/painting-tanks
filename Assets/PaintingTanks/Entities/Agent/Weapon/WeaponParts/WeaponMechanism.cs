@@ -6,12 +6,14 @@ namespace PaintingTanks.Entities.Agent
     using System.Collections;
     using System;
     using PaintingTanks.Actor.Control;
+    using PaintingTanks.Behaviours.Audio;
 
     public class WeaponMechanism : MonoBehaviour, IWeaponMechanism
     {
         public event Action TriggerPressed;
         public event Action ShotFired;
 
+        public AudioPlayOnce audioSource;
         public bool IsShooting() => triggerOn;
         public void Ready(bool isTrue) => ready = isTrue;
         public void Trigger(bool isActive)

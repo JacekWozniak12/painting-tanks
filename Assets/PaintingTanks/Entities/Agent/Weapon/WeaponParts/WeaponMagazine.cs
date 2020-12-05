@@ -23,7 +23,8 @@ namespace PaintingTanks.Entities.Agent
         public event Action ReloadFinished;
         public event Action ReloadStarted;
 
-        private void Awake() {
+        private void Awake()
+        {
             AmmoType.Value = AmmoTypeSO.CreateAmmoType();
         }
 
@@ -42,20 +43,24 @@ namespace PaintingTanks.Entities.Agent
 
         public int Reload(int amount)
         {
-            if(amount <= 0) return 0;
-            ReloadStarted?.Invoke();
-            var needed = MagazineSize - CurrentBulletCount.Value;
-            var difference = amount - needed;
-            StartCoroutine(HandleDelay(ReloadTime, ReloadFinished));
-            if (difference <= 0)
-            {
-                CurrentBulletCount.Value += amount;
-                return 0;
-            }
+            if (amount <= 0) return 0;
             else
             {
-                CurrentBulletCount.Value += amount - needed;
-                return difference;
+                ReloadStarted?.Invoke();
+                StartCoroutine(HandleDelay(ReloadTime, ReloadFinished));
+                var needed = MagazineSize - CurrentBulletCount.Value;
+                var difference = amount - needed;
+                
+                if (difference <= 0)
+                {
+                    CurrentBulletCount.Value += amount;
+                    return 0;
+                }
+                else
+                {
+                    CurrentBulletCount.Value += needed;
+                    return difference;
+                }
             }
         }
 
