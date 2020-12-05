@@ -1,8 +1,10 @@
+using System.Numerics;
+using System.Data;
 namespace PaintingTanks.Entities.PlayerItems
 {
+    using System;
     using UnityEngine;
     using PaintingTanks.Actor.Control;
-    using System;
     using PaintingTanks.Library;
     using PaintingTanks.Definitions;
 
@@ -11,53 +13,28 @@ namespace PaintingTanks.Entities.PlayerItems
         public event Action PositionChanged;
         public event Action<float> ConstrainedAngle;
 
-        private void Awake()
+        public void SetAngleConstraint(float angle, bool active)
         {
-            transform = GetComponent<Transform>();
-            MinDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
-            MaxDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
+            ConstraintValue = angle;
+            UseConstraint = active;
         }
 
-        private void Update()
-        {
-            if (Lock) return;
-            if (UseConstraint) CheckCurrentPositionForConstraint();
-            if (previousPosition != transform.position) UpdatePosition();
-            if (UseMouse) HandleCursor();
-        }
-
-        private void CheckCurrentPositionForConstraint()
-        {
-            var direction = (Pivot.position - transform.position).normalized;
-            var distance = Vector3.Distance(Pivot.position, transform.position);
-            var angle = Vector3.SignedAngle(direction, ConstrainedTo.forward, Vector3.up);
-            if (CheckAngleConstraint(angle))
-            {
-                HandleAngleConstraints(ref angle, out float angleExceedsBy);
-                CalculateConstraintedValue(distance, angle, angleExceedsBy);
-            }
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-            CheckBoundsAndSetPosition(position);
-            if (previousPosition != transform.position) UpdatePosition();
-        }
+        public void SetPosition(Vector3 position) => CheckBoundsAndSetPosition(position);
 
         public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 modifier = default(Vector3))
         {
             var point = transform.position;
             modifier = transform.TransformDirection(modifier);
-            if (UsePreciseCalculation)
-            {
-                var distance = Vector3.Distance(Pivot.position, transform.position);
-                var p = Pivot.position + PreciseCalculationsTowards.forward * distance;
-                if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 9, out RaycastHit hit, 1000, layerMask))
-                {
-                    point = hit.point;
-                }
-            }
+            if (UsePreciseCalculation) point = GetPreciseVelocityCalculations(point);
             return KinematicsL.GetStraightVelocityFromPointsAndTime(point, start, speedPerSecond, modifier);
+        }
+
+        private Vector3 GetPreciseVelocityCalculations(Vector3 point)
+        {
+            var distance = Vector3.Distance(Pivot.position, point);
+            var p = Pivot.position + PreciseCalculationsTowards.forward * distance;
+            PerformSnapping(point);
+            return point;
         }
 
         private void UpdatePosition()
@@ -68,60 +45,60 @@ namespace PaintingTanks.Entities.PlayerItems
 
         private void HandleCursor()
         {
-            var r = camera.ScreenPointToRay(Controller.Controls.Player.FindTarget.ReadValue<Vector2>());
-            if (Physics.Raycast(r, out RaycastHit info, Mathf.Infinity, layerMask))
+            Vector2 cursorPosition = Controller.Controls.Player.FindTarget.ReadValue<Vector2>();
+            if (CursorMoved(cursorPosition))
             {
-                CheckBoundsAndSetPosition(info.point);
+                var r = camera.ScreenPointToRay(cursorPosition);
+                if (Physics.Raycast(r, out RaycastHit info, Mathf.Infinity, layerMask)) CheckBoundsAndSetPosition(info.point);
+                else CheckBoundsAndSetPosition(transform.position);
             }
-            else CheckBoundsAndSetPosition(transform.position);
         }
+
+        private bool CursorMoved(Vector2 vec2) => vec2.x != 0 || vec2.y != 0;
 
         private void CheckBoundsAndSetPosition(Vector3 point)
         {
             var currentDistance = Vector3.Distance(Pivot.position, point);
             var currentDirection = (Pivot.position - point).normalized;
-
-            if (currentDistance >= MaxDistance) SetConstrainedDistance(currentDirection, MaxDistance);
-
-            else if (currentDistance <= MinDistance) SetConstrainedDistance(currentDirection, MinDistance);
-
-            else SetConstrainedDistance(currentDirection, currentDistance);
+            if (currentDistance >= MaxDistance) SetPositionFrom(currentDirection, MaxDistance);
+            else if (currentDistance < MinDistance) SetPositionFrom(currentDirection, MinDistance);
+            else SetPositionFrom(currentDirection, currentDistance);
         }
 
-        private void SetConstrainedDistance(Vector3 direction, float distance)
+        private void SetPositionFrom(Vector3 direction, float distance)
         {
             var p = Pivot.position + direction * -distance;
-            if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 8, out RaycastHit hit))
-            {
-                float angle = Vector3.SignedAngle(direction, ConstrainedTo.forward, Vector3.up);
-                if (CheckAngleConstraint(angle))
-                    transform.position = hit.point;
-                else
-                {
-                    HandleAngleConstraints(ref angle, out float angleExceedsBy);
-                    CalculateConstraintedValue(distance, angle, angleExceedsBy);
-                }
-            }
+            PerformSnapping(p);
         }
 
-        private void CalculateConstraintedValue(float distance, float angle, float angleExceedsBy)
+        private void PerformSnapping(Vector3 p, bool SetPositionIfFailed = true)
         {
-            var direction = Pivot.forward + Pivot.TransformDirection(new Vector3(0, Mathf.Sin(angle), 0).normalized);
-            var p = Pivot.position + direction * distance;
-            if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 8, out RaycastHit hit, 1000, layerMask))
+            if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 9, out RaycastHit hit))
             {
                 transform.position = hit.point;
             }
-            ConstrainedAngle?.Invoke(angleExceedsBy);
+            else
+            if (SetPositionIfFailed) transform.position = p;
         }
 
-        private bool CheckAngleConstraint(float angle)
-            => !UseConstraint || angle <= -180 + ConstraintValue || angle >= 180 - ConstraintValue;
-
-        private bool HandleAngleConstraints(ref float angle, out float angleExceedsBy)
+        private void ApplyAngleConstraint()
         {
-            bool a = angle <= -180 + ConstraintValue;
-            bool b = angle >= 180 - ConstraintValue;
+            var point = transform.position;
+            var direction = -(Pivot.position - point).normalized;
+            var distance = Vector3.Distance(Pivot.position, point);
+            float angle = Vector3.SignedAngle(direction, ConstrainedTo.forward, Vector3.up);
+            if (NotWithinAngleConstraints(ref angle, out float exceeds))
+            {
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
+                Vector3 ConstrainedPoint = Pivot.position + rotation * ConstrainedTo.forward * -distance;
+                CheckBoundsAndSetPosition(ConstrainedPoint);
+            }
+        }
+
+        private bool NotWithinAngleConstraints(ref float angle, out float angleExceedsBy)
+        {
+            bool a = angle < -ConstraintValue;
+            bool b = angle > ConstraintValue;
             angleExceedsBy = 0;
 
             if (a)
@@ -136,6 +113,21 @@ namespace PaintingTanks.Entities.PlayerItems
             }
 
             return a || b;
+        }
+
+        private void Awake()
+        {
+            transform = GetComponent<Transform>();
+            MinDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
+            MaxDistance.Changed += ctx => CheckBoundsAndSetPosition(transform.position);
+        }
+
+        private void Update()
+        {
+            if (Lock) return;
+            if (UseMouse) HandleCursor();
+            if (UseConstraint) ApplyAngleConstraint();
+            if (previousPosition != transform.position) UpdatePosition();
         }
 
         // camera => into camera control

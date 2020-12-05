@@ -7,11 +7,6 @@ namespace PaintingTanks.Entities.Projectiles
 
     public class TimedProjectile : Projectile
     {
-        public ObservableValue<float> time = default;
-        private bool activated = false;
-        private bool armed = false;
-
-
         protected override void OnHit(Collision other)
         {
             if (!activated) StartCoroutine(StartCounter());
@@ -22,13 +17,15 @@ namespace PaintingTanks.Entities.Projectiles
             }
         }
 
+        public ObservableValue<float> time = default;
+        private bool activated = false;
+        private bool armed = false;
+
         IEnumerator StartCounter()
         {
             activated = true;
             yield return new WaitForSeconds(time);
+            armed = true;
         }
-
-
-
     }
 }

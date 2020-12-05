@@ -1,9 +1,7 @@
 namespace PaintingTanks.Actor
 {
     using UnityEngine;
-    using Behaviours;
     using PaintingTanks.Behaviours.Game;
-    using PaintingTanks.Interfaces;
 
     public class MovementAgent : MonoBehaviour
     {

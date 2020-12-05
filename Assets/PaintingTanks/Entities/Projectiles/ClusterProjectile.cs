@@ -6,19 +6,19 @@ namespace PaintingTanks.Entities.Projectiles
 
     public class ClusterProjectile : Projectile
     {
-        public ObservableValue<TimedProjectile[]> parts;
-        public ObservableValue<float> radius;
-
         protected override void SetupPrerequisities()
         {
-           
+
         }
 
         protected override void OnHit(Collision other)
         {
-             PaintableMesh.HandlePainting(other, brush.Texture, brush.Affects);
-             // spawn explosion
+            PaintableMesh.HandlePainting(other, brush.Texture, brush.Affects);
+            // spawn explosion
         }
+
+        public ObservableValue<TimedProjectile[]> parts;
+        public ObservableValue<float> radius;
 
     }
 }

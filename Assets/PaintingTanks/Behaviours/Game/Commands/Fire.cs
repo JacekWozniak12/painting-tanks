@@ -2,10 +2,6 @@ namespace PaintingTanks.Behaviours.Game.Commands
 {
     using UnityEngine;
     using Interfaces;
-    using Entities.MapItems;
-    using PaintingTanks.Actor.Control;
-    using Library;
-    using Definitions;
 
     public class Fire : IGameCommand<IWeaponMechanism>
     {

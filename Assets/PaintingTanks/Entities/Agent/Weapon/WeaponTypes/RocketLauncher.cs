@@ -20,10 +20,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
             TriggerPressed += WishForLock;
         }
 
-        protected override bool otherConditions()
-        {
-            return !Vehicle.IsMoving();
-        }
+        protected override bool OtherConditions() => !Vehicle.IsMoving();
 
         protected void WishForLock()
         {
