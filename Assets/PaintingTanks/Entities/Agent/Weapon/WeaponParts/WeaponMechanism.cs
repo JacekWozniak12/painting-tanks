@@ -10,6 +10,7 @@ namespace PaintingTanks.Entities.Agent
     public class WeaponMechanism : MonoBehaviour, IWeaponMechanism
     {
         public event Action TriggerPressed;
+        public event Action ShotFired;
 
         public bool IsShooting() => triggerOn;
         public void Ready(bool isTrue) => ready = isTrue;
@@ -55,6 +56,7 @@ namespace PaintingTanks.Entities.Agent
             isShooting = true;
             PreShootMethod();
             StartCoroutine(ShootMethod());
+            ShotFired?.Invoke();
             PostShootMethod();
             yield return new WaitForSeconds(RateOfFire);
             isShooting = false;

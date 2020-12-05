@@ -24,12 +24,12 @@ namespace PaintingTanks.Entities.Agent
                 if (mechanism == null) throw new System.Exception($"{mechanism} shall not be null");
             }
 
-
             if (magazine != null)
             {
                 magazine.Empty += SetReadyOff;
                 magazine.ReloadStarted += SetReadyOff;
                 magazine.ReloadFinished += SetReadyOn;
+                mechanism.ShotFired += magazine.Fired;
             }
         }
 

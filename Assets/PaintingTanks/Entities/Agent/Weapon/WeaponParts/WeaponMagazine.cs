@@ -5,19 +5,27 @@ namespace PaintingTanks.Entities.Agent
     using System.Collections;
     using Definitions;
     using Interfaces;
+    using PaintingTanks.Definitions.ScriptableObjects;
     using UnityEngine;
 
     [Serializable]
     public class WeaponMagazine : MonoBehaviour, IReoladable
     {
+        public AmmoTypeSO AmmoTypeSO;
+
         public ObservableValue<int> AmmoPerShot;
         public ObservableValue<int> CurrentBulletCount;
-        public ObservableValue<int> ClipSize;
+        public ObservableValue<int> MagazineSize;
+        public ObservableValue<AmmoType> AmmoType;
         public ObservableValue<float> ReloadTime;
 
         public event Action Empty;
         public event Action ReloadFinished;
         public event Action ReloadStarted;
+
+        private void Awake() {
+            AmmoType.Value = AmmoTypeSO.CreateAmmoType();
+        }
 
         public bool CheckIfCanShoot()
         {
@@ -29,12 +37,14 @@ namespace PaintingTanks.Entities.Agent
         public void Fired()
         {
             CurrentBulletCount.Value -= AmmoPerShot.Value;
+            CheckIfCanShoot();
         }
 
         public int Reload(int amount)
         {
+            if(amount <= 0) return 0;
             ReloadStarted?.Invoke();
-            var needed = ClipSize - CurrentBulletCount.Value;
+            var needed = MagazineSize - CurrentBulletCount.Value;
             var difference = amount - needed;
             StartCoroutine(HandleDelay(ReloadTime, ReloadFinished));
             if (difference <= 0)
@@ -55,5 +65,9 @@ namespace PaintingTanks.Entities.Agent
             e?.Invoke();
         }
 
+        AmmoType IReoladable.GetAmmoType()
+        {
+            return AmmoType.Value;
+        }
     }
 }

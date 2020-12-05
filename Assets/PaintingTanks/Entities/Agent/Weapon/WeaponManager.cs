@@ -3,7 +3,9 @@ namespace PaintingTanks.Entities.Agent
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using PaintingTanks.Actor.Control;
     using PaintingTanks.Definitions;
+    using PaintingTanks.Definitions.ScriptableObjects;
     using PaintingTanks.Interfaces;
     using PaintingTanks.Library;
     using UnityEngine;
@@ -12,6 +14,7 @@ namespace PaintingTanks.Entities.Agent
     {
         public IWeapon CurrentWeapon { get; private set; }
         public PaintBrushHandler paintBrushHandler;
+        public Dictionary<AmmoType, int> AmmoTypes = new Dictionary<AmmoType, int>();
 
         int index = 0;
 
@@ -24,12 +27,31 @@ namespace PaintingTanks.Entities.Agent
             UpdateWeapons();
             SetCurrentWeapon(index, 0);
             weaponHolder.Changed += ctx => UpdateWeapons();
+            Controller.Controls.Player.Reload.performed += ctx => Reload();
         }
 
         private void UpdateWeapons()
         {
             Weapons.Clear();
             Weapons.AddRange(weaponHolder.Value.GetAllChildren());
+            WeaponAmmoManagment();
+        }
+
+        private void WeaponAmmoManagment()
+        {
+            foreach (var w in Weapons)
+            {
+                if (w.GetComponent<IWeapon>() is IWeapon weapon)
+                {
+                    if (weapon.GetMagazine() is IReoladable reoladable)
+                    {
+                        if (!AmmoTypes.TryGetValue(reoladable.GetAmmoType(), out int v))
+                        {
+                            AmmoTypes.Add(reoladable.GetAmmoType(), reoladable.GetAmmoType().DefaultAmount);
+                        }
+                    }
+                }
+            }
         }
 
         public event Action StartedSwitching;
@@ -65,6 +87,17 @@ namespace PaintingTanks.Entities.Agent
         {
             index = MathL.LoopPositive(++index, Weapons.Count - 1);
             SetCurrentWeapon(index, +1);
+        }
+
+        public void Reload()
+        {
+            print("r");
+            if (AmmoTypes.TryGetValue(CurrentWeapon.GetMagazine().GetAmmoType(), out int ammo))
+            {
+                print(ammo);
+                ammo = CurrentWeapon.GetMagazine().Reload(ammo);
+                print(ammo);
+            }
         }
 
         public void SetCurrentWeapon(int index, int change)
