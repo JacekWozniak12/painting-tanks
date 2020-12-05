@@ -25,7 +25,7 @@ namespace PaintingTanks.Managers
             foreach (var Group in TulpGroups)
             {
                 foreach (var tulp in Group.Tulps) HandleObject(tulp);
-                yield return new WaitForSeconds(RefreshPerGroupRate);
+                yield return new WaitForSecondsRealtime(RefreshPerGroupRate);
             }
             yield return new WaitForEndOfFrame();
             AmountUpdated?.Invoke(GlobalPaintAmounts[1].Amount);

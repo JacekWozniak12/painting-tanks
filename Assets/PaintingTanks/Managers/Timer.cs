@@ -26,10 +26,10 @@ namespace PaintingTanks.Managers
 
         IEnumerator Counter()
         {
-            yield return new WaitForSeconds(UpdateRate);
-            TimeFromBeginning += Time.deltaTime + UpdateRate;
+            yield return new WaitForSecondsRealtime(UpdateRate);
+            TimeFromBeginning += Time.unscaledDeltaTime + UpdateRate;
             TimeUpdated?.Invoke(TimeFromBeginning);
-            // yield return CheckEventList();
+            yield return CheckEventList();
             StartCoroutine(Counter());
         }
 
@@ -40,7 +40,7 @@ namespace PaintingTanks.Managers
                 if (TimeFromBeginning > x.GetTime())
                 {
                     x.Invoke();
-                    TimedEvents.Remove(x);
+                    x.Close();
                 }
             }
             return null;
@@ -52,6 +52,7 @@ namespace PaintingTanks.Managers
     {
         public float Time;
         public UnityEvent Event;
+        private bool Active = true;
 
         public float GetTime()
         {
@@ -60,8 +61,13 @@ namespace PaintingTanks.Managers
 
         public void Invoke()
         {
-            Event?.Invoke();
+            if (Active)
+            {
+                Event?.Invoke();
+            }
         }
+
+        public void Close() => Active = false;
     }
 
 }
