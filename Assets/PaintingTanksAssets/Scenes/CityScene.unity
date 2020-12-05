@@ -168,13 +168,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!4 &49480442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 550968512136778585, guid: 009e950a1964e6e4094edbc5cde9221a, type: 3}
   m_PrefabInstance: {fileID: 1076304688}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &225525266 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7295764735307436378, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+  m_PrefabInstance: {fileID: 4282028428686846151}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685947f9f5aab08439994e2fcde25b86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &265959922
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +234,7 @@ MonoBehaviour:
   magazine: {fileID: 0}
   movementScheme: 0
   MinimalRange:
-    _value: 10
+    _value: 30
   MaximalRange:
     _value: 60
   angleConstrained:
@@ -245,15 +256,13 @@ MonoBehaviour:
   VelocityProvider: {fileID: 1879604667}
   RateOfFire:
     _value: 5
+  Spread:
+    _value: {x: 0, y: 0, z: 0}
   ProjectileSpeed:
     _value: 75
-  projectile:
-    _value: {fileID: 0}
-  spread:
-    _value: {x: 1, y: 3, z: 5}
   ProjectileStart: {fileID: 0}
   ForceType: 1
-  Vehicle: {fileID: 0}
+  Vehicle: {fileID: 225525266}
   Launchers:
   - {fileID: 491736263}
   - {fileID: 2131144414}
@@ -329,8 +338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &301309898
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,8 +385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &317292157
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,8 +432,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &359272806
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,8 +624,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!4 &587725030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 550968512136778585, guid: 009e950a1964e6e4094edbc5cde9221a, type: 3}
@@ -724,8 +733,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!4 &658069302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1493154399342931032, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
@@ -776,8 +785,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &738045524
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,8 +832,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!4 &797284082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 550968512136778585, guid: 009e950a1964e6e4094edbc5cde9221a, type: 3}
@@ -875,8 +884,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &910090673
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,8 +931,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &938445296
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,8 +978,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &993691276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,8 +1174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &1043291442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,8 +1221,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1001 &1076304688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1316,8 +1325,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
+--- !u!1 &1142153489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7295764735132476335, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+  m_PrefabInstance: {fileID: 4282028428686846151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1142153491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142153489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51a95695e9b8e747b98669a78aeb357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityProvider: {fileID: 0}
+  RateOfFire:
+    _value: 0
+  Spread:
+    _value: {x: 0, y: 0, z: 0}
+  ProjectileSpeed:
+    _value: 0
+  ProjectileStart: {fileID: 0}
+  ForceType: 1
+  Projectile:
+    _value: {fileID: 0}
 --- !u!1 &1175410750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,8 +1400,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1001 &1176590477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1524,8 +1561,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &1369354524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,8 +1608,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &1421216904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,8 +1655,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!4 &1432084184 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 550968512136778585, guid: 009e950a1964e6e4094edbc5cde9221a, type: 3}
@@ -1670,8 +1707,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!4 &1489938140 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7295764735283511939, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
@@ -1722,8 +1759,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1001 &1554616849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2003,8 +2040,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &1711979906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,8 +2131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &1781654114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,8 +2178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &1783399888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,8 +2225,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
+--- !u!1 &1849837621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7295764735907121249, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+  m_PrefabInstance: {fileID: 4282028428686846151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1849837623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849837621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51a95695e9b8e747b98669a78aeb357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityProvider: {fileID: 0}
+  RateOfFire:
+    _value: 0
+  Spread:
+    _value: {x: 0, y: 0, z: 0}
+  ProjectileSpeed:
+    _value: 0
+  ProjectileStart: {fileID: 0}
+  ForceType: 1
+  Projectile:
+    _value: {fileID: 0}
 --- !u!114 &1879604667 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7295764736204615471, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
@@ -2251,8 +2316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1001 &1951725863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2365,8 +2430,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1 &2131144412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,8 +2477,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 0}
   sfx: {fileID: 0}
-  projectile:
-    _value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}
+  projectile: {_value: {fileID: 721845840741447781, guid: d1886598c7b4d404999458f1c6c56dc7, type: 3}}
+  <transform>k__BackingField: {fileID: 0}
 --- !u!1001 &4282028428686846151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2437,10 +2502,22 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 359272808}
+    - target: {fileID: 7295764734719301473, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: UseConstraint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295764734719301473, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: ConstraintValue
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7295764735132476330, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
       propertyPath: MaximalRange._value
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 7295764735132476330, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: mechanism
+      value: 
+      objectReference: {fileID: 1142153491}
     - target: {fileID: 7295764735132476335, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
       propertyPath: m_Name
       value: BaseTurret
@@ -2469,6 +2546,10 @@ PrefabInstance:
       propertyPath: MaximalRange._value
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 7295764735907121276, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+      propertyPath: mechanism
+      value: 
+      objectReference: {fileID: 1849837623}
     - target: {fileID: 7980146433173268575, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2513,7 +2594,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7295764735132476329, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
+    - {fileID: 7295764735907121251, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ba5692e8a3b8549489b5f1a969812efa, type: 3}
 --- !u!4 &6184566871055155352 stripped
 Transform:

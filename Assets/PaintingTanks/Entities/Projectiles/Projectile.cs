@@ -1,6 +1,7 @@
 namespace PaintingTanks.Entities
 {
     using System;
+    using System.Collections;
     using PaintingTanks.Definitions;
     using PaintingTanks.Entities.MapItems;
     using UnityEngine;
@@ -13,12 +14,20 @@ namespace PaintingTanks.Entities
         [SerializeField] protected TrailRenderer trail;
         [SerializeField] protected ParticleHolder hitVFX;
         [SerializeField] protected AudioClip sound;
+        protected float MaximalTimeOfLife = 30f;
 
         private void Awake()
         {
             brush.UpdateTexture();
             trail.startColor = (Color)brush.Color.Value;
             SetupPrerequisities();
+            StartCoroutine(DestroyAfterTime(MaximalTimeOfLife));
+        }
+
+        protected IEnumerator DestroyAfterTime(float t)
+        {
+            yield return new WaitForSeconds(t);
+            Destroy(gameObject);
         }
 
         protected virtual void SetupPrerequisities()
@@ -38,7 +47,7 @@ namespace PaintingTanks.Entities
                     var a = Instantiate(hitVFX, other.GetContact(0).point, Quaternion.Euler(other.GetContact(0).normal));
                     a.Activate();
                 }
-                else Destroy(this.gameObject);
+                Destroy(this.gameObject);
             }
         }
     }

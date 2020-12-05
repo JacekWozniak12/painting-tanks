@@ -26,6 +26,7 @@ namespace PaintingTanks.Entities.Projectiles
         {
             activated = true;
             yield return new WaitForSeconds(time);
+            armed = true;
         }
 
 
