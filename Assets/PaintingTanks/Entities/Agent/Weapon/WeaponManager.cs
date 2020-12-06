@@ -15,7 +15,6 @@ namespace PaintingTanks.Entities.Agent
         public IWeapon CurrentWeapon { get; private set; }
         public PaintBrushHandler paintBrushHandler;
         public Dictionary<AmmoType, int> AmmoTypes = new Dictionary<AmmoType, int>();
-
         int index = 0;
 
         private void Awake()

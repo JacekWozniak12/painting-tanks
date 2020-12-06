@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8187aebafa003a54b9d6227304c35800, type: 3}
   m_Name: TankShell
   m_EditorClassIdentifier: 
-  Name: 
-  Icon: {fileID: 0}
-  Ammo: 0
+  Name: TankShell
+  Icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  Amount: 100

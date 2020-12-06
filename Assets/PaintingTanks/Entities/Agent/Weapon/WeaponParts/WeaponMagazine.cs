@@ -4,6 +4,7 @@ namespace PaintingTanks.Entities.Agent
     using System.Collections;
     using Definitions;
     using Interfaces;
+    using PaintingTanks.Behaviours.Audio;
     using PaintingTanks.Definitions.ScriptableObjects;
     using UnityEngine;
 
@@ -20,6 +21,10 @@ namespace PaintingTanks.Entities.Agent
         public event Action Empty;
         public event Action ReloadFinished;
         public event Action ReloadStarted;
+
+        public AudioClip empty;
+        public AudioClip reload;
+        public AudioPlayOnce source;
 
         private void Awake()
         {
@@ -45,6 +50,7 @@ namespace PaintingTanks.Entities.Agent
             else
             {
                 ReloadStarted?.Invoke();
+                source?.PlayOnce(empty);
                 StartCoroutine(HandleDelay(ReloadTime, ReloadFinished));
                 var needed = MagazineSize - CurrentBulletCount.Value;
                 var difference = amount - needed;

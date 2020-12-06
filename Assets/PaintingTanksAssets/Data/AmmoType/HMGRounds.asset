@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8187aebafa003a54b9d6227304c35800, type: 3}
   m_Name: HMGRounds
   m_EditorClassIdentifier: 
-  Name: 
+  Name: HMGRound
   Icon: {fileID: 0}
-  Ammo: 0
+  Amount: 100

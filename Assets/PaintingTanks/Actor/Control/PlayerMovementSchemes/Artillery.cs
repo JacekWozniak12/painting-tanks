@@ -5,10 +5,6 @@ namespace PaintingTanks.Actor.Control
 
     public partial class PlayerVehicleControl : VehicleControl
     {
-        private void SetupArtillery(){
-            currentDistance = TargetPositioner.MaxDistance;
-        }
-
         private void ArtilleryScheme(float deltaTime, float movement, float rotation, bool pressed)
         {
             var movementVector = new Vector3(0, 0, movement);
@@ -21,7 +17,7 @@ namespace PaintingTanks.Actor.Control
             TargetPositioner.SetPosition(desiredTargetForArtillery);
         }
 
-        private float currentDistance = 0; 
+        private float currentDistance = 50f; 
         private Vector3 desiredTargetForArtillery = Vector3.zero;
     }
 }

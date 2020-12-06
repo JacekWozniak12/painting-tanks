@@ -5,11 +5,6 @@ namespace PaintingTanks.Actor.Control
 
     public partial class PlayerVehicleControl : VehicleControl
     {
-        private void SetupTank()
-        {
-
-        }
-
         private void TankScheme(float deltaTime, float movement, float rotation, bool pressed)
         {
             var movementVector = new Vector3(0, 0, movement);
