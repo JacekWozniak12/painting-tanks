@@ -4,12 +4,7 @@ namespace PaintingTanks.Actor.Control
     using UnityEngine;
 
     public partial class PlayerVehicleControl : VehicleControl
-    {
-        private void SetupAssaultGun()
-        {
-
-        }
-        
+    {        
         private void AssaultGunScheme(float deltaTime, float movement, float rotation, bool pressed)
         {
             var movementVector = new Vector3(0, 0, movement);

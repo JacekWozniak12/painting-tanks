@@ -7,6 +7,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
     public class BaseTurret : WeaponMechanism
     {
         public ObservableValue<Projectile> Projectile = default;
+        public AudioClip sfx;
 
         protected override IEnumerator ShootMethod()
         {
@@ -14,6 +15,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
             a.transform.position = ProjectileStart.transform.position;
             var rb = a.GetComponent<Rigidbody>();
             rb.AddForce(GetVelocity(), ForceType);
+            audioSource?.PlayOnce(sfx);
             yield return new WaitForEndOfFrame();
         }
     }

@@ -10,11 +10,10 @@ namespace PaintingTanks.Entities.Agent
         [SerializeField] WeaponMechanism mechanism;
         [SerializeField] WeaponMagazine magazine;
         [SerializeField] MovementScheme movementScheme;
-
         [SerializeField] ObservableValue<float> MinimalRange;
         [SerializeField] ObservableValue<float> MaximalRange;
-        [SerializeField] ObservableValue<bool> angleConstrained;
-        [SerializeField] ObservableValue<float> angle;
+        [SerializeField] ObservableValue<bool> AngleConstrained;
+        [SerializeField] ObservableValue<float> Angle;
 
         private void Awake()
         {
@@ -24,12 +23,12 @@ namespace PaintingTanks.Entities.Agent
                 if (mechanism == null) throw new System.Exception($"{mechanism} shall not be null");
             }
 
-
             if (magazine != null)
             {
                 magazine.Empty += SetReadyOff;
                 magazine.ReloadStarted += SetReadyOff;
                 magazine.ReloadFinished += SetReadyOn;
+                mechanism.ShotFired += magazine.Fired;
             }
         }
 
@@ -47,8 +46,8 @@ namespace PaintingTanks.Entities.Agent
 
         public bool GetAngleConstraint(out float angle)
         {
-            angle = this.angle;
-            return angleConstrained;
+            angle = this.Angle;
+            return AngleConstrained;
         }
 
         public bool IsFiring()

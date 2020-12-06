@@ -9,35 +9,23 @@ namespace PaintingTanks.Actor.Control
     {
         public PlayerVehicleControl VehicleControl;
         [SerializeField] Targeter TargetPositioner;
-        [SerializeField] WeaponManager manager;
+        [SerializeField] WeaponManager Manager;
 
         public void Awake()
         {
-            SetControls();
-            if (manager == null) manager = GetComponent<WeaponManager>();
+            if (Manager == null) Manager = GetComponent<WeaponManager>();
         }
         
-        public void LockCursor(bool isTrue)
+        public void LockCursor(bool isTrue) => TargetPositioner.Lock = isTrue;
+        
+        public void SetWeaponOptions()
         {
-            TargetPositioner.Lock = isTrue;
-        }
-
-        private void SetControls()
-        {
-            Controller.Controls.Player.Switch.started += ctx => manager?.Scrolling(Controller.Controls.Player.Switch.ReadValue<Vector2>().y);
-            manager.FinishedSwitching += SetWeaponOptions;
-            Controller.Controls.Player.Fire.performed += ctx => manager.CurrentWeapon?.GetMechanism().Trigger(true);
-            Controller.Controls.Player.Fire.canceled += ctx => manager.CurrentWeapon?.GetMechanism().Trigger(false);
-        }
-
-        private void SetWeaponOptions()
-        {
-            if (manager.CurrentWeapon == null) Debug.Log("Weapon wasn't selected");
+            if (Manager.CurrentWeapon == null) Debug.Log("Weapon wasn't selected");
             else
             {
-                TargetPositioner.MaxDistance.Value = manager.CurrentWeapon.GetMaximalRange();
-                TargetPositioner.MinDistance.Value = manager.CurrentWeapon.GetMinimalRange();
-                VehicleControl.ChangeControlScheme(manager.CurrentWeapon.GetMovementScheme());
+                TargetPositioner.MaxDistance.Value = Manager.CurrentWeapon.GetMaximalRange();
+                TargetPositioner.MinDistance.Value = Manager.CurrentWeapon.GetMinimalRange();
+                VehicleControl.ChangeControlScheme(Manager.CurrentWeapon.GetMovementScheme());
             }
         }
 

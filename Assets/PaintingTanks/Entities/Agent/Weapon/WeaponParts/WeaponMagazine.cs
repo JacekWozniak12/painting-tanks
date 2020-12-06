@@ -1,23 +1,35 @@
-using System.Security.AccessControl;
 namespace PaintingTanks.Entities.Agent
 {
     using System;
     using System.Collections;
     using Definitions;
     using Interfaces;
+    using PaintingTanks.Behaviours.Audio;
+    using PaintingTanks.Definitions.ScriptableObjects;
     using UnityEngine;
 
     [Serializable]
     public class WeaponMagazine : MonoBehaviour, IReoladable
     {
+        public AmmoTypeSO AmmoTypeSO;
         public ObservableValue<int> AmmoPerShot;
         public ObservableValue<int> CurrentBulletCount;
-        public ObservableValue<int> ClipSize;
+        public ObservableValue<int> MagazineSize;
+        public ObservableValue<AmmoType> AmmoType;
         public ObservableValue<float> ReloadTime;
 
         public event Action Empty;
         public event Action ReloadFinished;
         public event Action ReloadStarted;
+
+        public AudioClip empty;
+        public AudioClip reload;
+        public AudioPlayOnce source;
+
+        private void Awake()
+        {
+            AmmoType.Value = AmmoTypeSO.CreateAmmoType();
+        }
 
         public bool CheckIfCanShoot()
         {
@@ -29,23 +41,30 @@ namespace PaintingTanks.Entities.Agent
         public void Fired()
         {
             CurrentBulletCount.Value -= AmmoPerShot.Value;
+            CheckIfCanShoot();
         }
 
         public int Reload(int amount)
         {
-            ReloadStarted?.Invoke();
-            var needed = ClipSize - CurrentBulletCount.Value;
-            var difference = amount - needed;
-            StartCoroutine(HandleDelay(ReloadTime, ReloadFinished));
-            if (difference <= 0)
-            {
-                CurrentBulletCount.Value += amount;
-                return 0;
-            }
+            if (amount <= 0) return 0;
             else
             {
-                CurrentBulletCount.Value += amount - needed;
-                return difference;
+                ReloadStarted?.Invoke();
+                source?.PlayOnce(empty);
+                StartCoroutine(HandleDelay(ReloadTime, ReloadFinished));
+                var needed = MagazineSize - CurrentBulletCount.Value;
+                var difference = amount - needed;
+                
+                if (difference <= 0)
+                {
+                    CurrentBulletCount.Value += amount;
+                    return 0;
+                }
+                else
+                {
+                    CurrentBulletCount.Value += needed;
+                    return difference;
+                }
             }
         }
 
@@ -55,5 +74,9 @@ namespace PaintingTanks.Entities.Agent
             e?.Invoke();
         }
 
+        AmmoType IReoladable.GetAmmoType()
+        {
+            return AmmoType.Value;
+        }
     }
 }

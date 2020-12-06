@@ -44,6 +44,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "9b8b0215-22ff-47d8-bcbe-b4b4e675f7f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -53,7 +61,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -75,7 +83,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -86,7 +94,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -97,7 +105,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -108,7 +116,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -130,7 +138,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -141,7 +149,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -152,7 +160,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -163,7 +171,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -174,7 +182,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Special",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -198,6 +206,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0468d7f-e04f-43e2-9d5d-636473ee5bda",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -239,7 +258,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -250,7 +269,7 @@
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -261,7 +280,7 @@
                     "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player_Keyboard",
+                    "groups": "Player_1",
                     "action": "Mute",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -271,8 +290,8 @@
     ],
     "controlSchemes": [
         {
-            "name": "Player_Keyboard",
-            "bindingGroup": "Player_Keyboard",
+            "name": "Player_1",
+            "bindingGroup": "Player_1",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
@@ -285,6 +304,11 @@
                     "isOR": false
                 }
             ]
+        },
+        {
+            "name": "Player_2",
+            "bindingGroup": "Player_2",
+            "devices": []
         }
     ]
 }

@@ -1,10 +1,7 @@
-using System.Numerics;
-using System.Data;
 namespace PaintingTanks.Entities.PlayerItems
 {
     using System;
     using UnityEngine;
-    using PaintingTanks.Actor.Control;
     using PaintingTanks.Library;
     using PaintingTanks.Definitions;
 
@@ -29,6 +26,16 @@ namespace PaintingTanks.Entities.PlayerItems
             return KinematicsL.GetStraightVelocityFromPointsAndTime(point, start, speedPerSecond, modifier);
         }
 
+        public void HandleCursor(Vector2 cursorPosition)
+        {
+            if (CursorMoved(cursorPosition))
+            {
+                var r = camera.ScreenPointToRay(cursorPosition);
+                if (Physics.Raycast(r, out RaycastHit info, Mathf.Infinity, layerMask)) CheckBoundsAndSetPosition(info.point);
+                else CheckBoundsAndSetPosition(transform.position);
+            }
+        }
+
         private Vector3 GetPreciseVelocityCalculations(Vector3 point)
         {
             var distance = Vector3.Distance(Pivot.position, point);
@@ -41,17 +48,6 @@ namespace PaintingTanks.Entities.PlayerItems
         {
             previousPosition = transform.position;
             PositionChanged?.Invoke();
-        }
-
-        private void HandleCursor()
-        {
-            Vector2 cursorPosition = Controller.Controls.Player.FindTarget.ReadValue<Vector2>();
-            if (CursorMoved(cursorPosition))
-            {
-                var r = camera.ScreenPointToRay(cursorPosition);
-                if (Physics.Raycast(r, out RaycastHit info, Mathf.Infinity, layerMask)) CheckBoundsAndSetPosition(info.point);
-                else CheckBoundsAndSetPosition(transform.position);
-            }
         }
 
         private bool CursorMoved(Vector2 vec2) => vec2.x != 0 || vec2.y != 0;
@@ -125,7 +121,6 @@ namespace PaintingTanks.Entities.PlayerItems
         private void Update()
         {
             if (Lock) return;
-            if (UseMouse) HandleCursor();
             if (UseConstraint) ApplyAngleConstraint();
             if (previousPosition != transform.position) UpdatePosition();
         }

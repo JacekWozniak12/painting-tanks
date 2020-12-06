@@ -57,6 +57,14 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""9b8b0215-22ff-47d8-bcbe-b4b4e675f7f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -66,7 +74,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -88,7 +96,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -99,7 +107,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -110,7 +118,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -121,7 +129,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -143,7 +151,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -154,7 +162,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -165,7 +173,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -176,7 +184,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -187,7 +195,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -211,6 +219,17 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0468d7f-e04f-43e2-9d5d-636473ee5bda"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -252,7 +271,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Quit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -263,7 +282,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -274,7 +293,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Mute"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -284,8 +303,8 @@ public class @GameControls : IInputActionCollection, IDisposable
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""Player_Keyboard"",
-            ""bindingGroup"": ""Player_Keyboard"",
+            ""name"": ""Player_1"",
+            ""bindingGroup"": ""Player_1"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -298,6 +317,11 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Player_2"",
+            ""bindingGroup"": ""Player_2"",
+            ""devices"": []
         }
     ]
 }");
@@ -308,6 +332,7 @@ public class @GameControls : IInputActionCollection, IDisposable
         m_Player_Switch = m_Player.FindAction("Switch", throwIfNotFound: true);
         m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
         m_Player_FindTarget = m_Player.FindAction("FindTarget", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Quit = m_UI.FindAction("Quit", throwIfNotFound: true);
@@ -367,6 +392,7 @@ public class @GameControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Switch;
     private readonly InputAction m_Player_Special;
     private readonly InputAction m_Player_FindTarget;
+    private readonly InputAction m_Player_Reload;
     public struct PlayerActions
     {
         private @GameControls m_Wrapper;
@@ -376,6 +402,7 @@ public class @GameControls : IInputActionCollection, IDisposable
         public InputAction @Switch => m_Wrapper.m_Player_Switch;
         public InputAction @Special => m_Wrapper.m_Player_Special;
         public InputAction @FindTarget => m_Wrapper.m_Player_FindTarget;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -400,6 +427,9 @@ public class @GameControls : IInputActionCollection, IDisposable
                 @FindTarget.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFindTarget;
                 @FindTarget.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFindTarget;
                 @FindTarget.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFindTarget;
+                @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -419,6 +449,9 @@ public class @GameControls : IInputActionCollection, IDisposable
                 @FindTarget.started += instance.OnFindTarget;
                 @FindTarget.performed += instance.OnFindTarget;
                 @FindTarget.canceled += instance.OnFindTarget;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -472,13 +505,22 @@ public class @GameControls : IInputActionCollection, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
-    private int m_Player_KeyboardSchemeIndex = -1;
-    public InputControlScheme Player_KeyboardScheme
+    private int m_Player_1SchemeIndex = -1;
+    public InputControlScheme Player_1Scheme
     {
         get
         {
-            if (m_Player_KeyboardSchemeIndex == -1) m_Player_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Player_Keyboard");
-            return asset.controlSchemes[m_Player_KeyboardSchemeIndex];
+            if (m_Player_1SchemeIndex == -1) m_Player_1SchemeIndex = asset.FindControlSchemeIndex("Player_1");
+            return asset.controlSchemes[m_Player_1SchemeIndex];
+        }
+    }
+    private int m_Player_2SchemeIndex = -1;
+    public InputControlScheme Player_2Scheme
+    {
+        get
+        {
+            if (m_Player_2SchemeIndex == -1) m_Player_2SchemeIndex = asset.FindControlSchemeIndex("Player_2");
+            return asset.controlSchemes[m_Player_2SchemeIndex];
         }
     }
     public interface IPlayerActions
@@ -488,6 +530,7 @@ public class @GameControls : IInputActionCollection, IDisposable
         void OnSwitch(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnFindTarget(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -42,7 +42,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
                 while (j < LaunchersPerShot)
                 {
                     var launcher = Launchers[i + j];
-                    launcher.Fire(GetVelocity(launcher.transform.position));
+                    launcher.Fire(GetVelocity(launcher.transform.position), audioSource);
                     j++;
                 }
                 yield return new WaitForSeconds(Delay);

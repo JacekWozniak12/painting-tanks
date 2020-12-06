@@ -25,7 +25,7 @@ namespace PaintingTanks.Managers
             foreach (var Group in TulpGroups)
             {
                 foreach (var tulp in Group.Tulps) HandleObject(tulp);
-                yield return new WaitForSeconds(RefreshPerGroupRate);
+                yield return new WaitForSecondsRealtime(RefreshPerGroupRate);
             }
             yield return new WaitForEndOfFrame();
             AmountUpdated?.Invoke(GlobalPaintAmounts[1].Amount);
@@ -35,8 +35,7 @@ namespace PaintingTanks.Managers
         {
             if (tulp.Mesh.Changed)
             {
-                if (tulp.Mesh.TextureSize < CHECK_ALL_UPPER_LIMIT)
-                    CheckAllAtOnce(tulp);
+                if (tulp.Mesh.TextureSize < CHECK_ALL_UPPER_LIMIT) CheckAllAtOnce(tulp);
                 else CheckModifiedParts(tulp);
             }
         }
@@ -66,7 +65,7 @@ namespace PaintingTanks.Managers
 
         private void CheckModifiedParts(ObjectPaint tulp)
         {
-            /// todo
+            throw new NotImplementedException();
         }
 
         private static void CheckObject(ObjectPaint tulp, TexturePartInfo item = null)

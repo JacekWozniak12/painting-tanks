@@ -6,8 +6,8 @@ namespace PaintingTanks.Actor.Control
     {
         private void OnEnable() => Controls.Enable();
         private void OnDisable() => Controls.Disable();
-
         private static GameControls controls;
+        
         public static GameControls Controls
         {
             get

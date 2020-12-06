@@ -1,6 +1,7 @@
 namespace PaintingTanks.Entities.Agent.WeaponTypes
 {
     using System;
+    using PaintingTanks.Behaviours.Audio;
     using PaintingTanks.Definitions;
     using UnityEngine;
 
@@ -16,21 +17,22 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
         [SerializeField]
         public ObservableValue<Projectile> projectile;
 
-        void Awake() {
-            transform = GetComponent<Transform>();       
+        void Awake()
+        {
+            transform = GetComponent<Transform>();
         }
 
         [SerializeField]
-        protected new Transform transform {get; set;}
+        protected new Transform transform { get; set; }
 
-        public void Fire(Vector3 velocity, ForceMode ForceType = ForceMode.Impulse)
+        public void Fire(Vector3 velocity, AudioPlayOnce source, ForceMode ForceType = ForceMode.Impulse)
         {
             var a = Instantiate(projectile.Value);
             a.transform.position = transform.transform.position;
             var rb = a.GetComponent<Rigidbody>();
             rb.AddForce(velocity, ForceType);
-            // play
-            // show
+            source?.PlayOnce(sfx);
+            vfx?.Play();
         }
     }
 }

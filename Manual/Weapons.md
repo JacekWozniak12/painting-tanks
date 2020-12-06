@@ -18,6 +18,10 @@
   - Cluster
   - Paint
 
+### Driver HMG
+
+### Turret HMG
+
 ### Rocket artillery turret 
 - Rotation: 360
 - Base Reload Speed: 6s 
