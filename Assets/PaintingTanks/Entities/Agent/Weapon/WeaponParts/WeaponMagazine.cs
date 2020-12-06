@@ -1,4 +1,3 @@
-using System.Security.AccessControl;
 namespace PaintingTanks.Entities.Agent
 {
     using System;
@@ -12,7 +11,6 @@ namespace PaintingTanks.Entities.Agent
     public class WeaponMagazine : MonoBehaviour, IReoladable
     {
         public AmmoTypeSO AmmoTypeSO;
-
         public ObservableValue<int> AmmoPerShot;
         public ObservableValue<int> CurrentBulletCount;
         public ObservableValue<int> MagazineSize;

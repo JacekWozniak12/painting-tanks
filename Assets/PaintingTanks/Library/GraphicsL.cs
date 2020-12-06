@@ -8,6 +8,10 @@ namespace PaintingTanks.Library
     {
         public static readonly Color32 fullAlpha = new Color32(0, 0, 0, 0);
 
+        public static Color32 RandomColor() => new Color32((byte)Random.Range(0, 255), 
+                                                           (byte)Random.Range(0, 255),
+                                                           (byte)Random.Range(0, 255), 255);
+
         public static Texture2D CreateMonoColorTexture(Vector2Int size, Color32 color)
         {
             var tex = new Texture2D(size.x, size.y);

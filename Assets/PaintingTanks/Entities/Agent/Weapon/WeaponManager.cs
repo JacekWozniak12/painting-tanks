@@ -27,7 +27,6 @@ namespace PaintingTanks.Entities.Agent
             UpdateWeapons();
             SetCurrentWeapon(index, 0);
             weaponHolder.Changed += ctx => UpdateWeapons();
-            Controller.Controls.Player.Reload.performed += ctx => Reload();
         }
 
         private void UpdateWeapons()

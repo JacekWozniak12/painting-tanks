@@ -357,6 +357,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7487180951562847494, guid: 3828a99f32cd5d848b46402a34695794, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3828a99f32cd5d848b46402a34695794, type: 3}
+--- !u!82 &640983608 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1173046355173415769, guid: 3828a99f32cd5d848b46402a34695794, type: 3}
+  m_PrefabInstance: {fileID: 297924855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +786,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151321526}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!82 &1155497323 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 125267913510707671, guid: 3828a99f32cd5d848b46402a34695794, type: 3}
+  m_PrefabInstance: {fileID: 297924855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1182894182
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,6 +802,8 @@ GameObject:
   - component: {fileID: 1182894184}
   - component: {fileID: 1182894183}
   - component: {fileID: 1182894185}
+  - component: {fileID: 1182894186}
+  - component: {fileID: 1182894187}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -900,6 +912,52 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1182894186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182894182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 760bde6ae6a1e4f41a79cf4753bfc1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateRate: 0.1
+  TimeFromBeginning: 0
+  TimedEvents:
+  - Time: 5
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1182894187}
+          m_TargetAssemblyTypeName: PaintingTanks.Menu.StopTime, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1182894187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182894182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aabfba2d9ac2754799c8773c315a7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sources:
+  - {fileID: 1155497323}
+  - {fileID: 640983608}
 --- !u!4 &1202026943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 828925911183103859, guid: 3828a99f32cd5d848b46402a34695794, type: 3}

@@ -43,9 +43,8 @@ namespace PaintingTanks.Entities.PlayerItems
             PositionChanged?.Invoke();
         }
 
-        private void HandleCursor()
+        public void HandleCursor(Vector2 cursorPosition)
         {
-            Vector2 cursorPosition = Controller.Controls.Player.FindTarget.ReadValue<Vector2>();
             if (CursorMoved(cursorPosition))
             {
                 var r = camera.ScreenPointToRay(cursorPosition);
@@ -125,7 +124,6 @@ namespace PaintingTanks.Entities.PlayerItems
         private void Update()
         {
             if (Lock) return;
-            if (UseMouse) HandleCursor();
             if (UseConstraint) ApplyAngleConstraint();
             if (previousPosition != transform.position) UpdatePosition();
         }

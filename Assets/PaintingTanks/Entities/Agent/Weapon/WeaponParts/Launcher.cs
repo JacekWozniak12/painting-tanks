@@ -17,12 +17,13 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
         [SerializeField]
         public ObservableValue<Projectile> projectile;
 
-        void Awake() {
-            transform = GetComponent<Transform>();       
+        void Awake()
+        {
+            transform = GetComponent<Transform>();
         }
 
         [SerializeField]
-        protected new Transform transform {get; set;}
+        protected new Transform transform { get; set; }
 
         public void Fire(Vector3 velocity, AudioPlayOnce source, ForceMode ForceType = ForceMode.Impulse)
         {
@@ -32,7 +33,6 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
             rb.AddForce(velocity, ForceType);
             source?.PlayOnce(sfx);
             vfx?.Play();
-            // show
         }
     }
 }

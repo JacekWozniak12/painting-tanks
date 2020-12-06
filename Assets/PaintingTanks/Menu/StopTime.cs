@@ -2,7 +2,7 @@ namespace PaintingTanks.Menu
 {
     using UnityEngine;
 
-    class StopTime : MonoBehaviour
+    class StopGame : MonoBehaviour
     {
         public AudioSource[] sources;
 
@@ -13,6 +13,11 @@ namespace PaintingTanks.Menu
             {
                 source.Pause();
             }
+        }
+
+        public void DisconnectPlayerControls()
+        {
+            
         }
     }
 }

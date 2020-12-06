@@ -74,7 +74,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -96,7 +96,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -107,7 +107,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -118,7 +118,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -129,7 +129,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -151,7 +151,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -162,7 +162,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -173,7 +173,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -184,7 +184,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -195,7 +195,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -271,7 +271,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Quit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -282,7 +282,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -293,7 +293,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player_Keyboard"",
+                    ""groups"": ""Player_1"",
                     ""action"": ""Mute"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -303,8 +303,8 @@ public class @GameControls : IInputActionCollection, IDisposable
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""Player_Keyboard"",
-            ""bindingGroup"": ""Player_Keyboard"",
+            ""name"": ""Player_1"",
+            ""bindingGroup"": ""Player_1"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -317,6 +317,11 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Player_2"",
+            ""bindingGroup"": ""Player_2"",
+            ""devices"": []
         }
     ]
 }");
@@ -500,13 +505,22 @@ public class @GameControls : IInputActionCollection, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
-    private int m_Player_KeyboardSchemeIndex = -1;
-    public InputControlScheme Player_KeyboardScheme
+    private int m_Player_1SchemeIndex = -1;
+    public InputControlScheme Player_1Scheme
     {
         get
         {
-            if (m_Player_KeyboardSchemeIndex == -1) m_Player_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Player_Keyboard");
-            return asset.controlSchemes[m_Player_KeyboardSchemeIndex];
+            if (m_Player_1SchemeIndex == -1) m_Player_1SchemeIndex = asset.FindControlSchemeIndex("Player_1");
+            return asset.controlSchemes[m_Player_1SchemeIndex];
+        }
+    }
+    private int m_Player_2SchemeIndex = -1;
+    public InputControlScheme Player_2Scheme
+    {
+        get
+        {
+            if (m_Player_2SchemeIndex == -1) m_Player_2SchemeIndex = asset.FindControlSchemeIndex("Player_2");
+            return asset.controlSchemes[m_Player_2SchemeIndex];
         }
     }
     public interface IPlayerActions

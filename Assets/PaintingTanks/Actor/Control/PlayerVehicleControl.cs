@@ -8,18 +8,20 @@ namespace PaintingTanks.Actor.Control
     [RequireComponent(typeof(Controller))]
     public partial class PlayerVehicleControl : VehicleControl
     {
-        public event Action ChangedControlScheme;
-        public AudioSwitcher switcher;
+
+        public AudioSwitcher audioSwitcher;
         public AudioClip idle;
         public AudioClip running;
-        public event Action Moving;
-        public event Action Stopping;
+
+        public event Action MoveEvent;
+        public event Action StopEvent;
+        public event Action ChangedControlSchemeEvent;
 
         public void ChangeControlScheme(MovementScheme scheme)
         {
             if (scheme != Scheme)
             {
-                ChangedControlScheme?.Invoke();
+                ChangedControlSchemeEvent?.Invoke();
                 if (Scheme == MovementScheme.Artillery) TargetPositioner.UseMouse = false;
                 else TargetPositioner.UseMouse = true;
             }
@@ -27,49 +29,38 @@ namespace PaintingTanks.Actor.Control
 
         protected void Start()
         {
-            Controller.Controls.Player.Move.started += ctx => RunEngine();
-            Controller.Controls.Player.Move.canceled += ctx => IdleEngine();
+            MoveEvent += RunEngine;
+            StopEvent += IdleEngine;
             SetupTank();
             SetupAssaultGun();
             SetupArtillery();
             TargetPositioner.PositionChanged += targeterChanged;
         }
 
-        private void FixedUpdate()
+        private void Moving()
         {
-            HandleControls();
+            MoveEvent?.Invoke();
         }
-        
 
-        public void LockVehicle(bool isTrue)
+        private void Stopping()
         {
-            Lock = isTrue;
+            StopEvent?.Invoke();
         }
 
         private bool Lock;
+        
+        public void LockVehicle(bool isTrue) => Lock = isTrue;
+        public bool IsMoving() => Body.IsMoving();
+        private void IdleEngine() => audioSwitcher.Switch(idle);
+        private void RunEngine() => audioSwitcher.Switch(running);
 
-        public bool IsMoving()
-        {
-            return Body.IsMoving();
-        }
-
-        private void IdleEngine()
-        {
-            switcher.Switch(idle);
-        }
-
-        private void RunEngine()
-        {
-            switcher.Switch(running);
-        }
-
-        private void HandleControls()
+        public void HandleControls(Vector2 variable)
         {
             if (!Lock)
             {
-                var pressed = CheckIfPlayerMoves(Controller.Controls.Player.Move.ReadValue<Vector2>());
-                var xInput = Controller.Controls.Player.Move.ReadValue<Vector2>().y;
-                var yInput = Controller.Controls.Player.Move.ReadValue<Vector2>().x;
+                var pressed = CheckIfPlayerMoves(variable);
+                var xInput = variable.y;
+                var yInput = variable.x;
 
                 switch (Scheme)
                 {
