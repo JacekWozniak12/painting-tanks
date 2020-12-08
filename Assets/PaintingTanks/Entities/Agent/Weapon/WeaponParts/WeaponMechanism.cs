@@ -22,6 +22,12 @@ namespace PaintingTanks.Entities.Agent
             if (isActive) TriggerPressed?.Invoke();
         }
 
+        public void SecondaryButton(bool isTrue)
+        {
+            if (isTrue) SecondaryButtonPressed();
+            else SecondaryButtonStopped();
+        }
+
         protected virtual bool OtherConditions() => true;
         protected virtual void SetupPrerequisites() { }
         protected virtual IEnumerator ShootMethod()
@@ -34,9 +40,13 @@ namespace PaintingTanks.Entities.Agent
         protected virtual void PostShootMethod() { }
         protected virtual void AfterChecking() { }
         protected virtual void BeforeChecking() { }
+        protected virtual void SecondaryButtonPressed() { }
+        protected virtual void SecondaryButtonStopped() { }
 
-        protected Vector3 GetVelocity(Vector3 customStart) => VelocityProvider.GetVelocity(customStart, Vector3.zero, ProjectileSpeed, Spread, Vector3.zero);
-        protected Vector3 GetVelocity() => GetVelocity(ProjectileStart.transform.position);
+        protected Vector3 GetVelocity(Vector3 customStart) => 
+            VelocityProvider.GetVelocity(customStart, Vector3.zero, ProjectileSpeed, Spread, Vector3.zero);
+        protected Vector3 GetVelocity() => 
+            GetVelocity(ProjectileStart.transform.position);
         private void Awake() => SetupPrerequisites();
 
         private void Update()

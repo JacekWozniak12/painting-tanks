@@ -20,6 +20,8 @@ namespace PaintingTanks.Entities.PlayerItems
 
         public Vector3 GetVelocity(Vector3 start, float speedPerSecond = 25, Vector3 modifier = default(Vector3))
         {
+            if (UseConstraint) ApplyAngleConstraint();
+            if (previousPosition != transform.position) UpdatePosition();
             var point = transform.position;
             modifier = transform.TransformDirection(modifier);
             if (UsePreciseCalculation) point = GetPreciseVelocityCalculations(point);
@@ -28,6 +30,7 @@ namespace PaintingTanks.Entities.PlayerItems
 
         public void HandleCursor(Vector2 cursorPosition)
         {
+            if (Lock) return;
             if (CursorMoved(cursorPosition))
             {
                 var r = camera.ScreenPointToRay(cursorPosition);
@@ -120,7 +123,6 @@ namespace PaintingTanks.Entities.PlayerItems
 
         private void Update()
         {
-            if (Lock) return;
             if (UseConstraint) ApplyAngleConstraint();
             if (previousPosition != transform.position) UpdatePosition();
         }

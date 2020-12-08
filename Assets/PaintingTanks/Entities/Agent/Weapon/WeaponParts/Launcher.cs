@@ -32,7 +32,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
             var rb = a.GetComponent<Rigidbody>();
             rb.AddForce(velocity, ForceType);
             source?.PlayOnce(sfx);
-            vfx?.Play();
+            if(vfx != null) vfx?.Play();
         }
     }
 }

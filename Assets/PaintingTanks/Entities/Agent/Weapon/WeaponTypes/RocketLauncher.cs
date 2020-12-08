@@ -12,25 +12,48 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
         public float Delay = 0.2f;
         public int LaunchersPerShot = 2;
 
-        private bool LockWish = false;
+        private float TimeToPrepare = 1f;
+        private bool prepared = false;
+
+        private Coroutine prepare;
+
+        private IEnumerator preparing()
+        {
+            yield return new WaitForSeconds(TimeToPrepare);
+            prepared = true;
+        }
 
         protected override void SetupPrerequisites()
         {
             Vehicle = VelocityProvider.VehicleControl;
-            TriggerPressed += WishForLock;
         }
 
-        protected override bool OtherConditions() => !Vehicle.IsMoving();
-
-        protected void WishForLock()
+        protected override void SecondaryButtonPressed()
         {
-            if (!IsShooting())
+            if (prepare == null)
             {
-                LockWish = !LockWish;
-                print(LockWish);
-                Vehicle.LockVehicle(LockWish);
+                Vehicle.LockVehicle(true);
+                prepare = StartCoroutine(preparing());
             }
         }
+
+        protected override void SecondaryButtonStopped()
+        {
+            StartCoroutine(HandleButtonCancellationDelay(TimeToPrepare));
+        }
+
+        protected IEnumerator HandleButtonCancellationDelay(float value)
+        {
+            if (prepare != null)
+            {
+                yield return new WaitForSeconds(value);
+                Vehicle.LockVehicle(false);
+                StopCoroutine(prepare);
+                prepare = null;
+            }
+        }
+
+        protected override bool OtherConditions() => !Vehicle.IsMoving() || prepared;
 
         protected sealed override IEnumerator ShootMethod()
         {

@@ -14,8 +14,12 @@ namespace PaintingTanks.Behaviours.Audio
 
         public void Switch(AudioClip a)
         {
-            source.clip = a;
-            source.Play();
+            if (a != null)
+            {
+                source.clip = a;
+                source.Play();
+            }
+            else source.Stop();
         }
     }
 }

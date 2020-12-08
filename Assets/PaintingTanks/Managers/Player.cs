@@ -16,7 +16,6 @@ namespace PaintingTanks.Managers
         public PlayerWeaponControls WeaponControls;
         public Targeter Target;
 
-        
 
         private void Awake()
         {
@@ -31,14 +30,20 @@ namespace PaintingTanks.Managers
             Controller.Controls.Player.Fire.performed += ctx => Manager.CurrentWeapon?.GetMechanism().Trigger(true);
             Controller.Controls.Player.Fire.canceled += ctx => Manager.CurrentWeapon?.GetMechanism().Trigger(false);
             Controller.Controls.Player.Switch.started += ctx => Manager.Scrolling(Controller.Controls.Player.Switch.ReadValue<Vector2>().y);
+            Controller.Controls.Player.Special.started += ctx => Manager.CurrentWeapon?.GetMechanism().SecondaryButton(true);
+            Controller.Controls.Player.Special.canceled += ctx => Manager.CurrentWeapon?.GetMechanism().SecondaryButton(false);
             WeaponControls.SetWeaponOptions();
+        }
+
+        private void Update()
+        {
+            Target.HandleCursor(Controller.Controls.Player.FindTarget.ReadValue<Vector2>());
         }
 
         private void FixedUpdate()
         {
             // Movement
             VehicleControl.HandleControls(Controller.Controls.Player.Move.ReadValue<Vector2>());
-            Target.HandleCursor(Controller.Controls.Player.FindTarget.ReadValue<Vector2>());
         }
     }
 }

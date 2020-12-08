@@ -33,6 +33,12 @@ namespace PaintingTanks.Behaviours.Game
             }
         }
 
+        public bool IsRotating()
+        {
+            if (rigidbody.angularVelocity != Vector3.zero) return true;
+            else return false;
+        }
+
         public bool IsMoving()
         {
             if (rigidbody.velocity != Vector3.zero) return true;
