@@ -49,7 +49,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
                 yield return new WaitForSeconds(value);
                 if (!isShooting)
                 {
-                    Vehicle.LockVehicle(false);
+                    Vehicle.LockVehicle(true);
                 }
                 if (prepare != null) StopCoroutine(prepare);
                 prepare = null;

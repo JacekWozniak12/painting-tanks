@@ -3,6 +3,7 @@ namespace PaintingTanks.Entities
     using System;
     using System.Collections;
     using PaintingTanks.Definitions;
+    using PaintingTanks.Entities.Camera;
     using PaintingTanks.Entities.MapItems;
     using UnityEngine;
 
@@ -38,7 +39,11 @@ namespace PaintingTanks.Entities
             }
         }
 
-        private void OnCollisionEnter(Collision other) => OnHit(other);
+        private void OnCollisionEnter(Collision other)
+        {
+            CameraShake.Instance.InduceStress(Mathf.Clamp(brush.Size.Value.x / 10, 0.025f, 0.15f));
+            OnHit(other);
+        }
 
         private void Awake()
         {

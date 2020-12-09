@@ -4,15 +4,6 @@ namespace PaintingTanks.Library
 
     public static class MathL
     {
-        public static Vector3 GetRandomVector(float x, float y, float z)
-            => new Vector3(
-                    Random.Range(-Mathf.Abs(x), Mathf.Abs(x)),
-                    Random.Range(-Mathf.Abs(y), Mathf.Abs(y)),
-                    Random.Range(-Mathf.Abs(z), Mathf.Abs(z))
-                );
-
-        public static Vector3 GetRandomVector(Vector3 v) => GetRandomVector(v.x, v.y, v.z);
-
         public readonly static int ONE_HUNDRED = 100;
 
         public static double Clamp(double value, double min, double max)

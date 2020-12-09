@@ -31,7 +31,7 @@ namespace PaintingTanks.Actor.Control
 
         public Vector3 GetVelocity(Vector3 position, Vector3 startModifier, float speed, Vector3 spread, Vector3 endModifier)
         {
-            spread = MathL.GetRandomVector(spread);
+            spread = RandomL.GetRandomVector(spread);
             return TargetPositioner.GetVelocity(position + startModifier, speed, spread + endModifier);
         }
     }

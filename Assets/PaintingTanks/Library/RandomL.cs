@@ -5,6 +5,15 @@ namespace PaintingTanks.Library
 
     public static class RandomL
     {
+        public static Vector3 GetRandomVector(float x, float y, float z)
+                    => new Vector3(
+                            Random.Range(-Mathf.Abs(x), Mathf.Abs(x)),
+                            Random.Range(-Mathf.Abs(y), Mathf.Abs(y)),
+                            Random.Range(-Mathf.Abs(z), Mathf.Abs(z))
+                        );
+
+        public static Vector3 GetRandomVector(Vector3 v) => GetRandomVector(v.x, v.y, v.z);
+
         /// <summary> Interface for weights, suggested (1, 100) </summary>
         public interface IWeight { int GetWeight(); }
 
