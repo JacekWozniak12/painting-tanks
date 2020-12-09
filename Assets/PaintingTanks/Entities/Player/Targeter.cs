@@ -4,8 +4,9 @@ namespace PaintingTanks.Entities.PlayerItems
     using UnityEngine;
     using PaintingTanks.Library;
     using PaintingTanks.Definitions;
+    using PaintingTanks.Interfaces;
 
-    public class Targeter : MonoBehaviour
+    public class Targeter : MonoBehaviour, IPausable
     {
         public event Action PositionChanged;
         public event Action<float> ConstrainedAngle;
@@ -30,7 +31,7 @@ namespace PaintingTanks.Entities.PlayerItems
 
         public void HandleCursor(Vector2 cursorPosition)
         {
-            if (Lock) return;
+            if (Lock || paused) return;
             if (CursorMoved(cursorPosition))
             {
                 var r = camera.ScreenPointToRay(cursorPosition);
@@ -123,8 +124,21 @@ namespace PaintingTanks.Entities.PlayerItems
 
         private void Update()
         {
+            if (paused) return;
             if (UseConstraint) ApplyAngleConstraint();
             if (previousPosition != transform.position) UpdatePosition();
+        }
+
+        private bool paused;
+
+        public void Pause()
+        {
+            paused = true;
+        }
+
+        public void UnPause()
+        {
+            paused = false;
         }
 
         // camera => into camera control

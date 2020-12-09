@@ -28,7 +28,7 @@ Describes process of changing color of mesh. It's important to have mesh that do
 - Uses new Input system package
 - **FixedUpdate()** for Movement Changes
 - Movement Agents defined for Body, Turret and Gun
-- Vehicle Movement Styles
+- Vehicle Movement Styles (wip)
   - Tank - is moved by its base controls and its turret is moved by pointer (mouse)
   - Assault Gun - is moved by its base controls and rotated by pointer. Turret rotation is limited
   - Artillery - is moved and rotated by its controls, not pointer. It is base moslty for artillery vehicles / functions
@@ -39,7 +39,7 @@ Describes process of changing color of mesh. It's important to have mesh that do
 ### Weapon System
 #### Implementation
 - Using *Rigidbody* for Gun Turret and Turret.
-- Using *Camera* with mouse pointer and *Physics.Rayast* with some vector functions to implement minimal / maximal range system that player can target to.
+- Using *Camera* with mouse pointer and *Physics.Raycast* with some vector functions to implement minimal / maximal range system that player can target to.
 - Using multiple vehicle movement styles to create different experiences for different type of weapons. Example: Hotchkiss H39 'ground stuka' tank which turret rotation does not influence rocket barrage of it as launcher is not pinned to its turret.
 
 
