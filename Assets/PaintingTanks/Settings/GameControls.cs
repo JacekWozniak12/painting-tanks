@@ -65,6 +65,14 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Break"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ae81105-14ed-4a3f-ab58-17c600c5b360"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -232,6 +240,17 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7b4c303-503a-4410-8587-8535c3611172"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Break"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -333,6 +352,7 @@ public class @GameControls : IInputActionCollection, IDisposable
         m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
         m_Player_FindTarget = m_Player.FindAction("FindTarget", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
+        m_Player_Break = m_Player.FindAction("Break", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Quit = m_UI.FindAction("Quit", throwIfNotFound: true);
@@ -393,6 +413,7 @@ public class @GameControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Special;
     private readonly InputAction m_Player_FindTarget;
     private readonly InputAction m_Player_Reload;
+    private readonly InputAction m_Player_Break;
     public struct PlayerActions
     {
         private @GameControls m_Wrapper;
@@ -403,6 +424,7 @@ public class @GameControls : IInputActionCollection, IDisposable
         public InputAction @Special => m_Wrapper.m_Player_Special;
         public InputAction @FindTarget => m_Wrapper.m_Player_FindTarget;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
+        public InputAction @Break => m_Wrapper.m_Player_Break;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -430,6 +452,9 @@ public class @GameControls : IInputActionCollection, IDisposable
                 @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Break.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @Break.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @Break.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -452,6 +477,9 @@ public class @GameControls : IInputActionCollection, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @Break.started += instance.OnBreak;
+                @Break.performed += instance.OnBreak;
+                @Break.canceled += instance.OnBreak;
             }
         }
     }
@@ -531,6 +559,7 @@ public class @GameControls : IInputActionCollection, IDisposable
         void OnSpecial(InputAction.CallbackContext context);
         void OnFindTarget(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnBreak(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -49,6 +49,11 @@ namespace PaintingTanks.Actor.Control
             TargetPositioner.PositionChanged += targeterChanged;
         }
 
+        public void Break()
+        {
+            Body.Break();
+        }
+
         public void LockVehicle(bool isTrue) => Lock = isTrue;
         public bool IsMoving() => Body.IsMoving();
 

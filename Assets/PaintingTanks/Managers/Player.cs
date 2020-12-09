@@ -33,6 +33,8 @@ namespace PaintingTanks.Managers
             Controller.Controls.Player.Special.started += ctx => Manager.CurrentWeapon?.GetMechanism().SecondaryButton(true);
             Controller.Controls.Player.Special.canceled += ctx => Manager.CurrentWeapon?.GetMechanism().SecondaryButton(false);
             WeaponControls.SetWeaponOptions();
+
+            Controller.Controls.Player.Break.performed += ctx => VehicleControl.Break();
         }
 
         private void Update()
@@ -42,7 +44,6 @@ namespace PaintingTanks.Managers
 
         private void FixedUpdate()
         {
-            // Movement
             VehicleControl.HandleControls(Controller.Controls.Player.Move.ReadValue<Vector2>());
         }
     }

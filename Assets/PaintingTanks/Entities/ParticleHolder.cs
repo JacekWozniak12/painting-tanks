@@ -8,6 +8,11 @@ namespace PaintingTanks.Entities
         ParticleSystem particle;
         public float time = 5f;
 
+        public void Awake()
+        {
+            particle = GetComponent<ParticleSystem>();
+        }
+
         public void Activate()
         {
             StartCoroutine(WaitAndDie());
@@ -15,9 +20,15 @@ namespace PaintingTanks.Entities
 
         IEnumerator WaitAndDie()
         {
+            yield return new WaitForSeconds(particle.main.duration);
+            Destroy(gameObject);
+        }
+
+        IEnumerator WaitAndDie(float time)
+        {
             yield return new WaitForSeconds(time);
             Destroy(gameObject);
         }
-        
+
     }
 }

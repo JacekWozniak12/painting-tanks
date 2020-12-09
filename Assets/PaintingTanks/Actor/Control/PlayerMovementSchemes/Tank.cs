@@ -9,9 +9,7 @@ namespace PaintingTanks.Actor.Control
         {
             var movementVector = new Vector3(0, 0, movement);
             HandleBodyMovement(movementVector, deltaTime, pressed);
-
             var rotationVector = new Vector3(0, rotation, 0);
-
             HandleBodyRotation(rotationVector, deltaTime, pressed);
             Vector3 lookTo = (TargetPositioner.transform.position - Barrel.transform.position).normalized;
             lookTo.y *= GunTurretRotationYModifier;

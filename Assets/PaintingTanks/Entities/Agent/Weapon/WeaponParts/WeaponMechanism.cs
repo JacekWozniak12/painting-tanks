@@ -14,7 +14,7 @@ namespace PaintingTanks.Entities.Agent
         public event Action ShotFired;
 
         public AudioPlayOnce audioSource;
-        public bool IsShooting() => triggerOn;
+        public bool IsTriggered() => triggerOn;
         public void Ready(bool isTrue) => ready = isTrue;
         public void Trigger(bool isActive)
         {

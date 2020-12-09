@@ -12,7 +12,6 @@ namespace PaintingTanks.Actor
         [SerializeField] Acceleration acceleration;
         [SerializeField] Movement movement;
 
-
         public bool SoundSystem = true;
 
         public AudioSwitcher audioSwitcher;
@@ -63,6 +62,11 @@ namespace PaintingTanks.Actor
                 StopEvent?.Invoke();
             }
             previousMovementSpeed = speed;
+        }
+
+        public void Break()
+        {
+            movement.Break();
         }
 
         public void Rotate(Vector3 v, float deltaTime, bool active = false)

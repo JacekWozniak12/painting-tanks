@@ -66,7 +66,7 @@ namespace PaintingTanks.Entities.PlayerItems
 
         private void SetPositionFrom(Vector3 direction, float distance)
         {
-            var p = Pivot.position + direction * -distance;
+            var p = Pivot.position + new Vector3(0, direction.y, 0) + new Vector3(direction.x, 0, direction.z) * -distance;
             PerformSnapping(p);
         }
 
