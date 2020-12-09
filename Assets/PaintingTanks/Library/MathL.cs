@@ -4,6 +4,16 @@ namespace PaintingTanks.Library
 
     public static class MathL
     {
+        public static Vector3 ClampMagnitude(Vector3 vector, float min, float max)
+        {
+            float sm = vector.sqrMagnitude;
+
+            if (sm > max * max) return vector.normalized * max;
+            if (sm < min * min) return vector.normalized * min;
+            
+            return vector;
+        }
+
         public readonly static int ONE_HUNDRED = 100;
 
         public static double Clamp(double value, double min, double max)

@@ -8,8 +8,8 @@ namespace PaintingTanks.Entities.Camera
 
         // refractor it pls
         public static CameraShake Instance;
-
         private new Transform transform;
+        [SerializeField] Vector3 baseVectorForRandomization = new Vector3(0.4f, 0.4f, 0.4f);
 
         private float seed;
 
@@ -27,7 +27,7 @@ namespace PaintingTanks.Entities.Camera
             trauma = Mathf.Clamp01(trauma + stress);
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             Shake();
         }
@@ -35,7 +35,7 @@ namespace PaintingTanks.Entities.Camera
         private void Shake(float frequency = 0.1f)
         {
             float perlin = Mathf.PerlinNoise(seed, Time.time * frequency);
-            transform.localPosition = RandomL.GetRandomVector(0.4f, 0.4f, 0.4f) * perlin * trauma;
+            transform.localRotation = Quaternion.Euler(RandomL.GetRandomVector(baseVectorForRandomization) * perlin * trauma);
             if (trauma > 0)
             {
                 trauma -= 1f * Time.deltaTime;

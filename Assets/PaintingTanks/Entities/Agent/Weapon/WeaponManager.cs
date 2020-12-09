@@ -3,7 +3,6 @@ namespace PaintingTanks.Entities.Agent
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using PaintingTanks.Actor.Control;
     using PaintingTanks.Definitions;
     using PaintingTanks.Definitions.ScriptableObjects;
     using PaintingTanks.Interfaces;
@@ -68,11 +67,8 @@ namespace PaintingTanks.Entities.Agent
 
         public void Scrolling(float value)
         {
-            if (!CurrentWeapon.IsFiring())
-            {
-                if (value > 0) ScrollUp();
-                else if (value < 0) ScrollDown();
-            }
+            if (value > 0) ScrollUp();
+            else if (value < 0) ScrollDown();
         }
 
         public void ScrollDown()
@@ -95,8 +91,42 @@ namespace PaintingTanks.Entities.Agent
             }
         }
 
+        private void FixedUpdate()
+        {
+            CheckForSwitchPromise();
+        }
+
+        int promised = -1;
+        int promisedChange = 0;
+
+        private void CheckForSwitchPromise()
+        {
+            try
+            {
+                if (!CurrentWeapon.GetMechanism().IsTriggered())
+                {
+                    if (promised != -1)
+                    {
+                        SetCurrentWeapon(promised, promisedChange);
+                        promised = -1;
+                        promisedChange = 0;
+                    }
+                }
+            }
+            catch { }
+        }
+
         public void SetCurrentWeapon(int index, int change)
         {
+            if (CurrentWeapon != null)
+            {
+                if (CurrentWeapon.GetMechanism().IsTriggered())
+                {
+                    promised = index;
+                    promisedChange = change;
+                    return;
+                }
+            }
             try
             {
                 var firstElement = Weapons[index];
@@ -105,9 +135,9 @@ namespace PaintingTanks.Entities.Agent
                 {
                     if (tempElement.GetComponent<IWeapon>() is IWeapon weapon)
                     {
+
                         StartedSwitching?.Invoke();
                         StartCoroutine(SwitchWeapon(weapon));
-                        break;
                     }
                     else
                     {

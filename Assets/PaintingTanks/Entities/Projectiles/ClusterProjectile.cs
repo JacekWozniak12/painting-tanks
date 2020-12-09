@@ -8,7 +8,7 @@ namespace PaintingTanks.Entities.Projectiles
     {
         protected override void SetupPrerequisities()
         {
-
+            //todo
         }
 
         protected override void OnHit(Collision other)

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8923610946783092096}
   - component: {fileID: -3285754509330602284}
   m_Layer: 8
-  m_Name: Projectile
+  m_Name: HMGRound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Texture: {fileID: 0}
+  textureType: 0
   Size:
     _value: {x: 4, y: 4}
   Color:
@@ -194,7 +195,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 0.3
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
