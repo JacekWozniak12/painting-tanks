@@ -40,6 +40,9 @@ namespace PaintingTanks.Entities.PlayerItems
             }
         }
 
+        public void Pause() => paused = true;
+        public void UnPause() => paused = false;
+
         private Vector3 GetPreciseVelocityCalculations(Vector3 point)
         {
             var distance = Vector3.Distance(Pivot.position, point);
@@ -61,13 +64,13 @@ namespace PaintingTanks.Entities.PlayerItems
             var currentDistance = Vector3.Distance(Pivot.position, point);
             var currentDirection = (Pivot.position - point).normalized;
             if (currentDistance >= MaxDistance) SetPositionFrom(currentDirection, MaxDistance);
-            else if (currentDistance < MinDistance) SetPositionFrom(currentDirection, MinDistance);
+            else if (currentDistance < MinDistance) SetPositionFrom(MathL.ClampMagnitude(currentDirection, 1, 1), MinDistance);
             else SetPositionFrom(currentDirection, currentDistance);
         }
 
         private void SetPositionFrom(Vector3 direction, float distance)
         {
-            var p = Pivot.position + new Vector3(0, direction.y, 0) + new Vector3(direction.x, 0, direction.z) * -distance;
+            var p = Pivot.position + new Vector3(direction.x, direction.y, direction.z) * -distance;
             PerformSnapping(p);
         }
 
@@ -76,6 +79,7 @@ namespace PaintingTanks.Entities.PlayerItems
             if (Physics.Raycast(p + Vector3.up / 10, Vector3.down / 9, out RaycastHit hit))
             {
                 transform.position = hit.point;
+                transform.up = hit.normal;
             }
             else
             if (SetPositionIfFailed) transform.position = p;
@@ -131,16 +135,6 @@ namespace PaintingTanks.Entities.PlayerItems
 
         private bool paused;
 
-        public void Pause()
-        {
-            paused = true;
-        }
-
-        public void UnPause()
-        {
-            paused = false;
-        }
-
         // camera => into camera control
         [SerializeField] private new Camera camera;
         [SerializeField] private LayerMask layerMask;
@@ -155,6 +149,7 @@ namespace PaintingTanks.Entities.PlayerItems
         public bool UseMouse = true;
         public bool UseConstraint = false;
         public bool Lock = false;
+
         public Transform ConstrainedTo;
         public float ConstraintValue = 30f;
 
