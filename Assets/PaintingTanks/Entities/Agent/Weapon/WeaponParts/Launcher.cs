@@ -31,7 +31,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
             a.transform.position = transform.transform.position;
             var rb = a.GetComponent<Rigidbody>();
             rb.AddForce(velocity, ForceType);
-            source?.PlayOnce(sfx);
+            source?.Play(sfx);
             if(vfx != null) vfx?.Play();
         }
     }

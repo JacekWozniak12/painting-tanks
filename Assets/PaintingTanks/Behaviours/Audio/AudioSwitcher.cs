@@ -1,18 +1,31 @@
 namespace PaintingTanks.Behaviours.Audio
 {
+    using PaintingTanks.Interfaces;
     using UnityEngine;
 
     [RequireComponent(typeof(AudioSource))]
-    public class AudioSwitcher : MonoBehaviour
+    public class AudioSwitcher : MonoBehaviour, IAudioPlayer
     {
         private AudioSource source;
 
         public void Awake()
         {
-            source = GetComponent<AudioSource>();
+            SetAudioSouce(GetComponent<AudioSource>());
         }
 
-        public void Switch(AudioClip a)
+        public void Play(AudioClip clip)
+        {
+            Switch(clip);
+        }
+
+        public void SetAudioSouce(AudioSource source)
+        {
+            this.source = source;
+        }
+
+        public void Stop() => this.source.Stop();
+
+        private void Switch(AudioClip a)
         {
             if (a != null)
             {

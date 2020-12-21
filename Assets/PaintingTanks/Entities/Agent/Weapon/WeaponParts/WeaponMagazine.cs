@@ -50,7 +50,7 @@ namespace PaintingTanks.Entities.Agent
             else
             {
                 ReloadStarted?.Invoke();
-                source?.PlayOnce(empty);
+                source?.Play(empty);
                 StartCoroutine(HandleDelay(ReloadTime, ReloadFinished));
                 var needed = MagazineSize - CurrentBulletCount.Value;
                 var difference = amount - needed;

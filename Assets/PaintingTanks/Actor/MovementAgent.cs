@@ -33,9 +33,9 @@ namespace PaintingTanks.Actor
             }
         }
 
-        private void StopMovementSound() => audioSwitcher.Switch(idle);
-        private void StartMovementSound() => audioSwitcher.Switch(move);
-        private void RotateMovementSound() => audioSwitcher.Switch(rotate);
+        private void StopMovementSound() => audioSwitcher.Play(idle);
+        private void StartMovementSound() => audioSwitcher.Play(move);
+        private void RotateMovementSound() => audioSwitcher.Play(rotate);
 
         protected virtual void Awake()
         {

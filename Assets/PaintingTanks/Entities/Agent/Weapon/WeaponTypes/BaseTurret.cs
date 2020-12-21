@@ -15,7 +15,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
             a.transform.position = ProjectileStart.transform.position;
             var rb = a.GetComponent<Rigidbody>();
             rb.AddForce(GetVelocity(), ForceType);
-            audioSource?.PlayOnce(sfx);
+            audioSource?.Play(sfx);
             yield return new WaitForEndOfFrame();
         }
     }
