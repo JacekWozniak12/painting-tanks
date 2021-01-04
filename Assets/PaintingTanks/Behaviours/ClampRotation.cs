@@ -1,7 +1,7 @@
+using UnityEngine;
+
 namespace PaintingTanks.Behaviours
 {
-    using UnityEngine;
-
     class ClampRotation : MonoBehaviour
     {
         public float minX;
@@ -9,15 +9,17 @@ namespace PaintingTanks.Behaviours
 
         private new Transform transform;
 
-        void Awake() {
+        void Awake()
+        {
             transform = GetComponent<Transform>();
         }
 
-        void LateUpdate() {
+        void LateUpdate()
+        {
             var r = transform.rotation.eulerAngles;
             var x = r.x;
             x = Mathf.Clamp(x, minX, maxX);
-            transform.rotation = Quaternion.Euler(x, r.y, r.z);   
+            transform.rotation = Quaternion.Euler(x, r.y, r.z);
         }
     }
 }

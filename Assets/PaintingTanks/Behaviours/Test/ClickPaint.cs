@@ -1,18 +1,18 @@
+using UnityEngine;
+using PaintingTanks.Interfaces;
+using PaintingTanks.Entities.MapItems;
+using PaintingTanks.Actor.Control;
+using PaintingTanks.Library;
+using PaintingTanks.Definitions;
+
 namespace PaintingTanks.Behaviours.Test
 {
-    using UnityEngine;
-    using Interfaces;
-    using Entities.MapItems;
-    using PaintingTanks.Actor.Control;
-    using Library;
-    using Definitions;
-
     public class ClickPaint : MonoBehaviour, IGameCommand
     {
         [SerializeField] private new Camera camera;
         [SerializeField] private Texture2D texture;
         [SerializeField] Vector2Int size = new Vector2Int(8, 8);
-        [SerializeField] private ObservableValue<Color32> color = new ObservableValue<Color32> ();
+        [SerializeField] private ObservableValue<Color32> color = new ObservableValue<Color32>();
         public GameControls controls;
 
         private void Awake()
@@ -47,7 +47,7 @@ namespace PaintingTanks.Behaviours.Test
             }
         }
 
-        public void Stop() 
+        public void Stop()
         {
             return;
         }

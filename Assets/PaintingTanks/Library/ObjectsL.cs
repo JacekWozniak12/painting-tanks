@@ -1,8 +1,8 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace PaintingTanks.Library
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-
     public static class ObjectsL
     {
         public static bool IsNullOrEmpty<T>(this List<T> objs) => objs == null || objs.Count == 0;
@@ -29,6 +29,6 @@ namespace PaintingTanks.Library
             T tmp = obj1; obj1 = obj2; obj2 = tmp;
         }
 
-        
+
     }
 }

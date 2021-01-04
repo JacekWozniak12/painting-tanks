@@ -1,8 +1,8 @@
+using UnityEngine;
+using UnityEngine.Experimental.Rendering;
+
 namespace PaintingTanks.Library
 {
-    using UnityEngine;
-    using UnityEngine.Experimental.Rendering;
-
     public static class GraphicsL
     {
         public static readonly Color32 fullAlpha = new Color32(0, 0, 0, 0);
@@ -11,14 +11,14 @@ namespace PaintingTanks.Library
                                                            (byte)Random.Range(0, 255),
                                                            (byte)Random.Range(0, 255), 255);
 
-        public static Color32 GetFromHSV(float hue, float saturation, float value) 
+        public static Color32 GetFromHSV(float hue, float saturation, float value)
         {
-            hue = MathL.Clamp(hue, 0, 360);
-            saturation = MathL.Clamp01(saturation);
-            value = MathL.Clamp01(saturation);
-            return (Color32) Color.HSVToRGB(hue / 360, saturation, value);
+            hue = Mathf.Clamp(hue, 0, 360);
+            saturation = Mathf.Clamp01(saturation);
+            value = Mathf.Clamp01(saturation);
+            return (Color32)Color.HSVToRGB(hue / 360, saturation, value);
         }
-        
+
         public static Texture2D CreateMonoColorTexture(Vector2Int size, Color32 color)
         {
             var tex = new Texture2D(size.x, size.y);

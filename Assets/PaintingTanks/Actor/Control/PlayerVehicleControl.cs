@@ -1,10 +1,10 @@
+using System;
+using PaintingTanks.Behaviours.Audio;
+using PaintingTanks.Entities.PlayerItems;
+using UnityEngine;
+
 namespace PaintingTanks.Actor.Control
 {
-    using System;
-    using PaintingTanks.Behaviours.Audio;
-    using PaintingTanks.Entities.PlayerItems;
-    using UnityEngine;
-
     [RequireComponent(typeof(Controller))]
     public partial class PlayerVehicleControl : VehicleControl
     {

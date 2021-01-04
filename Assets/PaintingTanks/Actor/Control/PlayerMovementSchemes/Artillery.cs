@@ -1,8 +1,8 @@
+using System;
+using UnityEngine;
+
 namespace PaintingTanks.Actor.Control
 {
-    using System;
-    using UnityEngine;
-
     public partial class PlayerVehicleControl : VehicleControl
     {
         private void ArtilleryScheme(float deltaTime, float movement, float rotation, bool pressed)
@@ -17,7 +17,7 @@ namespace PaintingTanks.Actor.Control
             TargetPositioner.SetPosition(desiredTargetForArtillery);
         }
 
-        private float currentDistance = 50f; 
+        private float currentDistance = 50f;
         private Vector3 desiredTargetForArtillery = Vector3.zero;
     }
 }

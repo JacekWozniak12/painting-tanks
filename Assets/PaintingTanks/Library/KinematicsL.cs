@@ -1,8 +1,8 @@
 using System;
+using UnityEngine;
+
 namespace PaintingTanks.Library
 {
-    using UnityEngine;
-
     public static class KinematicsL
     {
 

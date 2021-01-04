@@ -1,9 +1,9 @@
+using System;
+using PaintingTanks.Interfaces;
+using UnityEngine;
+
 namespace PaintingTanks.Definitions.ScriptableObjects
 {
-    using System;
-    using PaintingTanks.Interfaces;
-    using UnityEngine;
-
     [CreateAssetMenu(fileName = "AmmoTypeSO", menuName = "painting-tanks/AmmoTypeSO", order = 0)]
     public class AmmoTypeSO : ScriptableObject, IEntity
     {
@@ -34,9 +34,9 @@ namespace PaintingTanks.Definitions.ScriptableObjects
         {
             Name = name;
             DefaultAmount = amount;
-        } 
+        }
 
-        public string Name {get; private set;}
+        public string Name { get; private set; }
 
         public int DefaultAmount = 100;
     }

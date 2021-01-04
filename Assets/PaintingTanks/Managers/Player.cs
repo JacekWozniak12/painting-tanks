@@ -1,11 +1,11 @@
+using PaintingTanks.Actor.Control;
+using PaintingTanks.Entities.Agent;
+using PaintingTanks.Entities.PlayerItems;
+using PaintingTanks.Library;
+using UnityEngine;
+
 namespace PaintingTanks.Managers
 {
-    using PaintingTanks.Actor.Control;
-    using PaintingTanks.Entities.Agent;
-    using PaintingTanks.Entities.PlayerItems;
-    using PaintingTanks.Library;
-    using UnityEngine;
-
     public class Player : MonoBehaviour
     {
         public Color32 PlayerColor = GraphicsL.fullAlpha;

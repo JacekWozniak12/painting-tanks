@@ -1,12 +1,13 @@
+using PaintingTanks.Interfaces;
+using UnityEngine;
+
+
 namespace PaintingTanks.Definitions.ScriptableObjects
 {
-    using PaintingTanks.Interfaces;
-    using UnityEngine;
-
     [CreateAssetMenu(fileName = "WeaponTypeSO", menuName = "painting-tanks/WeaponTypeSO", order = 0)]
     class WeaponTypeSO : ScriptableObject, IEntity
     {
-        public string Name;
+        public string Nameunit;
         public Sprite Icon;
 
         public void GetImage()

@@ -1,14 +1,14 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using PaintingTanks.Interfaces;
+using PaintingTanks.Library;
+using PaintingTanks.Entities.MapItems;
+using PaintingTanks.Entities;
+using UnityEngine;
+
 namespace PaintingTanks.Managers
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using Interfaces;
-    using Library;
-    using Entities.MapItems;
-    using Entities;
-    using UnityEngine;
-
     // Calculates amount of paint
     public class Paint : MonoBehaviour, IValueProvider<ulong>, IValueProvider<Color32>
     {
@@ -54,7 +54,7 @@ namespace PaintingTanks.Managers
             catch (NullReferenceException e)
             {
                 Debug.Log("Property is null", tulp.Mesh.gameObject);
-                throw new NullReferenceException(e.Message);
+                throw e;
             }
             finally
             {
@@ -134,15 +134,15 @@ namespace PaintingTanks.Managers
             RefreshPerGroupRate = RefreshRate / GroupAmount;
             for (int j = 0; j < GroupAmount; j++) TulpGroups.Add(new ObjectPaintGroups());
 
-            int g = 0;
-            for (int i = 0; i < entitiesAmount; i++) AddEntityToGroup(amountPerGroup, ref g, i);
+            int tulpIndex = 0;
+            for (int i = 0; i < entitiesAmount; i++) AddEntityToGroup(amountPerGroup, ref tulpIndex, i);
 
         }
 
-        private void AddEntityToGroup(int amountPerGroup, ref int g, int i)
+        private void AddEntityToGroup(int amountPerGroup, ref int groupIndex, int index)
         {
-            TulpGroups[g].Tulps.Add(CreateTulp(PaintableObjects[i]));
-            if (i != 0 && i % (amountPerGroup + 1) == 0) g++;
+            TulpGroups[groupIndex].Tulps.Add(CreateTulp(PaintableObjects[index]));
+            if (index != 0 && index % (amountPerGroup + 1) == 0) groupIndex++;
         }
 
         private void CreateGlobalCounter()

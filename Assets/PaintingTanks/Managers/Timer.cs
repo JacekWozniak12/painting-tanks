@@ -1,12 +1,12 @@
+using System.Collections;
+using UnityEngine;
+using System;
+using System.Collections.Generic;
+using UnityEngine.Events;
+using PaintingTanks.Interfaces;
+
 namespace PaintingTanks.Managers
 {
-    using System.Collections;
-    using UnityEngine;
-    using System;
-    using System.Collections.Generic;
-    using UnityEngine.Events;
-    using Interfaces;
-
     public class Timer : MonoBehaviour, IValueProvider<float>
     {
         public float UpdateRate = 0;

@@ -1,8 +1,8 @@
+using System;
+using UnityEngine;
+
 namespace PaintingTanks.Actor.Control
 {
-    using System;
-    using UnityEngine;
-
     public partial class PlayerVehicleControl : VehicleControl
     {
         private void TankScheme(float deltaTime, float movement, float rotation, bool pressed)

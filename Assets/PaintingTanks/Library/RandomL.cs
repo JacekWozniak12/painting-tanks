@@ -1,8 +1,8 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace PaintingTanks.Library
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-
     public static class RandomL
     {
         public static Vector3 GetRandomVector(float x, float y, float z)

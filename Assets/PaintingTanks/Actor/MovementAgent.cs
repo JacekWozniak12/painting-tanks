@@ -1,10 +1,10 @@
+using UnityEngine;
+using PaintingTanks.Behaviours.Game;
+using System;
+using PaintingTanks.Behaviours.Audio;
+
 namespace PaintingTanks.Actor
 {
-    using UnityEngine;
-    using PaintingTanks.Behaviours.Game;
-    using System;
-    using PaintingTanks.Behaviours.Audio;
-
     public class MovementAgent : MonoBehaviour
     {
         [SerializeField] float rotationSpeed;

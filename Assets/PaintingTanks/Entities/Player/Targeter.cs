@@ -151,6 +151,8 @@ namespace PaintingTanks.Entities.PlayerItems
         public bool Lock = false;
 
         public Transform ConstrainedTo;
+        public Transform CurrentlyTargeting;
+
         public float ConstraintValue = 30f;
 
         private new Transform transform;

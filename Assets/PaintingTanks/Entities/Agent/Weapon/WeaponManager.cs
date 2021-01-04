@@ -1,14 +1,14 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using PaintingTanks.Definitions;
+using PaintingTanks.Definitions.ScriptableObjects;
+using PaintingTanks.Interfaces;
+using PaintingTanks.Library;
+using UnityEngine;
+
 namespace PaintingTanks.Entities.Agent
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using PaintingTanks.Definitions;
-    using PaintingTanks.Definitions.ScriptableObjects;
-    using PaintingTanks.Interfaces;
-    using PaintingTanks.Library;
-    using UnityEngine;
-
     public class WeaponManager : MonoBehaviour
     {
         public IWeapon CurrentWeapon { get; private set; }
@@ -36,9 +36,9 @@ namespace PaintingTanks.Entities.Agent
 
         private void WeaponAmmoManagment()
         {
-            foreach (var w in Weapons)
+            foreach (GameObject weaponObject in Weapons)
             {
-                if (w.GetComponent<IWeapon>() is IWeapon weapon)
+                if (weaponObject.GetComponent<IWeapon>() is IWeapon weapon)
                 {
                     if (weapon.GetMagazine() is IReoladable reoladable)
                     {
@@ -129,8 +129,8 @@ namespace PaintingTanks.Entities.Agent
             }
             try
             {
-                var firstElement = Weapons[index];
-                var tempElement = Weapons[index];
+                GameObject firstElement = Weapons[index];
+                GameObject tempElement = Weapons[index];
                 do
                 {
                     if (tempElement.GetComponent<IWeapon>() is IWeapon weapon)
@@ -153,6 +153,5 @@ namespace PaintingTanks.Entities.Agent
                 Debug.Log("Player do not have any weapons");
             }
         }
-
     }
 }

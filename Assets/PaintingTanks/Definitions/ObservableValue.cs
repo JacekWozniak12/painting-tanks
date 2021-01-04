@@ -1,10 +1,10 @@
+using UnityEngine;
+using System;
+using System.Collections;
+using PaintingTanks.Interfaces;
+
 namespace PaintingTanks.Definitions
 {
-    using UnityEngine;
-    using System;
-    using System.Collections;
-    using Interfaces;
-
     [Serializable]
     public class ObservableValue<T> : IValueProvider<T>, IValueReceiver<T>
     {

@@ -1,10 +1,10 @@
+using UnityEngine;
+using System.Collections.Generic;
+using PaintingTanks.Interfaces;
+using PaintingTanks.Library;
+
 namespace PaintingTanks.Actor
 {
-    using UnityEngine;
-    using System.Collections.Generic;
-    using Interfaces;
-    using Library;
-
     public class CommandAgent : MonoBehaviour, IScrollable, IControllable
     {
         [SerializeField] private List<IGameCommand> gameCommands;

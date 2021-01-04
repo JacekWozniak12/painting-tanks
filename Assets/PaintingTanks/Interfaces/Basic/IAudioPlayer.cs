@@ -7,6 +7,7 @@ namespace PaintingTanks.Interfaces
          void SetAudioSouce(AudioSource Source);
          void Play(AudioClip clip);
          void Stop();
+         void Mute(bool isTrue);
          
 
     }

@@ -1,9 +1,9 @@
+using PaintingTanks.Interfaces;
+using UnityEngine;
+using System;
+
 namespace PaintingTanks.Behaviours.Test
 {
-    using Interfaces;
-    using UnityEngine;
-    using System;
-
     public class TestCommand : IGameCommand
     {
         public void Execute()

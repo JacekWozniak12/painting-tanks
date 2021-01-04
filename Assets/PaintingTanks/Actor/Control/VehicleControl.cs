@@ -1,9 +1,7 @@
-﻿namespace PaintingTanks.Actor.Control
-{
-    using System.Collections.Generic;
-    using PaintingTanks.Interfaces;
-    using UnityEngine;
+﻿using UnityEngine;
 
+namespace PaintingTanks.Actor.Control
+{
     public class VehicleControl : MonoBehaviour
     {
         protected void HandleBodyRotation(Vector3 vector, float deltaTime, bool active) => Body.Rotate(vector, deltaTime, active);
@@ -13,7 +11,7 @@
 
         [Header("Settings")]
         [SerializeField] protected MovementScheme Scheme;
-        
+
         [Header("Movement Agents")]
         [SerializeField] protected MovementAgent Body;
         [SerializeField] protected MovementAgent Turret;

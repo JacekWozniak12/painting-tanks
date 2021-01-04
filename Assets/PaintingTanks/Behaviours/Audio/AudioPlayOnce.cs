@@ -1,7 +1,8 @@
+using PaintingTanks.Interfaces;
+using UnityEngine;
+
 namespace PaintingTanks.Behaviours.Audio
 {
-    using PaintingTanks.Interfaces;
-    using UnityEngine;
 
     [RequireComponent(typeof(AudioSource))]
     public class AudioPlayOnce : MonoBehaviour, IAudioPlayer
@@ -12,6 +13,8 @@ namespace PaintingTanks.Behaviours.Audio
         {
             SetAudioSouce(GetComponent<AudioSource>());
         }
+
+        public void Mute(bool isTrue) => source.mute = isTrue;
 
         public void Play(AudioClip a)
         {
@@ -33,6 +36,5 @@ namespace PaintingTanks.Behaviours.Audio
         }
 
         public void Stop() => this.source.Stop();
-        
     }
 }

@@ -1,8 +1,8 @@
+using UnityEngine;
+using System;
+
 namespace PaintingTanks.Behaviours.Game
 {
-    using UnityEngine;
-    using System;
-
     [Serializable]
     public class Acceleration
     {

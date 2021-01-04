@@ -1,10 +1,9 @@
+using PaintingTanks.Interfaces;
+using UnityEngine;
+using System;
+
 namespace PaintingTanks.Behaviours.Game
 {
-    using Interfaces;
-    using UnityEngine;
-    using System;
-    using PaintingTanks.Library;
-
     [Serializable]
     public class Movement : IMoveable
     {

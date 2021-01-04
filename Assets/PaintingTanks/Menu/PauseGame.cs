@@ -1,10 +1,10 @@
 using System.Linq;
+using PaintingTanks.Actor.Control;
+using PaintingTanks.Interfaces;
+using UnityEngine;
+
 namespace PaintingTanks.Menu
 {
-    using PaintingTanks.Actor.Control;
-    using PaintingTanks.Interfaces;
-    using UnityEngine;
-
     public class PauseGame : MonoBehaviour
     {
         public AudioSource[] sources;
