@@ -1,8 +1,8 @@
+using System.Collections;
+using UnityEngine;
+
 namespace PaintingTanks.Entities
 {
-    using System.Collections;
-    using UnityEngine;
-
     public class ParticleHolder : MonoBehaviour
     {
         ParticleSystem particle;

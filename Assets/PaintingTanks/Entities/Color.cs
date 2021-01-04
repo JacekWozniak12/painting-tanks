@@ -1,10 +1,10 @@
+using System;
+using System.Collections.Generic;
+using PaintingTanks.Entities.MapItems;
+using UnityEngine;
+
 namespace PaintingTanks.Entities
 {
-    using System;
-    using System.Collections.Generic;
-    using PaintingTanks.Entities.MapItems;
-    using UnityEngine;
-
     [Serializable]
     public class PaintAmount
     {

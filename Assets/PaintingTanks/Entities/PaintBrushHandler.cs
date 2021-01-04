@@ -1,10 +1,10 @@
+using System;
+using PaintingTanks.Definitions;
+using PaintingTanks.Library;
+using UnityEngine;
+
 namespace PaintingTanks.Entities
 {
-    using System;
-    using PaintingTanks.Definitions;
-    using PaintingTanks.Library;
-    using UnityEngine;
-
     [Serializable]
     public class PaintBrushHandler : MonoBehaviour
     {

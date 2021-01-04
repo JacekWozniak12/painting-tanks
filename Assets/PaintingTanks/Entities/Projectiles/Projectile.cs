@@ -1,10 +1,10 @@
+using System.Collections;
+using PaintingTanks.Entities;
+using PaintingTanks.Entities.MapItems;
+using UnityEngine;
+
 namespace PaintingTanks.Entities
 {
-    using System.Collections;
-    using PaintingTanks.Entities.Camera;
-    using PaintingTanks.Entities.MapItems;
-    using UnityEngine;
-
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace PaintingTanks.Entities
         [SerializeField] protected ParticleHolder hitVFX;
         [SerializeField] protected AudioClip sound;
         protected float MaximalTimeOfLife = 30f;
-        protected Coroutine objectDestruction; 
+        protected Coroutine objectDestruction;
 
         protected IEnumerator DestroyAfterTime(float t)
         {
@@ -38,8 +38,8 @@ namespace PaintingTanks.Entities
                 }
                 if (hitCount == 0)
                 {
-                    if(objectDestruction != null) StopCoroutine(objectDestruction);
-                    rigidbody.velocity = rigidbody.velocity /100;
+                    if (objectDestruction != null) StopCoroutine(objectDestruction);
+                    rigidbody.velocity = rigidbody.velocity / 100;
                     objectDestruction = StartCoroutine(DestroyAfterTime(0.4f));
                 }
                 hitCount++;

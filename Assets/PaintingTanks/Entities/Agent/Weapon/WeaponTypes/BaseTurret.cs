@@ -1,9 +1,9 @@
+using System.Collections;
+using PaintingTanks.Definitions;
+using UnityEngine;
+
 namespace PaintingTanks.Entities.Agent.WeaponTypes
 {
-    using System.Collections;
-    using PaintingTanks.Definitions;
-    using UnityEngine;
-
     public class BaseTurret : WeaponMechanism
     {
         public ObservableValue<Projectile> Projectile = default;

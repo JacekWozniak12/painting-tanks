@@ -1,10 +1,10 @@
+using System.Collections;
+using PaintingTanks.Actor.Control;
+using PaintingTanks.Interfaces;
+using UnityEngine;
+
 namespace PaintingTanks.Entities.Agent.WeaponTypes
 {
-    using System.Collections;
-    using PaintingTanks.Actor.Control;
-    using PaintingTanks.Interfaces;
-    using UnityEngine;
-
     public class RocketLauncher : WeaponMechanism, IWeaponMechanism
     {
         public PlayerVehicleControl Vehicle;

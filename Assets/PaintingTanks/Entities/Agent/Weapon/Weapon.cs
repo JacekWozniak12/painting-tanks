@@ -1,10 +1,10 @@
+using PaintingTanks.Actor.Control;
+using PaintingTanks.Definitions;
+using PaintingTanks.Interfaces;
+using UnityEngine;
+
 namespace PaintingTanks.Entities.Agent
 {
-    using PaintingTanks.Actor.Control;
-    using PaintingTanks.Definitions;
-    using PaintingTanks.Interfaces;
-    using UnityEngine;
-
     public class Weapon : MonoBehaviour, IWeapon
     {
         [SerializeField] WeaponMechanism mechanism;

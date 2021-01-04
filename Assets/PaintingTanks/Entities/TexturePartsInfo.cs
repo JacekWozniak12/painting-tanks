@@ -1,8 +1,8 @@
+using UnityEngine;
+using PaintingTanks.Library;
+
 namespace PaintingTanks.Entities
 {
-    using UnityEngine;
-    using Library;
-
     public class TexturePartInfo
     {
         public Vector2Int Start;
@@ -34,7 +34,7 @@ namespace PaintingTanks.Entities
         public int GetSize()
         {
             Vector2 temp = new Vector2(Start.x, Finish.y);
-            return (int)Vector2.Distance(Start, temp) * (int)Vector2.Distance(Finish, temp) /4;
+            return (int)Vector2.Distance(Start, temp) * (int)Vector2.Distance(Finish, temp) / 4;
         }
     }
 

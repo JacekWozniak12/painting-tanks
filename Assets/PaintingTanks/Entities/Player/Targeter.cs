@@ -1,11 +1,11 @@
+using System;
+using UnityEngine;
+using PaintingTanks.Library;
+using PaintingTanks.Definitions;
+using PaintingTanks.Interfaces;
+
 namespace PaintingTanks.Entities.PlayerItems
 {
-    using System;
-    using UnityEngine;
-    using PaintingTanks.Library;
-    using PaintingTanks.Definitions;
-    using PaintingTanks.Interfaces;
-
     public class Targeter : MonoBehaviour, IPausable
     {
         public event Action PositionChanged;
@@ -136,7 +136,7 @@ namespace PaintingTanks.Entities.PlayerItems
         private bool paused;
 
         // camera => into camera control
-        [SerializeField] private new Camera camera;
+        [SerializeField] private new UnityEngine.Camera camera;
         [SerializeField] private LayerMask layerMask;
 
         public Transform Pivot;

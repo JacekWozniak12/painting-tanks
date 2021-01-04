@@ -1,14 +1,14 @@
+using System.Collections;
+using PaintingTanks.Definitions;
+using UnityEngine;
+
 namespace PaintingTanks.Entities.Agent.WeaponTypes
 {
-    using System.Collections;
-    using PaintingTanks.Definitions;
-    using UnityEngine;
-
     public class AssaultGunTurret : WeaponMechanism
     {
         protected override void SetupPrerequisites()
         {
-            
+
         }
 
         protected override IEnumerator ShootMethod()

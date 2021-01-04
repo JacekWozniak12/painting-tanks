@@ -1,10 +1,10 @@
+using System.Collections;
+using PaintingTanks.Definitions;
+using PaintingTanks.Entities.MapItems;
+using UnityEngine;
+
 namespace PaintingTanks.Entities.Projectiles
 {
-    using System.Collections;
-    using PaintingTanks.Definitions;
-    using PaintingTanks.Entities.MapItems;
-    using UnityEngine;
-
     public class TimedProjectile : Projectile
     {
         protected override void OnHit(Collision other)

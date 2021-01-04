@@ -1,8 +1,8 @@
-namespace PaintingTanks.Entities.Camera
-{
-    using PaintingTanks.Library;
-    using UnityEngine;
+using PaintingTanks.Library;
+using UnityEngine;
 
+namespace PaintingTanks.Entities
+{
     public class CameraShake : MonoBehaviour
     {
 
