@@ -1,12 +1,14 @@
-namespace PaintingTanks.Entities.Agent
-{
     using System;
     using System.Collections;
-    using Definitions;
-    using Interfaces;
+    using PaintingTanks.Definitions;
+    using PaintingTanks.Interfaces;
     using PaintingTanks.Behaviours.Audio;
     using PaintingTanks.Definitions.ScriptableObjects;
     using UnityEngine;
+    
+namespace PaintingTanks.Entities.Agent
+{
+
 
     [Serializable]
     public class WeaponMagazine : MonoBehaviour, IReoladable

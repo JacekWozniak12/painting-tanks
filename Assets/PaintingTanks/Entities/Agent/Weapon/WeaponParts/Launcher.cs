@@ -1,10 +1,10 @@
+using System;
+using PaintingTanks.Behaviours.Audio;
+using PaintingTanks.Definitions;
+using UnityEngine;
+
 namespace PaintingTanks.Entities.Agent.WeaponTypes
 {
-    using System;
-    using PaintingTanks.Behaviours.Audio;
-    using PaintingTanks.Definitions;
-    using UnityEngine;
-
     [Serializable]
     public class Launcher : MonoBehaviour
     {
@@ -32,7 +32,7 @@ namespace PaintingTanks.Entities.Agent.WeaponTypes
             var rb = a.GetComponent<Rigidbody>();
             rb.AddForce(velocity, ForceType);
             source?.Play(sfx);
-            if(vfx != null) vfx?.Play();
+            if (vfx != null) vfx?.Play();
         }
     }
 }
