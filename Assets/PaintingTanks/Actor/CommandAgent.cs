@@ -9,7 +9,7 @@ namespace PaintingTanks.Actor
     {
         [SerializeField] private List<IGameCommand> gameCommands;
         [SerializeField] private IGameCommand currentCommand;
-        int index;
+        private int index;
 
         protected void Awake()
         {

@@ -103,7 +103,7 @@ namespace PaintingTanks.Entities.Agent
         {
             try
             {
-                if (!CurrentWeapon.GetMechanism().IsTriggered())
+                if (CanBeChanged())
                 {
                     if (promised != -1)
                     {
@@ -116,11 +116,18 @@ namespace PaintingTanks.Entities.Agent
             catch { }
         }
 
+        private bool CanBeChanged()
+        {
+            return 
+            !CurrentWeapon.GetMechanism().IsTriggered() || 
+            !CurrentWeapon.IsFiring();
+        }
+
         public void SetCurrentWeapon(int index, int change)
         {
             if (CurrentWeapon != null)
             {
-                if (CurrentWeapon.GetMechanism().IsTriggered())
+                if (!CanBeChanged())
                 {
                     promised = index;
                     promisedChange = change;

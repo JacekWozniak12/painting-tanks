@@ -11,11 +11,8 @@ namespace PaintingTanks.Definitions.ScriptableObjects
         public Sprite Icon;
         public int Amount = 100;
 
-        public AmmoType CreateAmmoType()
-        {
-            return new AmmoType(Name, Amount);
-        }
-
+        public AmmoType CreateAmmoType() => new AmmoType(Name, Amount);
+        
         public void GetImage()
         {
             throw new System.NotImplementedException();

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace PaintingTanks.Actor.Control
@@ -19,11 +18,7 @@ namespace PaintingTanks.Actor.Control
             HandleBodyRotation(rotationVector, deltaTime, targeterPositionChanged);
         }
 
-        private void targeterChanged()
-        {
-            targeterPositionChanged = true;
-        }
-
+        private void targeterChanged() => targeterPositionChanged = true;
         private bool targeterPositionChanged = false;
     }
 }

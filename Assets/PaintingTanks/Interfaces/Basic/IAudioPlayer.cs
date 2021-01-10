@@ -8,7 +8,5 @@ namespace PaintingTanks.Interfaces
         void Play(AudioClip clip);
         void Stop();
         void Mute(bool isTrue);
-
-
     }
 }

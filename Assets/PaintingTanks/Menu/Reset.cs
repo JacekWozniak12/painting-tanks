@@ -20,10 +20,6 @@ namespace PaintingTanks.Menu
             currentScene = SceneManager.GetActiveScene().name;
         }
 
-        private void ReloadScene()
-        {
-            SceneManager.LoadScene(currentScene);
-        }
-
+        private void ReloadScene() => SceneManager.LoadScene(currentScene);
     }
 }

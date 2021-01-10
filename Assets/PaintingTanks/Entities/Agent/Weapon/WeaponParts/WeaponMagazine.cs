@@ -1,15 +1,13 @@
-    using System;
-    using System.Collections;
-    using PaintingTanks.Definitions;
-    using PaintingTanks.Interfaces;
-    using PaintingTanks.Behaviours.Audio;
-    using PaintingTanks.Definitions.ScriptableObjects;
-    using UnityEngine;
-    
+using System;
+using System.Collections;
+using PaintingTanks.Definitions;
+using PaintingTanks.Interfaces;
+using PaintingTanks.Behaviours.Audio;
+using PaintingTanks.Definitions.ScriptableObjects;
+using UnityEngine;
+
 namespace PaintingTanks.Entities.Agent
 {
-
-
     [Serializable]
     public class WeaponMagazine : MonoBehaviour, IReoladable
     {
@@ -56,7 +54,7 @@ namespace PaintingTanks.Entities.Agent
                 StartCoroutine(HandleDelay(ReloadTime, ReloadFinished));
                 var needed = MagazineSize - CurrentBulletCount.Value;
                 var difference = amount - needed;
-                
+
                 if (difference <= 0)
                 {
                     CurrentBulletCount.Value += amount;

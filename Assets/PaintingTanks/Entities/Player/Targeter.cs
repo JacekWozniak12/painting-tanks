@@ -156,6 +156,6 @@ namespace PaintingTanks.Entities.PlayerItems
         public float ConstraintValue = 30f;
 
         private new Transform transform;
-        private Vector3 previousPosition = default(Vector3);
+        private Vector3 previousPosition = default;
     }
 }

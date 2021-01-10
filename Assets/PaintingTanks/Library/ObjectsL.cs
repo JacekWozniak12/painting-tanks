@@ -28,7 +28,5 @@ namespace PaintingTanks.Library
         {
             T tmp = obj1; obj1 = obj2; obj2 = tmp;
         }
-
-
     }
 }

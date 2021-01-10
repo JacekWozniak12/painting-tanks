@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace PaintingTanks.Actor.Control
 {
-
     public class Controller : MonoBehaviour
     {
         private void OnEnable() => Controls.Enable();
@@ -16,10 +15,7 @@ namespace PaintingTanks.Actor.Control
                 if (controls == null) controls = new GameControls();
                 return controls;
             }
-            private set
-            {
-                controls = value;
-            }
+            private set => controls = value;    
         }
     }
 

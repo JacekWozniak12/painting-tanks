@@ -17,7 +17,5 @@ namespace PaintingTanks.Actor
         {
             AudioPlayers.ForEach(x => x.Mute(isTrue));
         }
-
-
     }
 }
